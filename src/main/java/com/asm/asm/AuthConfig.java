@@ -9,6 +9,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
@@ -33,6 +35,8 @@ public class AuthConfig {
 				.rememberMe(remem -> remem.rememberMeParameter("remember"));
 		return http.build();
 	}
+	
+	
 
 	@Bean
 	public UserDetailsService userDetailManager() {
@@ -41,5 +45,17 @@ public class AuthConfig {
 				User.withUsername("admin").password(passwordEncoder().encode("login")).authorities("USER","ADMIN").build(),
 				User.withUsername("guest").password(passwordEncoder().encode("login")).authorities("USER","ADMIN","GUEST").build()
 				);
+
+	@Autowired
+	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(( username) -> {
+				
+				return null;
+			
+		});
+//		auth.inMemoryAuthentication().withUser("user").password(passwordEncoder().encode("password")).roles("USER")
+//				.and().withUser("admin").password(passwordEncoder().encode("password")).roles("USER", "ADMIN").and()
+//				.withUser("guest").password(passwordEncoder().encode("password")).roles("USER", "ADMIN", "GUEST");
+
 	}
 }
