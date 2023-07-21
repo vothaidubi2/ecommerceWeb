@@ -15,23 +15,26 @@ import org.springframework.security.web.SecurityFilterChain;
 public class AuthConfig {
 
 	@Bean
-	public BCryptPasswordEncoder passwordEncoder()
-	{
-	    return new BCryptPasswordEncoder();
+	public BCryptPasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
+
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.csrf(csrf -> csrf.disable()).cors(cors -> cors.disable())
 				.authorizeHttpRequests(
-						authz -> authz.requestMatchers("/home","/auth/login/**","/assets/**","/lib/**").permitAll().anyRequest().authenticated())
-				.formLogin(login -> login.loginPage("/auth/login/form")).rememberMe(remem -> remem.rememberMeParameter("remember"));
+						authz -> authz.requestMatchers("/home", "/auth/login/**", "/assets/**", "/lib/**").permitAll()
+								.anyRequest().authenticated())
+				.formLogin(login -> login.loginPage("/auth/login/form").loginProcessingUrl("auth/login")
+						.defaultSuccessUrl("/auth/login/form", false).usernameParameter("username").passwordParameter("password"))
+				.rememberMe(remem -> remem.rememberMeParameter("remember"));
 		return http.build();
 	}
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth.inMemoryAuthentication().withUser("user").password(passwordEncoder().encode("password")).roles("USER").and()
-				.withUser("admin").password(passwordEncoder().encode("password")).roles("USER", "ADMIN").and().withUser("guest")
-				.password(passwordEncoder().encode("password")).roles("USER", "ADMIN", "GUEST");
+		auth.inMemoryAuthentication().withUser("user").password(passwordEncoder().encode("password")).roles("USER")
+				.and().withUser("admin").password(passwordEncoder().encode("password")).roles("USER", "ADMIN").and()
+				.withUser("guest").password(passwordEncoder().encode("password")).roles("USER", "ADMIN", "GUEST");
 	}
 }
