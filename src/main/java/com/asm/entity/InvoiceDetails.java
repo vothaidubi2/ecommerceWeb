@@ -23,7 +23,6 @@ import lombok.NoArgsConstructor;
 public class InvoiceDetails implements java.io.Serializable {
 	@Id
 
-	@Column(name = "idInvoiceDetails")
 	private String idInvoiceDetails;
 	@ManyToOne
 	@JoinColumn(name = "idInvoice")
@@ -31,11 +30,11 @@ public class InvoiceDetails implements java.io.Serializable {
 
 
 	@ManyToOne
-	@JoinColumn(name = "idProduct")
+	@JoinColumn(name = "Idproduct")
 	private Product product;
-	@Column(name = "Price")
+
 	private Double price;
-	@Column(name = "quantity")
+
 	private Integer quantity;
 
 

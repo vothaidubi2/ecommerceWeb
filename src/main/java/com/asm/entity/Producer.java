@@ -3,6 +3,7 @@ package com.asm.entity;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -28,13 +29,13 @@ import lombok.NoArgsConstructor;
 public class Producer  {
 
 	@Id
-	@Column(name = "idProducer")
+	@Column(name = "Idproducer")
 	private String idProducer;
 
 	@Column(name = "name")
-	private Serializable name;
+	private String name;
 	@JsonIgnore
 	@OneToMany(mappedBy = "producer")
-	private Set<Product> products = new HashSet<Product>(0);
+	private List<Product> products;
 
 }

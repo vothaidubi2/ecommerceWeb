@@ -27,35 +27,22 @@ public class AuthConfig {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.csrf(csrf -> csrf.disable()).cors(cors -> cors.disable())
-				.authorizeHttpRequests(
-						authz -> authz.requestMatchers("/home", "/auth/login/**", "/assets/**","/cart","/checkout","/shoplist").permitAll()
-								.anyRequest().authenticated())
-				.formLogin(login -> login.loginPage("/auth/login/form").loginProcessingUrl("auth/login")
-						.defaultSuccessUrl("/home", false).usernameParameter("username").passwordParameter("password"))
-				.rememberMe(remem -> remem.rememberMeParameter("remember"));
+				.authorizeHttpRequests(authz -> authz
+						.requestMatchers("/home", "/auth/login/**", "/assets/**", "/cart", "/checkout", "/shoplist",
+								"/api/**", "/api/products**")
+						.permitAll().requestMatchers("**").permitAll().anyRequest().authenticated())
+				.httpBasic(Customizer.withDefaults());
 		return http.build();
 	}
-	
-	
 
 	@Bean
 	public UserDetailsService userDetailManager() {
 		return new InMemoryUserDetailsManager(
 				User.withUsername("user").password(passwordEncoder().encode("login")).authorities("USER").build(),
-				User.withUsername("admin").password(passwordEncoder().encode("login")).authorities("USER","ADMIN").build(),
-				User.withUsername("guest").password(passwordEncoder().encode("login")).authorities("USER","ADMIN","GUEST").build()
-				);
-
-	@Autowired
-	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(( username) -> {
-				
-				return null;
-			
-		});
-//		auth.inMemoryAuthentication().withUser("user").password(passwordEncoder().encode("password")).roles("USER")
-//				.and().withUser("admin").password(passwordEncoder().encode("password")).roles("USER", "ADMIN").and()
-//				.withUser("guest").password(passwordEncoder().encode("password")).roles("USER", "ADMIN", "GUEST");
-
+				User.withUsername("admin").password(passwordEncoder().encode("login")).authorities("USER", "ADMIN")
+						.build(),
+				User.withUsername("guest").password(passwordEncoder().encode("login"))
+						.authorities("USER", "ADMIN", "GUEST").build());
 	}
+
 }

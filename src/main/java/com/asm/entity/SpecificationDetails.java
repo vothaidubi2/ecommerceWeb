@@ -25,12 +25,12 @@ import lombok.NoArgsConstructor;
 @Table(name = "specificationDetails")
 public class SpecificationDetails  {
 	@Id
-	 @Column(name = "idSpecificationDetails")
+	 @Column(name = "IdspecificationDetails")
 	private String  id;
 	@ManyToOne
-	@JoinColumn(name = "idProduct")
+	@JoinColumn(name = "Idproduct")
 	private Product product;
 	@ManyToOne
-	@JoinColumn(name = "idSpecification")
+	@JoinColumn(name = "Idspecification")
 	private Specification specification;
 }

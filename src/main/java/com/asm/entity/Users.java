@@ -25,7 +25,7 @@ import lombok.NoArgsConstructor;
 public class Users  {
 	@Id
 
-	@Column(name = "idUser")
+	@Column(name = "Iduser")
 	private String idUser;
 
 	@Column(name = "email")

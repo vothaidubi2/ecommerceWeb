@@ -24,10 +24,10 @@ import lombok.NoArgsConstructor;
 public class Image {
 
 	@Id
-	@Column(name = "idImage")
+	@Column(name = "Idimage")
 	private String idImage;
 	@ManyToOne
-	@JoinColumn(name = "idProduct")
+	@JoinColumn(name = "Idproduct")
 	private Product product;
 
 	@Column(name = "URL")

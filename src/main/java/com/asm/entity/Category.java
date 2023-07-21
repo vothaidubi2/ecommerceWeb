@@ -30,9 +30,9 @@ import lombok.NoArgsConstructor;
 public class Category{
 
 	@Id
-	@Column(name = "idCategory")
+	@Column(name="Idcategory")
 	private String idCategory;
-	@Column(name = "name")
+
 	private String name;
 	@JsonIgnore
 	@OneToMany(mappedBy = "category")

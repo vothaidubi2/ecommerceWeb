@@ -28,7 +28,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "specification")
 public class Specification {
 	@Id
-	@Column(name = "idSpecification")
+	@Column(name = "Idspecification")
 	private String idSpecification;
 	@Column(name = "keys")
 	private Serializable keys;
