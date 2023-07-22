@@ -32,8 +32,9 @@ import lombok.NoArgsConstructor;
 @Table(name = "product")
 public class Product {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "Idproduct")
-	private String idProduct;
+	private Integer id;
 	@ManyToOne
 	@JoinColumn(name = "category")
 	private Category category;
