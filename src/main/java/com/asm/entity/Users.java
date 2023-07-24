@@ -33,10 +33,10 @@ public class Users {
 	@Column(name = "email")
 	private Serializable email;
 	@Column(name = "name")
-	private Serializable name;
+	private String name;
 
 	@Column(name = "password")
-	private Serializable password;
+	private String password;
 	@Column(name = "phone")
 	private String phone;
 
