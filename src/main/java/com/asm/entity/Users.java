@@ -3,7 +3,11 @@ package com.asm.entity;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -31,7 +35,7 @@ public class Users {
 	private String id;
 
 	@Column(name = "email")
-	private Serializable email;
+	private String email;
 	@Column(name = "name")
 	private String name;
 
@@ -42,6 +46,7 @@ public class Users {
 
 	@Column(name = "role")
 	private Boolean role;
-	@OneToMany(mappedBy = "users")
-	private Set<Invoice> invoices;
+	@JsonIgnore
+	@OneToMany(mappedBy = "users", fetch = FetchType.EAGER)
+	private List<Invoice> invoices;
 }
