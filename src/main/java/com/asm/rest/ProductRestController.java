@@ -1,7 +1,10 @@
 package com.asm.rest;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,6 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.asm.dao.ProductDAO;
 import com.asm.entity.Product;
+import com.asm.entity.Specification;
+import com.asm.entity.SpecificationDetails;
+import com.asm.service.ImageDTO;
+import com.asm.service.ProductDTO;
 
 @RestController
 public class ProductRestController {
@@ -24,8 +31,8 @@ public class ProductRestController {
 	ProductDAO productDAO;
 
 	@GetMapping("/api/products")
-	public ResponseEntity<List<Product>> getAllProducts(@RequestParam(defaultValue = "0") int page,
-			@RequestParam(defaultValue = "7") int size, @RequestParam(required = false) Optional<String> keywords,
+	public ResponseEntity<Map<String,Object>> getAllProducts(@RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "9") int size, @RequestParam(required = false) Optional<String> keywords,
 			@RequestParam(required = false) Integer categoryId, @RequestParam(required = false) Integer producerId,
 			@RequestParam(required = false) Optional<Double> minrange,
 			@RequestParam(required = false) Optional<Double> maxrange,
@@ -40,10 +47,35 @@ public class ProductRestController {
 		double maxPrice = maxrange.orElse(Double.MAX_VALUE);
 
 		Page<Product> productPage = getByCategoryAndProdcer(name, minPrice, maxPrice, categoryId, producerId, pageable);
-		List<Product> products = productPage.getContent();
-
-		return new ResponseEntity<>(products, HttpStatus.OK);
+		List<ProductDTO> products = productPage.map(this::mapToProductDTO).getContent();
+		
+		Map<String, Object> response = new HashMap<>();
+        response.put("total", productDAO.findAll().size());
+        response.put("data", products);
+        return ResponseEntity.ok(response);
 	}
+	
+	private ProductDTO mapToProductDTO(Product product) {
+        ProductDTO productDTO = new ProductDTO();
+        productDTO.setId(product.getId());
+        productDTO.setName(product.getName());
+        productDTO.setPrice(product.getPrice());
+        productDTO.setQuantity(product.getQuantity());
+        productDTO.setStatus(product.getStatus());
+        productDTO.setCategory(product.getCategory());
+        productDTO.setProducer(product.getProducer());
+        if (!product.getSpecificationDetailses().isEmpty()) {
+            Specification specification = product.getSpecificationDetailses()
+                    .get(0) // Assuming there is only one specification per product
+                    .getSpecification();
+            productDTO.setSpecifications(specification);
+        } 
+        List<ImageDTO> imageDTOs = product.getImages().stream()
+                .map(image -> new ImageDTO(image.getId(), image.getUrl()))
+                .collect(Collectors.toList());
+        productDTO.setImage(imageDTOs);
+        return productDTO;
+    }
 
 	private Page<Product> getByCategoryAndProdcer(String keywords, double minPrice, double maxPrice, Integer categoryId,
 			Integer producerId, Pageable pageable) {
