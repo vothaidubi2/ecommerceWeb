@@ -31,7 +31,7 @@ public class InvoiceDetails{
 	@JoinColumn(name = "Idinvoice")
 	private Invoice invoice;
 
-
+	
 	@ManyToOne
 	@JoinColumn(name = "Idproduct")
 	private Product product;
@@ -39,14 +39,5 @@ public class InvoiceDetails{
 	private Double price;
 
 	private Integer quantity;
-
-
-
-
-
-
-
-
-
 
 }

@@ -32,8 +32,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "invoice", schema = "dbo", catalog = "DBAsmJv6")
-public class Invoice implements java.io.Serializable {
+@Table(name = "invoice")
+public class Invoice  {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "Idinvoice")
@@ -44,13 +44,13 @@ public class Invoice implements java.io.Serializable {
 	@Column(name = "phone")
 	private String phone;
 	@Column(name = "address")
-	private Serializable address;
+	private String address;
 	@Temporal(TemporalType.DATE)
-	@Column(name = "dateCreate")
-	private Date dateCreate;
+	@Column(name = "Datecreate")
+	private Date Datecreate;
 	@Column(name = "status")
 	private Boolean status;
 	@JsonIgnore
-	@OneToMany( mappedBy = "invoice")
+	@OneToMany( mappedBy = "invoice", fetch = FetchType.EAGER)
 	private List<InvoiceDetails> invoiceDetailses;
 }
