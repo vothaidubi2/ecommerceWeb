@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/admin/layout/layout::areas(~{::title},~{::main})}">
+<head>
+<meta charset="utf-8">
+<title>Product Management</title>
+</head>
+<body>
+	<th:block th:fragment="main">
+		<div class="row">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-body">
+						<p class="text-uppercase text-sm text font-weight-bold">Product
+							Management</p>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="example-text-input" class="form-control-label">Product
+										name</label> <input class="form-control" type="text"
+										value="lucky.jesse">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="example-text-input" class="form-control-label">Price</label>
+									<input class="form-control" type="email"
+										value="jesse@example.com">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="example-text-input" class="form-control-label">Category</label>
+									<select class="form-select" aria-label="Default select example">
+										<option selected>Open this select menu</option>
+										<option value="1">One</option>
+										<option value="2">Two</option>
+										<option value="3">Three</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="example-text-input" class="form-control-label">Quantity</label>
+									<input class="form-control" type="text" value="Lucky">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="example-text-input" class="form-control-label">Select
+										Brand</label>
+									<div class="dropdown">
+										<button class="btn btn-primary btn-sm ms-auto w-100"
+											type="button" id="dropdownMenuButton" data-toggle="modal"
+											data-target="#exampleModal" aria-haspopup="true"
+											aria-expanded="false">Select Brand</button>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="example-text-input" class="form-control-label">Brand</label>
+									<div class="form-group d-flex">
+										<input type="text" class="form-control w-100"
+											id="selectedValue" readonly>
+										<div class="input-group-append">
+											<button class="form-control btn btn-danger" id="removeButton"
+												type="button">X</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group">
+									<label for="example-text-input" class="form-control-label">Quick
+										Add Brand</label>
+									<button class="btn btn-success btn-sm ms-auto w-100">Add</button>
+								</div>
+							</div>
+							<hr class="horizontal dark">
+							<div class="card-header pb-0">
+								<div>
+									<button class="btn btn-primary btn-sm ms-auto">Settings</button>
+									<button class="btn btn-primary btn-sm ms-auto">Settings</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-12 mt-3">
+				<div class="card mb-4">
+					<div class="card-header pb-0">
+						<h6>Authors table</h6>
+					</div>
+					<div class="card-body px-0 pt-0 pb-2 ">
+						<div class="table-responsive p-0 o-auto"
+							style="max-height: 400px;">
+							<table class="table align-items-center mb-0">
+								<thead>
+									<tr>
+										<th
+											class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Author</th>
+										<th
+											class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Function</th>
+										<th
+											class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
+										<th
+											class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Employed</th>
+										<th class="text-secondary opacity-7"></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>
+											<div class="d-flex px-2 py-1">
+												<div>
+													<img src="/admin/assets/img/team-2.jpg"
+														class="avatar avatar-sm me-3" alt="user1">
+												</div>
+												<div class="d-flex flex-column justify-content-center">
+													<h6 class="mb-0 text-sm">John Michael</h6>
+													<p class="text-xs text-secondary mb-0">john@creative-tim.com</p>
+												</div>
+											</div>
+										</td>
+										<td>
+											<p class="text-xs font-weight-bold mb-0">Manager</p>
+											<p class="text-xs text-secondary mb-0">Organization</p>
+										</td>
+										<td class="align-middle text-center text-sm"><span
+											class="badge badge-sm bg-gradient-success">Online</span></td>
+										<td class="align-middle text-center"><span
+											class="text-secondary text-xs font-weight-bold">23/04/18</span>
+										</td>
+										<td class="align-middle"><a href="javascript:;"
+											class="text-secondary font-weight-bold text-xs"
+											data-toggle="tooltip" data-original-title="Edit user">
+												Edit </a></td>
+									</tr>
+									<tr>
+										<td>
+											<div class="d-flex px-2 py-1">
+												<div>
+													<img src="/admin/assets/img/team-2.jpg"
+														class="avatar avatar-sm me-3" alt="user1">
+												</div>
+												<div class="d-flex flex-column justify-content-center">
+													<h6 class="mb-0 text-sm">John Michael</h6>
+													<p class="text-xs text-secondary mb-0">john@creative-tim.com</p>
+												</div>
+											</div>
+										</td>
+										<td>
+											<p class="text-xs font-weight-bold mb-0">Manager</p>
+											<p class="text-xs text-secondary mb-0">Organization</p>
+										</td>
+										<td class="align-middle text-center text-sm"><span
+											class="badge badge-sm bg-gradient-success">Online</span></td>
+										<td class="align-middle text-center"><span
+											class="text-secondary text-xs font-weight-bold">23/04/18</span>
+										</td>
+										<td class="align-middle"><a href="javascript:;"
+											class="text-secondary font-weight-bold text-xs"
+											data-toggle="tooltip" data-original-title="Edit user">
+												Edit </a></td>
+									</tr>
+									<tr>
+										<td>
+											<div class="d-flex px-2 py-1">
+												<div>
+													<img src="/admin/assets/img/team-2.jpg"
+														class="avatar avatar-sm me-3" alt="user1">
+												</div>
+												<div class="d-flex flex-column justify-content-center">
+													<h6 class="mb-0 text-sm">John Michael</h6>
+													<p class="text-xs text-secondary mb-0">john@creative-tim.com</p>
+												</div>
+											</div>
+										</td>
+										<td>
+											<p class="text-xs font-weight-bold mb-0">Manager</p>
+											<p class="text-xs text-secondary mb-0">Organization</p>
+										</td>
+										<td class="align-middle text-center text-sm"><span
+											class="badge badge-sm bg-gradient-success">Online</span></td>
+										<td class="align-middle text-center"><span
+											class="text-secondary text-xs font-weight-bold">23/04/18</span>
+										</td>
+										<td class="align-middle"><a href="javascript:;"
+											class="text-secondary font-weight-bold text-xs"
+											data-toggle="tooltip" data-original-title="Edit user">
+												Edit </a></td>
+									</tr>
+									<tr>
+										<td>
+											<div class="d-flex px-2 py-1">
+												<div>
+													<img src="/admin/assets/img/team-2.jpg"
+														class="avatar avatar-sm me-3" alt="user1">
+												</div>
+												<div class="d-flex flex-column justify-content-center">
+													<h6 class="mb-0 text-sm">John Michael</h6>
+													<p class="text-xs text-secondary mb-0">john@creative-tim.com</p>
+												</div>
+											</div>
+										</td>
+										<td>
+											<p class="text-xs font-weight-bold mb-0">Manager</p>
+											<p class="text-xs text-secondary mb-0">Organization</p>
+										</td>
+										<td class="align-middle text-center text-sm"><span
+											class="badge badge-sm bg-gradient-success">Online</span></td>
+										<td class="align-middle text-center"><span
+											class="text-secondary text-xs font-weight-bold">23/04/18</span>
+										</td>
+										<td class="align-middle"><a href="javascript:;"
+											class="text-secondary font-weight-bold text-xs"
+											data-toggle="tooltip" data-original-title="Edit user">
+												Edit </a></td>
+									</tr>
+									<tr>
+										<td>
+											<div class="d-flex px-2 py-1">
+												<div>
+													<img src="/admin/assets/img/team-2.jpg"
+														class="avatar avatar-sm me-3" alt="user1">
+												</div>
+												<div class="d-flex flex-column justify-content-center">
+													<h6 class="mb-0 text-sm">John Michael</h6>
+													<p class="text-xs text-secondary mb-0">john@creative-tim.com</p>
+												</div>
+											</div>
+										</td>
+										<td>
+											<p class="text-xs font-weight-bold mb-0">Manager</p>
+											<p class="text-xs text-secondary mb-0">Organization</p>
+										</td>
+										<td class="align-middle text-center text-sm"><span
+											class="badge badge-sm bg-gradient-success">Online</span></td>
+										<td class="align-middle text-center"><span
+											class="text-secondary text-xs font-weight-bold">23/04/18</span>
+										</td>
+										<td class="align-middle"><a href="javascript:;"
+											class="text-secondary font-weight-bold text-xs"
+											data-toggle="tooltip" data-original-title="Edit user">
+												Edit </a></td>
+									</tr>
+									<tr>
+										<td>
+											<div class="d-flex px-2 py-1">
+												<div>
+													<img src="/admin/assets/img/team-3.jpg"
+														class="avatar avatar-sm me-3" alt="user2">
+												</div>
+												<div class="d-flex flex-column justify-content-center">
+													<h6 class="mb-0 text-sm">Alexa Liras</h6>
+													<p class="text-xs text-secondary mb-0">alexa@creative-tim.com</p>
+												</div>
+											</div>
+										</td>
+										<td>
+											<p class="text-xs font-weight-bold mb-0">Programator</p>
+											<p class="text-xs text-secondary mb-0">Developer</p>
+										</td>
+										<td class="align-middle text-center text-sm"><span
+											class="badge badge-sm bg-gradient-secondary">Offline</span></td>
+										<td class="align-middle text-center"><span
+											class="text-secondary text-xs font-weight-bold">11/01/19</span>
+										</td>
+										<td class="align-middle"><a href="javascript:;"
+											class="text-secondary font-weight-bold text-xs"
+											data-toggle="tooltip" data-original-title="Edit user">
+												Edit </a></td>
+									</tr>
+									<tr>
+										<td>
+											<div class="d-flex px-2 py-1">
+												<div>
+													<img src="/admin/assets/img/team-4.jpg"
+														class="avatar avatar-sm me-3" alt="user3">
+												</div>
+												<div class="d-flex flex-column justify-content-center">
+													<h6 class="mb-0 text-sm">Laurent Perrier</h6>
+													<p class="text-xs text-secondary mb-0">laurent@creative-tim.com</p>
+												</div>
+											</div>
+										</td>
+										<td>
+											<p class="text-xs font-weight-bold mb-0">Executive</p>
+											<p class="text-xs text-secondary mb-0">Projects</p>
+										</td>
+										<td class="align-middle text-center text-sm"><span
+											class="badge badge-sm bg-gradient-success">Online</span></td>
+										<td class="align-middle text-center"><span
+											class="text-secondary text-xs font-weight-bold">19/09/17</span>
+										</td>
+										<td class="align-middle"><a href="javascript:;"
+											class="text-secondary font-weight-bold text-xs"
+											data-toggle="tooltip" data-original-title="Edit user">
+												Edit </a></td>
+									</tr>
+									<tr>
+										<td>
+											<div class="d-flex px-2 py-1">
+												<div>
+													<img src="/admin/assets/img/team-3.jpg"
+														class="avatar avatar-sm me-3" alt="user4">
+												</div>
+												<div class="d-flex flex-column justify-content-center">
+													<h6 class="mb-0 text-sm">Michael Levi</h6>
+													<p class="text-xs text-secondary mb-0">michael@creative-tim.com</p>
+												</div>
+											</div>
+										</td>
+										<td>
+											<p class="text-xs font-weight-bold mb-0">Programator</p>
+											<p class="text-xs text-secondary mb-0">Developer</p>
+										</td>
+										<td class="align-middle text-center text-sm"><span
+											class="badge badge-sm bg-gradient-success">Online</span></td>
+										<td class="align-middle text-center"><span
+											class="text-secondary text-xs font-weight-bold">24/12/08</span>
+										</td>
+										<td class="align-middle"><a href="javascript:;"
+											class="text-secondary font-weight-bold text-xs"
+											data-toggle="tooltip" data-original-title="Edit user">
+												Edit </a></td>
+									</tr>
+									<tr>
+										<td>
+											<div class="d-flex px-2 py-1">
+												<div>
+													<img src="/admin/assets/img/team-2.jpg"
+														class="avatar avatar-sm me-3" alt="user5">
+												</div>
+												<div class="d-flex flex-column justify-content-center">
+													<h6 class="mb-0 text-sm">Richard Gran</h6>
+													<p class="text-xs text-secondary mb-0">richard@creative-tim.com</p>
+												</div>
+											</div>
+										</td>
+										<td>
+											<p class="text-xs font-weight-bold mb-0">Manager</p>
+											<p class="text-xs text-secondary mb-0">Executive</p>
+										</td>
+										<td class="align-middle text-center text-sm"><span
+											class="badge badge-sm bg-gradient-secondary">Offline</span></td>
+										<td class="align-middle text-center"><span
+											class="text-secondary text-xs font-weight-bold">04/10/21</span>
+										</td>
+										<td class="align-middle"><a href="javascript:;"
+											class="text-secondary font-weight-bold text-xs"
+											data-toggle="tooltip" data-original-title="Edit user">
+												Edit </a></td>
+									</tr>
+									<tr>
+										<td>
+											<div class="d-flex px-2 py-1">
+												<div>
+													<img src="/admin/assets/img/team-4.jpg"
+														class="avatar avatar-sm me-3" alt="user6">
+												</div>
+												<div class="d-flex flex-column justify-content-center">
+													<h6 class="mb-0 text-sm">Miriam Eric</h6>
+													<p class="text-xs text-secondary mb-0">miriam@creative-tim.com</p>
+												</div>
+											</div>
+										</td>
+										<td>
+											<p class="text-xs font-weight-bold mb-0">Programtor</p>
+											<p class="text-xs text-secondary mb-0">Developer</p>
+										</td>
+										<td class="align-middle text-center text-sm"><span
+											class="badge badge-sm bg-gradient-secondary">Offline</span></td>
+										<td class="align-middle text-center"><span
+											class="text-secondary text-xs font-weight-bold">14/09/20</span>
+										</td>
+										<td class="align-middle"><a href="javascript:;"
+											class="text-secondary font-weight-bold text-xs"
+											data-toggle="tooltip" data-original-title="Edit user">
+												Edit </a></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- The Dialog Element -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="dialogTitle">List Brand</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="input-group mb-2">
+							<input type="text" class="form-control" id="searchInput"
+								placeholder="Tìm kiếm">
+
+						</div>
+						<button class="dropdown-item" type="button" value="Lựa chọn 1">Lựa
+							chọn 1</button>
+						<button class="dropdown-item" type="button" value="Lựa chọn 2">Lựa
+							chọn 2</button>
+						<button class="dropdown-item" type="button" value="Lựa chọn 3">Lựa
+							chọn 3</button>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Display Input Field and Remove Button (Icon) -->
+		<div class="container mt-4">
+			<div class="input-group">
+				<input type="text" class="form-control" id="selectedValue" readonly>
+				<div class="input-group-append">
+					<button class="btn btn-danger" id="removeButton" type="button">
+						<i class="bi bi-x-lg"></i>
+						<!-- Bootstrap Icon -->
+					</button>
+				</div>
+			</div>
+		</div>
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+		<script
+			src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+		<script>
+		// Get the dialog element
+		const dialogElement = document.getElementById('dialog');
+
+		// Get the dropdown menu button
+		const dropdownButton = document.getElementById('dropdownMenuButton');
+
+		// Get the display input field
+		const displayInput = document.getElementById('selectedValue');
+
+		// Get the search input field and search button inside the dialog
+		const searchInput = document.getElementById('searchInput');
+		const searchButton = document.getElementById('searchButton');
+
+		// Function to update the width of the input field based on the selected value's length
+		function updateInputWidth() {
+		  const inputValue = displayInput.value;
+		  const textWidth = inputValue.length * 10; // Adjust the multiplier as needed for proper width
+		  displayInput.style.width = textWidth + 'px';
+		}
+
+		// Function to filter dropdown items based on search input
+		function filterDropdownItems() {
+		  const searchTerm = searchInput.value.trim().toLowerCase();
+		  const dropdownItems = document.querySelectorAll('.dropdown-item');
+
+		  dropdownItems.forEach((item) => {
+		    const itemText = item.textContent.toLowerCase();
+		    if (itemText.includes(searchTerm)) {
+		      item.style.display = 'block';
+		    } else {
+		      item.style.display = 'none';
+		    }
+		  });
+		}
+
+		// Add an event listener to the dropdown buttons inside the dialog
+		document.querySelectorAll('.dropdown-item').forEach((button) => {
+		  button.addEventListener('click', function () {
+		    // Close the dialog when a button is clicked
+		    $('#dialog').modal('hide');
+		    
+		    // Get the value of the clicked button
+		    const selectedValue = button.value;
+		    
+		    // Display the value in the input field
+		    displayInput.value = selectedValue;
+		    
+		    // Update the width of the input field
+		    updateInputWidth();
+		  });
+		});
+
+		// Add an event listener to the dropdown button
+		dropdownButton.addEventListener('click', function () {
+		  // Show the dialog when the dropdown button is clicked
+		  $('#dialog').modal('show');
+		});
+
+		// Add an event listener to the Remove button (icon)
+		document.getElementById('removeButton').addEventListener('click', function () {
+		  // Clear the input field when the Remove button is clicked
+		  displayInput.value = '';
+		  // Reset the width of the input field
+		  displayInput.style.width = 'auto';
+		});
+
+		// Add an event listener to the search button inside the dialog
+		let timeoutId;
+		searchInput.addEventListener('input', function () {
+			// Clear the previous timeout (if any)
+		  clearTimeout(timeoutId);
+		  
+		  // Set a new timeout to filter the dropdown items after 1000ms (1 second)
+		  timeoutId = setTimeout(filterDropdownItems, 500);
+		});
+    </script>
+	</th:block>
+</body>
+</html>

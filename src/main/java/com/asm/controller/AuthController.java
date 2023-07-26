@@ -16,9 +16,6 @@ import com.asm.dao.UserDAO;
 import com.asm.entity.Users;
 import com.asm.service.UserService;
 
-
-
-
 @Controller
 @RequestMapping("/auth/login")
 public class AuthController {
@@ -26,49 +23,54 @@ public class AuthController {
 	public BCryptPasswordEncoder psE() {
 		return new BCryptPasswordEncoder();
 	}
+
 	@Autowired
 	UserService urS;
 	@Autowired
 	UserDAO dao;
+
 	@GetMapping("/form")
 	public String formlogin(Users user, Model model) {
-		Users users=new Users();
+		Users users = new Users();
 
-		
 		model.addAttribute("form", users);
 		return "auth/login";
 	}
+
 	@RequestMapping("/create")
-	public String create(Users user,Model model) {
+	public String create(Users user, Model model) {
 
 		user.setPassword(psE().encode(user.getPassword()));
 		user.setRole(false);
 		dao.save(user);
-	Users users=new Users();
+		Users users = new Users();
 
-		
 		model.addAttribute("form", users);
-	
+
 		return "auth/login";
 	}
+
 	@RequestMapping("/success")
 	public String success(OAuth2AuthenticationToken oauth2, Model model) {
-Users users=new Users();
-	
+		Users users = new Users();
+
 		model.addAttribute("form", users);
 		users.setEmail(oauth2.getPrincipal().getAttribute("email"));
 		users.setName(oauth2.getPrincipal().getAttribute("name"));
 		users.setRole(true);
 		users.setPassword(psE().encode(Long.toHexString(System.currentTimeMillis())));
 		System.out.println(users);
-	if(dao.findByEmail(users.getEmail().toString())!=null) {
-		model.addAttribute("errorAccount", "Tài khoản đã tồn tại");
-			return "auth/login";
+		if (dao.findByEmail(users.getEmail().toString()) != null) {
+			urS.loginFormOAuth(oauth2);
+			return "redirect:/home";
 		}
-	dao.save(users);
+		dao.save(users);
 		urS.loginFormOAuth(oauth2);
-	
-
 		return "redirect:/home";
+	}
+
+	@GetMapping("/policyprivacy")
+	public String policyandprivacy() {
+		return "auth/policyandprivacy";
 	}
 }
