@@ -21,17 +21,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "invoiceDetails")
+@Table(name = "invoicedetails")
 public class InvoiceDetails{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "IdinvoiceDetails")
+	@Column(name = "Idinvoicedetails")
 	private Integer id;
 	@ManyToOne
 	@JoinColumn(name = "Idinvoice")
 	private Invoice invoice;
 
-
+	
 	@ManyToOne
 	@JoinColumn(name = "Idproduct")
 	private Product product;
@@ -39,14 +39,5 @@ public class InvoiceDetails{
 	private Double price;
 
 	private Integer quantity;
-
-
-
-
-
-
-
-
-
 
 }
