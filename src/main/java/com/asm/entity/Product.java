@@ -49,6 +49,8 @@ public class Product {
 	private Integer quantity;
 
 	private Boolean status;
+	
+	private String description;
 	@JsonIgnore
 	@OneToMany(mappedBy = "product")
 	private List<SpecificationDetails> specificationDetailses;

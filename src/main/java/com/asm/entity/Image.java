@@ -35,5 +35,5 @@ public class Image {
 
 	@Column(name = "URL")
 	private String url;
-
+	
 }
