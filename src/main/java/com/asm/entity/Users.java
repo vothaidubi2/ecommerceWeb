@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
@@ -16,6 +18,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,18 +35,25 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "users")
 public class Users {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "Iduser")
 	private String id;
-
+	
+//	@Email(message = "Email format is not correct")
+//	@NotBlank(message = "Email cannot be blank")
 	@Column(name = "email")
 	private String email;
+//	
+//	@NotBlank( message = "Name cannot be left blank")
 	@Column(name = "name")
 	private String name;
-
+	
+//	@Size(min =8 ,message = "Password must be more than 8 characters")
 	@Column(name = "password")
 	private String password;
+//	   @Pattern(regexp = "^\\d{9,12}$", message = "invalid phone number")
 	@Column(name = "phone")
 	private String phone;
 

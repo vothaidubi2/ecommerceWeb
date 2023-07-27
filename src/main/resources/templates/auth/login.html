@@ -52,25 +52,23 @@
 
 									</p>
 									<div class="form-group">
-										<label for="singin-email-2">Email *</label> <input type="text"
-											class="form-control" id="singin-email-2"
-											ng-model="inputValueLogin" ng-change="emailCheckLogin()"
-											name="username">
-										<div ng-bind="errorEmailLogin" ng-class="colorEmailLogin"></div>
+										<label for="singin-email-2">Email
+											*</label> <input type="text" class="form-control" id="singin-email-2" ng-model="inputValueLogin" ng-change="emailCheckLogin()"
+											name="username"  >
+												<div ng-bind="errorEmailLogin" ng-class="colorEmailLogin"></div>
 									</div>
 									<!-- End .form-group -->
 
 									<div class="form-group">
-										<label for="singin-password-2">Password *</label> <input
-											type="password" class="form-control" id="singin-password-2"
-											name="passwordLogin" ng-change="passCheckLogin()"
-											ng-model="passValueLogin">
-										<div ng-bind="errorPassLogin" ng-class="colorPassLogin"></div>
+										<label for="singin-password-2">Password *</label> <input type="password"
+											class="form-control" id="singin-password-2"  ng-change="passCheckLogin()" ng-model="passValueLogin"name="password"
+											>
+											<div ng-bind="errorPassLogin" ng-class="colorPassLogin"></div>
 									</div>
 									<!-- End .form-group -->
 
 									<div class="form-footer">
-										<button type="submit" class="btn btn-outline-primary-2">
+										<button type="submit" ng-disabled="validateLogin" class="btn btn-outline-primary-2">
 											<span>LOG IN</span> <i class="icon-long-arrow-right"></i>
 										</button>
 
@@ -155,9 +153,9 @@
 									<!-- End .form-group -->
 
 									<div class="form-footer">
-										<button type="submit" class="btn btn-outline-primary-2"
+										<button type="submit" ng-disabled="cheklogin" class="btn btn-outline-primary-2"  
 											th:formaction="@{/auth/login/create}">
-											<span>SIGN UP</span> <i class="icon-long-arrow-right"></i>
+											<span>SIGN UP</span> <i class="icon-long-arrow-right" ></i>
 										</button>
 
 										<div class="custom-control custom-checkbox">

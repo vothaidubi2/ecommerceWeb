@@ -21,11 +21,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "invoicedetails")
+@Table(name = "invoiceDetails")
 public class InvoiceDetails{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "Idinvoicedetails")
+	@Column(name = "IdinvoiceDetails")
 	private Integer id;
 	@ManyToOne
 	@JoinColumn(name = "Idinvoice")

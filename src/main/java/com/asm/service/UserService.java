@@ -22,21 +22,15 @@ public class UserService implements UserDetailsService {
 	
 	@Autowired
 	private UserDAO dao;
-	@Bean
-	public BCryptPasswordEncoder pee() {
-		return new BCryptPasswordEncoder();
-	}
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		//load user form database
 		Users user= dao.findByEmail(username);
+		System.err.println(user);
 		if(user==null) {
 			throw new UsernameNotFoundException("User not found");
 		}
-		
-		
-		// TODO Auto-generated method stub
-	
+
 		return new  CustomUserDetals(user);
 	}
 	public void loginFormOAuth(OAuth2AuthenticationToken oauth2) {
