@@ -24,11 +24,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "specificationdetails")
+@Table(name = "specificationDetails")
 public class SpecificationDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "Idspecificationdetails")
+	@Column(name = "IdspecificationDetails")
 	private String id;
 	@ManyToOne
 	@JoinColumn(name = "Idproduct")

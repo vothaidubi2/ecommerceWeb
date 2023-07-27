@@ -51,21 +51,21 @@
 									<div class="form-group">
 										<label for="singin-email-2">Email
 											*</label> <input type="text" class="form-control" id="singin-email-2" ng-model="inputValueLogin" ng-change="emailCheckLogin()"
-											name="username" >
+											name="username"  >
 												<div ng-bind="errorEmailLogin" ng-class="colorEmailLogin"></div>
 									</div>
 									<!-- End .form-group -->
 
 									<div class="form-group">
 										<label for="singin-password-2">Password *</label> <input type="password"
-											class="form-control" id="singin-password-2" name="passwordLogin" ng-change="passCheckLogin()" ng-model="passValueLogin"
+											class="form-control" id="singin-password-2"  ng-change="passCheckLogin()" ng-model="passValueLogin"name="password"
 											>
 											<div ng-bind="errorPassLogin" ng-class="colorPassLogin"></div>
 									</div>
 									<!-- End .form-group -->
 
 									<div class="form-footer">
-										<button type="submit" class="btn btn-outline-primary-2">
+										<button type="submit" ng-disabled="validateLogin" class="btn btn-outline-primary-2">
 											<span>LOG IN</span> <i class="icon-long-arrow-right"></i>
 										</button>
 
@@ -146,9 +146,9 @@
 									<!-- End .form-group -->
 
 									<div class="form-footer">
-										<button type="submit" class="btn btn-outline-primary-2"
+										<button type="submit" ng-disabled="cheklogin" class="btn btn-outline-primary-2"  
 											th:formaction="@{/auth/login/create}">
-											<span>SIGN UP</span> <i class="icon-long-arrow-right"></i>
+											<span>SIGN UP</span> <i class="icon-long-arrow-right" ></i>
 										</button>
 
 										<div class="custom-control custom-checkbox">
@@ -161,24 +161,7 @@
 									</div>
 									<!-- End .form-footer -->
 								</form>
-								<div class="form-choice">
-									<p class="text-center">or sign in with</p>
-									<div class="row">
-									<div class="col-sm-6">
-											<a href="/oauth2/authorization/google" class="btn btn-login btn-g"> <i class="icon-google"></i> Login
-												With Google
-											</a>
-										</div>
-										<!-- End .col-6 -->
-										<div class="col-sm-6">
-											<a href="/oauth2/authorization/facebook" class="btn btn-login btn-f"> <i class="icon-facebook-f"></i>
-												Login With Facebook
-											</a>
-										</div>
-										<!-- End .col-6 -->
-									</div>
-									<!-- End .row -->
-								</div>
+						
 								<!-- End .form-choice -->
 							</div>
 							<!-- .End .tab-pane -->

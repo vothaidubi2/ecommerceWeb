@@ -53,34 +53,35 @@ public class AuthConfig {
 			    )
 		  .oauth2Login(auth -> auth.loginPage("/auth/login/form")
 				  .defaultSuccessUrl("/auth/login/success", true)
-				  .authorizationEndpoint( t -> t.baseUri("/oauth2/authorization"))
+				  
+				  .authorizationEndpoint( t -> t.baseUri("/oauth2/authorization")
+						  
+						  )
 				  )
 
 				.formLogin(form -> form.loginPage("/auth/login/form").loginProcessingUrl("/auth/login/form")
-						.defaultSuccessUrl("/home", true));
+						.defaultSuccessUrl("/home", true)
+						)
+				;
 		
 		return http.build();
-	}
-	
-	public void create() {
-		
 	}
 	
 	
 	@Bean
 	public DaoAuthenticationProvider daoAuthenticationProvider() {
-
+		System.err.println("e");
 		DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
 		daoAuthenticationProvider.setUserDetailsService(userDetailsService());
 		daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
-
 		return daoAuthenticationProvider;
 	}
 
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+		System.err.println("e");
 		auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
 	}
-
+	
 }
