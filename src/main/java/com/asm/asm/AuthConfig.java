@@ -47,7 +47,7 @@ public class AuthConfig {
 
 		http.csrf(csrf -> csrf.disable())
 		  .authorizeHttpRequests(auth -> auth
-			        .requestMatchers("/admin/**").hasAuthority("ADMIN")
+//			        .requestMatchers("/admin/**").hasAuthority("ADMIN")
 			        .requestMatchers("/cart/**").hasAnyAuthority("USER", "ADMIN")
 			        .anyRequest().permitAll()
 			    )

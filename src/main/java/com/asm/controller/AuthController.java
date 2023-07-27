@@ -66,34 +66,26 @@ dao.save(updateUser);
 return "redirect:/home";
 	}
 
+
 	@RequestMapping("/create")
 	public String create(Users user, Model model) {
-
 		user.setPassword(psE().encode(user.getPassword()));
 		user.setRole(false);
 		dao.save(user);
-	
 		Users users = new Users();
-
 		model.addAttribute("form", users);
-
 		return "auth/login";
 	}
 
 	@RequestMapping("/success")
 	public String success(OAuth2AuthenticationToken oauth2, Model model) {
 		Users users = new Users();
-
 		model.addAttribute("form", users);
 		users.setEmail(oauth2.getPrincipal().getAttribute("email"));
 		users.setName(oauth2.getPrincipal().getAttribute("name"));
 		users.setRole(true);
 		users.setPassword(psE().encode(Long.toHexString(System.currentTimeMillis())));
-		
-
-
 		userUpdate=dao.findByEmail(users.getEmail());
-	
 		if (dao.findByEmail(users.getEmail().toString()) != null) {
 			System.err.println(users.getName());
 			if (!chekUser(dao.findByEmail(users.getEmail()))) {
@@ -106,22 +98,29 @@ return "redirect:/home";
 				return "redirect:/auth/login/accountCheck";
 			}
 		}
-		
 		urS.loginFormOAuth(oauth2);
-
 		return "redirect:/home";
 	}
-
-
 	public boolean chekUser(Users user) {
-System.err.println(user.getName() == null );
-System.err.println(user.getPhone() == null );
 		if (user.getName() == null || user.getPhone() == null) {
 			return false;
 		}
-
-
 		return true;
+	}
+
+		System.out.println(users);
+		if (dao.findByEmail(users.getEmail().toString()) != null) {
+			urS.loginFormOAuth(oauth2);
+			return "redirect:/home";
+		}
+		dao.save(users);
+		urS.loginFormOAuth(oauth2);
+		return "redirect:/home";
+	}
+
+	@GetMapping("/policyprivacy")
+	public String policyandprivacy() {
+		return "auth/policyandprivacy";
 	}
 
 }

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/layout::areas(~{::title},~{::main})}">
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/layout/layout::areas(~{::title},~{::main})}">
 
 <head>
-	<meta charset="UTF-8">
-	<title>Login</title>
+<meta charset="UTF-8">
+<title>Login</title>
 </head>
 
 <body>
@@ -20,30 +21,32 @@
 		</nav>
 		<!-- End .breadcrumb-nav -->
 
-		<div class="login-page bg-image pt-8 pb-8 pt-md-12 pb-md-12 pt-lg-17 pb-lg-17"ng-app="myApp" ng-controller="ctrl">
-			
+		<div
+			class="login-page bg-image pt-8 pb-8 pt-md-12 pb-md-12 pt-lg-17 pb-lg-17"
+			ng-app="myApp" ng-controller="ctrl">
+
 			<div class="container">
 				<div class="form-box">
 					<div class="form-tab">
 						<h5 class="text-danger" th:text="${errorAccount}"></h5>
 						<ul class="nav nav-pills nav-fill" role="tablist">
 
-							<li class="nav-item"><a class="nav-link active" id="signin-tab-2" data-toggle="tab"
-									href="#signin-2" role="tab" aria-controls="signin-2" aria-selected="true">Sign
-									In</a></li>
-							<li class="nav-item"><a class="nav-link  " id="register-tab-2" data-toggle="tab"
-									href="#register-2" role="tab" aria-controls="register-2"
-									aria-selected="false">Register</a>
+							<li class="nav-item"><a class="nav-link active"
+								id="signin-tab-2" data-toggle="tab" href="#signin-2" role="tab"
+								aria-controls="signin-2" aria-selected="true">Sign In</a></li>
+							<li class="nav-item"><a class="nav-link  "
+								id="register-tab-2" data-toggle="tab" href="#register-2"
+								role="tab" aria-controls="register-2" aria-selected="false">Register</a>
 							</li>
 						</ul>
 						<div class="tab-content">
 							<br>
 
-							<div class="tab-pane fade show active " id="signin-2" role="tabpanel"
-								aria-labelledby="signin-tab-2">
+							<div class="tab-pane fade show active " id="signin-2"
+								role="tabpanel" aria-labelledby="signin-tab-2">
 								<form th:action="@{/auth/login/form}" method="post">
-									<div th:if="${param.error}" class="text-danger">
-										Invalid username and password.</div>
+									<div th:if="${param.error}" class="text-danger">Invalid
+										username and password.</div>
 									<br>
 
 
@@ -70,9 +73,9 @@
 										</button>
 
 										<div class="custom-control custom-checkbox">
-											<input type="checkbox" class="custom-control-input" name="remember"
-												id="signin-remember-2"> <label class="custom-control-label"
-												for="signin-remember-2">Remember
+											<input type="checkbox" class="custom-control-input"
+												name="remember" id="signin-remember-2"> <label
+												class="custom-control-label" for="signin-remember-2">Remember
 												Me</label>
 										</div>
 										<!-- End .custom-checkbox -->
@@ -85,13 +88,15 @@
 									<p class="text-center">or sign in with</p>
 									<div class="row">
 										<div class="col-sm-6">
-											<a href="/oauth2/authorization/google" class="btn btn-login btn-g"> <i class="icon-google"></i> Login
-												With Google
+											<a href="/oauth2/authorization/google"
+												class="btn btn-login btn-g"> <i class="icon-google"></i>
+												Login With Google
 											</a>
 										</div>
 										<!-- End .col-6 -->
 										<div class="col-sm-6">
-											<a href="/oauth2/authorization/facebook" class="btn btn-login btn-f"> <i class="icon-facebook-f"></i>
+											<a href="/oauth2/authorization/facebook"
+												class="btn btn-login btn-f"> <i class="icon-facebook-f"></i>
 												Login With Facebook
 											</a>
 										</div>
@@ -104,44 +109,46 @@
 							<!-- .End .tab-pane -->
 
 							<div class="tab-pane fade  " id="register-2" role="tabpanel"
-								aria-labelledby="register-tab-2" >
-								<form action="#" th:object="${form}" method="post" >
+								aria-labelledby="register-tab-2">
+								<form action="#" th:object="${form}" method="post">
 									<p th:text="${message}"></p>
 
 									<br>
 									<div class="form-group">
-										<label for="register-email-2">Your email address *</label>
-
-										<input type="text" ng-model="inputValue" ng-change="emailCheck()"
+										<label for="register-email-2">Your email address *</label> <input
+											type="text" ng-model="inputValue" ng-change="emailCheck()"
 											class="form-control" th:field="*{email}">
 										<div ng-bind="errorEmail" ng-class="colorEmail"></div>
 									</div>
 
 									<!-- End .form-group -->
 									<div class="form-group">
-										<label for="register-password-2">
-											Full name: *</label> <input type="text" class="form-control" id="name" th:field="*{name}"
+										<label for="register-password-2"> Full name: *</label> <input
+											type="text" class="form-control" id="name" th:field="*{name}"
 											name="name">
 									</div>
 
 									<div class="form-group">
-										<label for="register-password-2">Phone *</label> <input type="text"
-											class="form-control" id="phone" name="register-phone" th:field="*{phone}"
+										<label for="register-password-2">Phone *</label> <input
+											type="text" class="form-control" id="phone"
+											name="register-phone" th:field="*{phone}"
 											ng-model="phoneValue" ng-change="phoneCheck()">
 										<div ng-bind="errorPhone" ng-class="colorPhone"></div>
 									</div>
 
 									<div class="form-group">
-										<label for="register-password-2">Password *</label> <input type="password"
-											class="form-control" id="password" name="register-password" ng-model="passValue" ng-change="passCheck()"
-											th:field="*{password}" >
-											<div ng-bind="errorPass" ng-class="colorPass"></div>
+										<label for="register-password-2">Password *</label> <input
+											type="password" class="form-control" id="password"
+											name="register-password" ng-model="passValue"
+											ng-change="passCheck()" th:field="*{password}">
+										<div ng-bind="errorPass" ng-class="colorPass"></div>
 									</div>
 									<div class="form-group">
-										<label for="register-password-2">
-											Re-enter password: *</label> <input type="password" class="form-control" ng-model="repassValue" ng-change="repassCheck()"
-											id="register-password-2" name="register-password" >
-												<div ng-bind="reerrorPass" ng-class="recolorPass"></div>
+										<label for="register-password-2"> Re-enter password: *</label>
+										<input type="password" class="form-control"
+											ng-model="repassValue" ng-change="repassCheck()"
+											id="register-password-2" name="register-password">
+										<div ng-bind="reerrorPass" ng-class="recolorPass"></div>
 									</div>
 									<!-- End .form-group -->
 
@@ -152,8 +159,9 @@
 										</button>
 
 										<div class="custom-control custom-checkbox">
-											<input type="checkbox" class="custom-control-input" id="register-policy-2"
-												required> <label class="custom-control-label" for="register-policy-2">I
+											<input type="checkbox" class="custom-control-input"
+												id="register-policy-2" required> <label
+												class="custom-control-label" for="register-policy-2">I
 												agree to the <a href="#">privacy policy</a> *
 											</label>
 										</div>
@@ -161,7 +169,26 @@
 									</div>
 									<!-- End .form-footer -->
 								</form>
-						
+								<div class="form-choice">
+									<p class="text-center">or sign in with</p>
+									<div class="row">
+										<div class="col-sm-6">
+											<a href="/oauth2/authorization/google"
+												class="btn btn-login btn-g"> <i class="icon-google"></i>
+												Login With Google
+											</a>
+										</div>
+										<!-- End .col-6 -->
+										<div class="col-sm-6">
+											<a href="/oauth2/authorization/facebook"
+												class="btn btn-login btn-f"> <i class="icon-facebook-f"></i>
+												Login With Facebook
+											</a>
+										</div>
+										<!-- End .col-6 -->
+									</div>
+									<!-- End .row -->
+								</div>
 								<!-- End .form-choice -->
 							</div>
 							<!-- .End .tab-pane -->
