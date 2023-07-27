@@ -12,5 +12,7 @@ import com.asm.entity.Users;
 public interface UserDAO extends JpaRepository<Users, Integer>{
 	@Query("SELECT u FROM Users u WHERE u.email = ?1")
     public Users findByEmail(String email);
+	@Query("SELECT u FROM Users u WHERE u.phone = ?1")
+    public Users findByPhone(String phone);
 
 }
