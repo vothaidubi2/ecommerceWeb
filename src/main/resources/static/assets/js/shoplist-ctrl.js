@@ -1,5 +1,5 @@
 let domain = "http://localhost:8080/api";
-const app = angular.module("app", ['ui.bootstrap']);
+const app = angular.module("app", []);
 app.controller("ctrl", function($scope, $http, $location) {
 	$scope.items = [];
 	$scope.keywords = null;
