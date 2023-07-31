@@ -31,7 +31,7 @@ public class ProductRestController {
 	ProductDAO productDAO;
 
 	@GetMapping("/api/products")
-	public ResponseEntity<Map<String,Object>> getAllProducts(@RequestParam(defaultValue = "0") int page,
+	public ResponseEntity<Map<String, Object>> getAllProducts(@RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "9") int size, @RequestParam(required = false) Optional<String> keywords,
 			@RequestParam(required = false) Integer categoryId, @RequestParam(required = false) Integer producerId,
 			@RequestParam(required = false) Optional<Double> minrange,
@@ -48,34 +48,33 @@ public class ProductRestController {
 
 		Page<Product> productPage = getByCategoryAndProdcer(name, minPrice, maxPrice, categoryId, producerId, pageable);
 		List<ProductDTO> products = productPage.map(this::mapToProductDTO).getContent();
-		
+
 		Map<String, Object> response = new HashMap<>();
-        response.put("total", productDAO.findAll().size());
-        response.put("data", products);
-        return ResponseEntity.ok(response);
+		response.put("total", productDAO.findAll().size());
+		response.put("data", products);
+		return ResponseEntity.ok(response);
 	}
-	
+
 	private ProductDTO mapToProductDTO(Product product) {
-        ProductDTO productDTO = new ProductDTO();
-        productDTO.setId(product.getId());
-        productDTO.setName(product.getName());
-        productDTO.setPrice(product.getPrice());
-        productDTO.setQuantity(product.getQuantity());
-        productDTO.setStatus(product.getStatus());
-        productDTO.setCategory(product.getCategory());
-        productDTO.setProducer(product.getProducer());
-        if (!product.getSpecificationDetailses().isEmpty()) {
-            Specification specification = product.getSpecificationDetailses()
-                    .get(0) // Assuming there is only one specification per product
-                    .getSpecification();
-            productDTO.setSpecifications(specification);
-        } 
-        List<ImageDTO> imageDTOs = product.getImages().stream()
-                .map(image -> new ImageDTO(image.getId(), image.getUrl()))
-                .collect(Collectors.toList());
-        productDTO.setImage(imageDTOs);
-        return productDTO;
-    }
+		ProductDTO productDTO = new ProductDTO();
+		productDTO.setId(product.getId());
+		productDTO.setName(product.getName());
+		productDTO.setPrice(product.getPrice());
+		productDTO.setQuantity(product.getQuantity());
+		productDTO.setStatus(product.getStatus());
+		productDTO.setCategory(product.getCategory());
+		productDTO.setProducer(product.getProducer());
+		if (!product.getSpecificationDetailses().isEmpty()) {
+			Specification specification = product.getSpecificationDetailses().get(0) // Assuming there is only one
+																						// specification per product
+					.getSpecification();
+			productDTO.setSpecifications(specification);
+		}
+		List<ImageDTO> imageDTOs = product.getImages().stream()
+				.map(image -> new ImageDTO(image.getId(), image.getUrl())).collect(Collectors.toList());
+		productDTO.setImage(imageDTOs);
+		return productDTO;
+	}
 
 	private Page<Product> getByCategoryAndProdcer(String keywords, double minPrice, double maxPrice, Integer categoryId,
 			Integer producerId, Pageable pageable) {

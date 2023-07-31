@@ -92,7 +92,7 @@ app.controller("ctrl", function($scope, $http, $location) {
 	//changepage
 	$scope.changePage = function(input) {
 		$scope.curPage = input;
-		$scope.paramPage = `page=${input-1}`
+		$scope.paramPage = `page=${input - 1}`
 		$scope.loadAll();
 	}
 });

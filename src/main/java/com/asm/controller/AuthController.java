@@ -1,9 +1,9 @@
 package com.asm.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,18 +16,16 @@ import com.asm.dao.UserDAO;
 import com.asm.entity.Users;
 import com.asm.service.UserService;
 
+import lombok.RequiredArgsConstructor;
+
 @Controller
 @RequestMapping("/auth/login")
+@RequiredArgsConstructor
 public class AuthController {
-	@Bean
-	public BCryptPasswordEncoder psE() {
-		return new BCryptPasswordEncoder();
-	}
 
-	@Autowired
-	UserService urS;
-	@Autowired
-	UserDAO dao;
+	private final UserService urS;
+	private final UserDAO dao;
+	private final PasswordEncoder passwordEncoder;
 
 	@GetMapping("/form")
 	public String formlogin(Users user, Model model) {
@@ -40,7 +38,7 @@ public class AuthController {
 	@RequestMapping("/create")
 	public String create(Users user, Model model) {
 
-		user.setPassword(psE().encode(user.getPassword()));
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		user.setRole(false);
 		dao.save(user);
 		Users users = new Users();
@@ -58,7 +56,7 @@ public class AuthController {
 		users.setEmail(oauth2.getPrincipal().getAttribute("email"));
 		users.setName(oauth2.getPrincipal().getAttribute("name"));
 		users.setRole(true);
-		users.setPassword(psE().encode(Long.toHexString(System.currentTimeMillis())));
+		users.setPassword(passwordEncoder.encode(Long.toHexString(System.currentTimeMillis())));
 		System.out.println(users);
 		if (dao.findByEmail(users.getEmail().toString()) != null) {
 			urS.loginFormOAuth(oauth2);
