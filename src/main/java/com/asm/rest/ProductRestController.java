@@ -50,7 +50,7 @@ public class ProductRestController {
 		List<ProductDTO> products = productPage.map(this::mapToProductDTO).getContent();
 		
 		Map<String, Object> response = new HashMap<>();
-        response.put("total", productDAO.findAll().size());
+        response.put("total", productDAO.findByStatus(true).size());
         response.put("data", products);
         return ResponseEntity.ok(response);
 	}
@@ -64,12 +64,11 @@ public class ProductRestController {
         productDTO.setStatus(product.getStatus());
         productDTO.setCategory(product.getCategory());
         productDTO.setProducer(product.getProducer());
-        if (!product.getSpecificationDetailses().isEmpty()) {
-            Specification specification = product.getSpecificationDetailses()
-                    .get(0) // Assuming there is only one specification per product
-                    .getSpecification();
-            productDTO.setSpecifications(specification);
-        } 
+        List<Specification> specifications = product.getSpecificationDetailses().stream()
+                .map(SpecificationDetails::getSpecification)
+                .collect(Collectors.toList());
+            productDTO.setSpecifications(specifications);
+
         List<ImageDTO> imageDTOs = product.getImages().stream()
                 .map(image -> new ImageDTO(image.getId(), image.getUrl()))
                 .collect(Collectors.toList());

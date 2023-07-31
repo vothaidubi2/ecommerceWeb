@@ -1,5 +1,7 @@
 package com.asm.dao;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,4 +21,5 @@ public interface ProductDAO extends JpaRepository<Product, Integer> {
 	Page<Product> findAllByNameLikeAndPriceBetweenAndStatus(
 			String keywords, double minPrice, double maxPrice, Boolean status,
 			Pageable pageable);
+	List<Product> findByStatus(Boolean status);
 }

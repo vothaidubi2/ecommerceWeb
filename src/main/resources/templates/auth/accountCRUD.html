@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/layout::areas(~{::title},~{::main})}">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Login</title>
+</head>
+
+<body>
+	<main>
+		<nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
+			<div class="container">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="index.html">Home</a></li>
+					<li class="breadcrumb-item "><a href="#">Pages</a></li>
+					<li class="breadcrumb-item active" aria-current="page">Login</li>
+				</ol>
+			</div>
+			<!-- End .container -->
+		</nav>
+		<!-- End .breadcrumb-nav -->
+
+		<div class="login-page bg-image pt-8 pb-8 pt-md-12 pb-md-12 pt-lg-17 pb-lg-17" ng-app="myApp"
+			ng-controller="ctrl">
+
+			<div class="container">
+				<div class="form-box">
+					<div class="form-tab">
+						<h5 class="text-danger" th:text="${errorAccount}"></h5>
+						<ul class="nav nav-pills nav-fill" role="tablist">
+
+
+							<li class="nav-item"><a class="nav-link  active" id="register-tab-2" data-toggle="tab"
+									href="#register-2" role="tab" aria-controls="register-2" aria-selected="false">
+									complete create new account</a>
+							</li>
+						</ul>
+						<div class="tab-content">
+							<br>
+
+
+							<!-- .End .tab-pane -->
+
+							<div class="tab-pane fade active show " id="register-2" role="tabpanel"
+								aria-labelledby="register-tab-2">
+								<form action="#" th:object="${form}" method="post">
+
+
+									<br>
+									<div class="form-group">
+										<label for="register-email-2">Your email address: </label>
+										
+										<label  th:text="*{email}" 
+										  ></label>
+										            
+									</div>
+
+									<!-- End .form-group -->
+									<div class="form-group">
+										<label for="register-password-2">
+											Full name: *</label>
+										<input type="text" class="form-control" id="name" th:field="*{name}"
+											name="name">
+											    <i th:errors="*{name}"></i>
+									</div>
+
+									<div class="form-group">
+										<label for="register-password-2">Phone *</label> <input type="text"
+											class="form-control" name="phone" th:field="*{phone}" id="phone"
+											>
+											    <i th:errors="*{phone}"></i>
+					
+									</div>
+
+									<div class="form-group">
+										<label for="register-password-2">Password *</label> <input type="password"
+											class="form-control" id="password" name="register-password"
+											th:field="*{password}">
+								  <i th:errors="*{password}"></i>
+									</div>
+									<div class="form-group">
+										<label for="register-password-2">
+											Re-enter password: *</label> <input type="password" class="form-control"
+											id="register-password-2" name="register-password">
+										<div ng-bind="reerrorPass" ng-class="recolorPass"></div>
+									</div>
+									<!-- End .form-group -->
+
+									<div class="form-footer">
+										<button type="submit" class="btn btn-outline-primary-2"
+											th:formaction="@{/auth/login/accountCheck/success}">
+											<span>Update Account</span> <i class="icon-long-arrow-right"></i>
+										</button>
+
+
+									</div>
+									<!-- End .custom-checkbox -->
+							</div>
+							<!-- End .form-footer -->
+							</form>
+
+							<!-- End .form-choice -->
+						</div>
+						<!-- .End .tab-pane -->
+					</div>
+					<!-- End .tab-content -->
+				</div>
+			</div>
+		</div>
+		</div>
+	</main>
+
+</body>
+
+</html>
