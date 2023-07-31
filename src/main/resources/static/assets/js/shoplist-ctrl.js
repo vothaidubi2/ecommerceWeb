@@ -1,6 +1,6 @@
 let domain = "http://localhost:8080/api";
 const app = angular.module("app", []);
-app.controller("ctrl", function($scope, $http, $location) {
+app.controller("ctrl", function($scope, $http, $location, $rootScope) {
 	$scope.items = [];
 	$scope.keywords = null;
 	$scope.sorttype = null;
@@ -95,6 +95,62 @@ app.controller("ctrl", function($scope, $http, $location) {
 		$scope.paramPage = `page=${input-1}`
 		$scope.loadAll();
 	}
+
+		
+	
+//---------------------------------
+$rootScope.listItemCart = JSON.parse(localStorage.getItem("Cart"));	//Lấy giỏ hàng từ localstore
+if(!$rootScope.listItemCart) $rootScope.listItemCart = [];	//Nếu chưa có trong localsotre thì tạo mảng rỗng
+$scope.addToCart = function(idProduct){
+	var item = $scope.items.find(i => i.id == idProduct);	//Lấy item từ items nếu trùng id
+	item.Quan = 1;											//Gán số lượng mặc định là 1
+	var notExist = true;									//Khởi tạo biến chứa 'chưa tồn tại'
+	$rootScope.listItemCart.forEach(i => {					//Duyệt từng phần tử trong giỏ hàng
+		if(i.id == idProduct){ 								//Nếu sản phẩm đã tồn tại <= id trùng với idProduct
+			i.Quan += 1*1; notExist = false;				//Tăng số lượng lên 1, đánh dấu là tồn tại
+		} 
+	});
+	if(notExist) $rootScope.listItemCart.push(item)		//Nếu không tồn tại thì thêm sản phầm vào giỏ hàng
+	$scope.SaveCart();
+	$scope.FillCart();
+}
+
+$scope.FillCart = function(){
+	var sum = 0*1;
+	document.getElementById("CartLength").innerText = $rootScope.listItemCart.length;
+	document.getElementById("CartProducts").innerHTML = "";
+	
+	$rootScope.listItemCart.forEach(i => {
+		sum += i.price*1;
+		console.log(sum);
+		document.getElementById("CartProducts").innerHTML += 
+		`<div class="product">
+			<div class="product-cart-details">
+				<h4 class="product-title">
+					<a href="product.html">${i.name}</a>
+				</h4>
+				<span class="cart-product-info">
+					<span class="cart-product-qty"></span> $ ${i.price}
+				</span>
+			</div>
+			<figure class="product-image-container">
+				<a href="product.html" class="product-image">
+					<img src="${i.image[0].url}" alt="product">
+				</a>
+			</figure>
+		</div>`
+		document.getElementById("totalCart").innerHTML = 
+		`<div class="dropdown-cart-total">
+			<span>Total</span> <span class="cart-total-price">$ ${sum}</span>
+		</div>`
+	});
+}
+
+$scope.SaveCart = function(){
+	localStorage.setItem("Cart", JSON.stringify($rootScope.listItemCart));
+}
+//---------------------------------	
+
 });
 $(document).ready(function() {
 	// Add 'active' class to the first <li> initially
@@ -108,5 +164,6 @@ $(document).ready(function() {
 		// Add 'active' class to the clicked <li> element
 		$(this).addClass('active');
 	});
+	
 });
 
