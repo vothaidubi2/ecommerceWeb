@@ -25,7 +25,7 @@ import com.asm.entity.Users;
 public class UserRestController {
 	@Autowired
 	UserDAO dao;
-	@GetMapping("rest/findByEmail/{key}")
+	@GetMapping("api/user/findByEmail/{key}")
 	public Users findByEmail(@PathVariable("key") String email) {
 		
 

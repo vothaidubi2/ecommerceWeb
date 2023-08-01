@@ -19,7 +19,7 @@ import com.asm.entity.Specification;
 
 @Controller
 @RequestMapping("/admin")
-public class StatisticalController {
+public class SpecificationController {
 //	@Autowired
 //	SpecificationDAO dao;
 	@RequestMapping("/specification")
