@@ -239,7 +239,7 @@
 
       <script>
          let cart;
-         let totalPrice;
+         let cartTotalPrice;
 
          const loadCart = () => cart = JSON.parse(localStorage.getItem("@cart")) || [];
 
@@ -255,13 +255,13 @@
          );
 
          const renderCart = () => {
-            totalPrice = 0;
+            cartTotalPrice = 0;
 
             console.log("RENDER CART");
             document.querySelector("#CartProducts").innerHTML = "";
 
             const productEle = cart.map((item, index) => {
-               totalPrice += item.price * item.qty;
+               cartTotalPrice += item.price * item.qty;
 
                document.querySelector("#CartProducts").innerHTML += `
                   <div class="product">
@@ -288,7 +288,7 @@
             });
 
             //Set total price
-            document.querySelector("#totalPrice").innerHTML = `$${totalPrice}`;
+            document.querySelector("#totalPrice").innerHTML = `$${cartTotalPrice}`;
          }
          
          const removeCart = (index) => {
