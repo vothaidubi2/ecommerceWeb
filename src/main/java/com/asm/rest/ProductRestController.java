@@ -24,6 +24,7 @@ import com.asm.entity.Specification;
 import com.asm.entity.SpecificationDetails;
 import com.asm.service.ImageDTO;
 import com.asm.service.ProductDTO;
+import com.asm.service.SpecificationDTO;
 
 @RestController
 public class ProductRestController {
@@ -64,10 +65,17 @@ public class ProductRestController {
         productDTO.setStatus(product.getStatus());
         productDTO.setCategory(product.getCategory());
         productDTO.setProducer(product.getProducer());
-        List<Specification> specifications = product.getSpecificationDetailses().stream()
-                .map(SpecificationDetails::getSpecification)
-                .collect(Collectors.toList());
-            productDTO.setSpecifications(specifications);
+        List<SpecificationDTO> specifications = product.getSpecificationDetailses().stream()
+				.map(specificationDetails -> {
+					SpecificationDTO specificationDTO = new SpecificationDTO();
+					Specification specification = specificationDetails.getSpecification();
+					specificationDTO.setId(specification.getId());
+					specificationDTO.setKey(specification.getKeys());
+					specificationDTO.setValue(specification.getValue());
+					return specificationDTO;
+				}).collect(Collectors.toList());
+
+		productDTO.setSpecifications(specifications);
 
         List<ImageDTO> imageDTOs = product.getImages().stream()
                 .map(image -> new ImageDTO(image.getId(), image.getUrl()))
