@@ -22,7 +22,8 @@ public class ProductDTO {
     private Boolean status;
     private Category category;
     private Producer producer;
-    private List<Specification> specifications;
+    private String description;
+    private List<SpecificationDTO> specifications;
     private List<ImageDTO> image;
     // Constructors, getters, and setters
 }

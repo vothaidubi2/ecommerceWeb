@@ -5,8 +5,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<header class="header header-intro-clearance header-4"
-		th:fragment="header">
+	<header class="header header-intro-clearance header-4" th:fragment="header">
 		<div class="header-top">
 			<div class="container">
 				<div class="header-left">
@@ -143,13 +142,13 @@
 							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
 							data-display="static">
 							<div class="icon">
-								<i class="icon-shopping-cart"></i> <span class="cart-count">2</span>
+								<i class="icon-shopping-cart"></i> <span class="cart-count" id="CartLength"></span>
 							</div>
 							<p>Cart</p>
 						</a>
 
 						<div class="dropdown-menu dropdown-menu-right">
-							<div class="dropdown-cart-products">
+							<div class="dropdown-cart-products" id="CartProducts">
 								<div class="product">
 									<div class="product-cart-details">
 										<h4 class="product-title">
@@ -195,10 +194,12 @@
 								<!-- End .product -->
 							</div>
 							<!-- End .cart-product -->
-
-							<div class="dropdown-cart-total">
-								<span>Total</span> <span class="cart-total-price">$160.00</span>
+							<div id="totalCart">
+								<div class="dropdown-cart-total">
+									<span>Total</span> <span class="cart-total-price">$160.00</span>
+								</div>
 							</div>
+							
 							<!-- End .dropdown-cart-total -->
 
 							<div class="dropdown-cart-action">

@@ -24,6 +24,7 @@ import com.asm.entity.Specification;
 import com.asm.entity.SpecificationDetails;
 import com.asm.service.ImageDTO;
 import com.asm.service.ProductDTO;
+import com.asm.service.SpecificationDTO;
 
 @RestController
 public class ProductRestController {
@@ -31,7 +32,7 @@ public class ProductRestController {
 	ProductDAO productDAO;
 
 	@GetMapping("/api/products")
-	public ResponseEntity<Map<String,Object>> getAllProducts(@RequestParam(defaultValue = "0") int page,
+	public ResponseEntity<Map<String, Object>> getAllProducts(@RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "9") int size, @RequestParam(required = false) Optional<String> keywords,
 			@RequestParam(required = false) Integer categoryId, @RequestParam(required = false) Integer producerId,
 			@RequestParam(required = false) Optional<Double> minrange,
@@ -48,13 +49,13 @@ public class ProductRestController {
 
 		Page<Product> productPage = getByCategoryAndProdcer(name, minPrice, maxPrice, categoryId, producerId, pageable);
 		List<ProductDTO> products = productPage.map(this::mapToProductDTO).getContent();
-		
+
 		Map<String, Object> response = new HashMap<>();
         response.put("total", productDAO.findByStatus(true).size());
         response.put("data", products);
         return ResponseEntity.ok(response);
 	}
-	
+
 	private ProductDTO mapToProductDTO(Product product) {
         ProductDTO productDTO = new ProductDTO();
         productDTO.setId(product.getId());
@@ -64,10 +65,17 @@ public class ProductRestController {
         productDTO.setStatus(product.getStatus());
         productDTO.setCategory(product.getCategory());
         productDTO.setProducer(product.getProducer());
-        List<Specification> specifications = product.getSpecificationDetailses().stream()
-                .map(SpecificationDetails::getSpecification)
-                .collect(Collectors.toList());
-            productDTO.setSpecifications(specifications);
+        List<SpecificationDTO> specifications = product.getSpecificationDetailses().stream()
+				.map(specificationDetails -> {
+					SpecificationDTO specificationDTO = new SpecificationDTO();
+					Specification specification = specificationDetails.getSpecification();
+					specificationDTO.setId(specification.getId());
+					specificationDTO.setKey(specification.getKeys());
+					specificationDTO.setValue(specification.getValue());
+					return specificationDTO;
+				}).collect(Collectors.toList());
+
+		productDTO.setSpecifications(specifications);
 
         List<ImageDTO> imageDTOs = product.getImages().stream()
                 .map(image -> new ImageDTO(image.getId(), image.getUrl()))
@@ -98,4 +106,7 @@ public class ProductRestController {
 		}
 		return Sort.by(Sort.Direction.ASC, sort[0]);
 	}
+	
+	
+	
 }

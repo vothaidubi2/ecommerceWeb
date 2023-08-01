@@ -1,4 +1,4 @@
-var host = "http://localhost:8080/rest";
+var host = "http://localhost:8080/api/user";
 var app = angular.module("myApp", []);
 app.controller("ctrl", function($scope, $http) {
 	$scope.inputValue = "";
@@ -30,7 +30,6 @@ app.controller("ctrl", function($scope, $http) {
 				$scope.colorEmail = "text-danger"
 				$scope.cheklogin = 1;
 			}
-			console.log($scope.errorEmail == "Valid")
 			if (checkInput()) {
 				$scope.cheklogin = 0;
 			} else {
@@ -62,7 +61,6 @@ app.controller("ctrl", function($scope, $http) {
 
 	};
 	$scope.phoneCheck = function() {
-		console.log($scope.phoneValue);
 		if (!/^\d+$/.test($scope.phoneValue)) {
 			$scope.cheklogin = 1;
 			$scope.errorPhone = "Incorrect phone format"

@@ -32,7 +32,7 @@ public class Specification {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "Idspecification")
-	private String id;
+	private Integer id;
 	@Column(name = "keys")
 	private String keys;
 
