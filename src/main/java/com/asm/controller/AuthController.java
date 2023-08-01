@@ -47,10 +47,7 @@ public class AuthController {
 	}
 
 	@GetMapping("/accountCheck")
-	public String checkAccount(Model model) {
-//		System.err.println(userUpdate.getEmail()+"abc");
-//		System.err.println( userUpdate.getEmail());
-		
+	public String checkAccount(Model model) {	
 		model.addAttribute("form", userUpdate);
 		return "auth/accountCRUD";
 	}
@@ -114,8 +111,6 @@ return "redirect:/home";
 
 
 	public boolean chekUser(Users user) {
-System.err.println(user.getName() == null );
-System.err.println(user.getPhone() == null );
 		if (user.getName() == null || user.getPhone() == null) {
 			return false;
 		}

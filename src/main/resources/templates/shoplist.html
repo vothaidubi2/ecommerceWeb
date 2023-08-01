@@ -26,7 +26,7 @@
 					<li class="breadcrumb-item"><a href="/home">Home</a></li>
 					<li class="breadcrumb-item"><a href="/soplist">Shop</a></li>
 					<li class="breadcrumb-item active" aria-current="page"
-						th:unless="${param.keywords != null}">List</li>
+						t="${param.keywords != null}">List</li>
 					<li class="breadcrumb-item active" aria-current="page"
 						th:if="${param.keywords != null}">[[${param.keywords}]]</li>
 				</ol>
@@ -71,9 +71,9 @@
 									<div class="col-6 col-lg-3">
 										<figure class="product-media">
 											<!-- 											<span class="product-label label-new">New</span> -->
-											<a href="product.html"> <img
-												ng-src="{{list.image[0].url}}"
-												alt="Product image" class="product-image">
+											<a href="product/details?name={{list.name}}"> <img
+												ng-src="{{list.image[0].url}}" alt="Product image"
+												class="product-image">
 											</a>
 										</figure>
 										<!-- End .product-media -->
@@ -108,7 +108,7 @@
 											</div>
 											<!-- End .product-cat -->
 											<h3 class="product-title">
-												<a href="product.html">{{list.name}}</a>
+												<a ng-href="/product/details?name={{list.name}}">{{list.name}}</a>
 											</h3>
 											<!-- End .product-title -->
 
@@ -147,8 +147,8 @@
 										aria-hidden="true"><i class="icon-long-arrow-left"></i></span>Prev
 								</a></li>
 								<li class="page-item repeat-item" aria-current="page"
-									ng-repeat="index in listPage"><a ng-click="changePage(index)"
-									class="page-link" href="#">{{index}}</a>
+									ng-repeat="index in listPage"><a
+									ng-click="changePage(index)" class="page-link" href="#">{{index}}</a>
 								<li class="page-item-total" ng-model="countPage"
 									ng-init="curPage">{{curPage}} of {{countPage}}</li>
 								<li class="page-item"><a class="page-link page-link-next"
@@ -186,7 +186,7 @@
 														category</label>
 												</div>
 												<!-- End .custom-checkbox -->
-<!-- 												<span class="item-count">3</span> -->
+												<!-- 												<span class="item-count">3</span> -->
 											</div>
 											<div class="filter-item" th:each="items,state:${category}">
 												<div class="custom-control custom-checkbox">
@@ -197,7 +197,7 @@
 														th:for="|'cat-${state.index+1}'|">[[${items.name}]]</label>
 												</div>
 												<!-- End .custom-checkbox -->
-<!-- 												<span class="item-count">3</span> -->
+												<!-- 												<span class="item-count">3</span> -->
 											</div>
 										</div>
 										<!-- End .widget-body -->
@@ -290,6 +290,7 @@
 		<!-- End .page-content -->
 		<script src="../../assets/js/shoplist-ctrl.js"></script>
 		<script src="../../assets/js/range.js"></script>
+
 	</main>
 	<!-- End .main -->
 </body>

@@ -10,7 +10,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication(scanBasePackages = "com.*")
 @EntityScan("com.asm.entity")
 @EnableJpaRepositories("com.asm.dao")
-
 public class AsmApplication {
 
 	public static void main(String[] args) {
