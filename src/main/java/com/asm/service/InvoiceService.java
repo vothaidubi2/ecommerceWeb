@@ -1,10 +1,13 @@
 package com.asm.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.List;
 
+import org.apache.http.client.ClientProtocolException;
+import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +17,7 @@ import com.asm.dto.InvoiceDTO;
 import com.asm.entity.Invoice;
 import com.asm.entity.InvoiceDetails;
 import com.asm.entity.Product;
+import com.asm.utils.Momo;
 
 @Service
 public class InvoiceService {
@@ -23,7 +27,7 @@ public class InvoiceService {
    @Autowired
    private InvoiceDetailDAO invoiceDetailDAO;
 
-   public void create(InvoiceDTO dto) {
+   public Document create(InvoiceDTO dto) throws ClientProtocolException, IOException {
       Invoice invoiceData = new Invoice();
       invoiceData.setAddress(dto.getAddress());
       invoiceData.setPhone(dto.getPhone());
@@ -45,11 +49,12 @@ public class InvoiceService {
 
       invoiceDetailDAO.saveAll(invoiceDetails);
 
-      // System.out.println(dto.getAddress());
-      // System.out.println(dto.getPhone());
-      // System.out.println(dto.getPayment());
-      // System.out.println(dto.getProducts().get(0).getProduct());
-      // System.out.println(dto.getProducts().get(0).getPrice());
-      // System.out.println(dto.getProducts().get(0).getQuantity());
+      Document resp = new Document();
+
+      if(dto.getPayment().equals("momo")) {
+         resp = Momo.create(dto.getTotalPrice(), "");
+      }
+
+      return resp;
    }
 }

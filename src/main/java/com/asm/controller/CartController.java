@@ -1,8 +1,12 @@
 package com.asm.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
+import org.apache.http.client.ClientProtocolException;
+import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,9 +32,12 @@ public class CartController {
 	}
 
    @PostMapping("/checkout")
-   public String createInvoice(@RequestBody InvoiceDTO dto) {
-      invoiceService.create(dto);
+   public ResponseEntity<Document> createInvoice(@RequestBody InvoiceDTO dto) throws ClientProtocolException, IOException {
+      Document resp = invoiceService.create(dto);
+
+      System.out.println("RESPONE TO CLIENT!");
+      System.out.println(resp);
       
-      return "/checkout";
+      return ResponseEntity.ok(resp);
    }
 }

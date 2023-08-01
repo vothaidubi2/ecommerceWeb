@@ -196,7 +196,6 @@
          document.querySelector("#bill-form").addEventListener('submit', e => e.preventDefault());
 
          const checkoutBill = async () => {
-            
             let data = {
                address: $("#input-address").val(),
                phone: $("#input-phone").val(),
@@ -207,18 +206,21 @@
                   price: c.price,
                   quantity: c.qty
                })),
-               payment
+               payment,
+               totalPrice: cartTotalPrice
             }
 
-            let resp = await fetch("/checkout", {
+            fetch("/checkout", {
                method: "POST",
                headers: {
                   "content-type": "application/json"
                },
                body: JSON.stringify(data)
-            });
+            }).then(async resp => {
+               let response = await resp.json();
 
-            console.log(resp);
+               window.location.href = response.payUrl;
+            }).catch(e => console.log(e));
          }
       </script>
 	</main>

@@ -17,5 +17,6 @@ public class InvoiceDTO {
    private String address;
    private String phone;
    private String payment;
+   private Double totalPrice;
    private ArrayList<InvoiceDetails> products;
 }
