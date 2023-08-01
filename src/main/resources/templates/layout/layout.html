@@ -50,16 +50,13 @@
 <!--     angularjs -->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
 </head>
-<body ng-app="app">
+<body>
 	<div class="page-wrapper">
 		<header th:replace="~{layout/_header :: header}"></header>
 		<main class="main" th:replace="${view}"></main>
 		<footer th:replace="~{layout/_footer :: footer}"></footer>
 	</div>
 	<div th:replace="~{layout/_mobile-menu :: mobile-menu}"></div>
-
-
-
 	<!-- Plugins JS File -->
 	<script src="/assets/js/jquery.min.js"></script>
 	<script src="/assets/js/bootstrap.bundle.min.js"></script>
