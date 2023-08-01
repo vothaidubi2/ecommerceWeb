@@ -92,7 +92,7 @@
 											</div>
 											<!-- End .product-action -->
 
-											<button ng-click="addToCart(list.id)" class="btn-product btn-cart"><span>add
+											<button onclick="addToCart('${{list.id}}', '${{list.price}}', '${{list.images[0]}}', '${{list.name}}')" class="btn-product btn-cart"><span>add
 													to cart</span></button>
 										</div>
 										<!-- End .product-list-action -->
@@ -292,7 +292,40 @@
 		<!-- End .page-content -->
 		<script src="../../assets/js/shoplist-ctrl.js"></script>
 		<script src="../../assets/js/range.js"></script>
-		<script>
+
+      <script>
+         const cartChangeEvent = new Event("on-cart-change");
+
+         const addToCart = (productId, price, image, name) => {
+            let cart = JSON.parse(localStorage.getItem("@cart")) || [];
+
+            const qty = 1;
+
+            if(cart.find(c => c.productId === productId)) {
+               cart = cart.map(c => ({
+                  ...c,
+                  qty: c.productId === productId ? c.qty + qty : qty,
+                  price,
+                  image,
+                  name
+               }));
+            }else{
+               cart.push({
+                  productId,
+                  qty,
+                  price: Number(price),
+                  image,
+                  name
+               });
+            }
+
+            localStorage.setItem("@cart", JSON.stringify(cart));
+
+            dispatchEvent(cartChangeEvent);
+         }
+      </script>
+		
+      <script>
 			$(document).ready(function() {
 				// Add 'active' class to the first <li> initially
 				$('.repeat-item li:first-child').addClass('active');

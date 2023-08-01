@@ -2,8 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	th:replace="~{/layout/layout::areas(~{::title},~{::main})}">
 <head>
-<meta charset="utf-8">
-<title>Product detail</title>
+   <meta charset="utf-8">
+   <title>Product detail</title>
 </head>
 <body>
 	<main class="main">
@@ -122,7 +122,7 @@
 												</div>
 												<!-- End .product-details-quantity -->
 
-												<a href="#" class="btn-product btn-cart"><span>add
+												<a href="#" class="btn-product btn-cart" id="addToCart-btn" onclick="addToCart()" th:attr="data-productId=${productId},data-productPrice=${detail.price},data-productName=${detail.name},data-productImage=${detail.images[0]}"><span>add
 														to cart</span></a>
 											</div>
 											<!-- End .details-action-col -->
@@ -484,6 +484,41 @@
 			<!-- End .row -->
 
 		</div>
+      <script>
+         const cartChangeEvent = new Event("on-cart-change");
+
+         const addToCart = () => {
+            let cart = JSON.parse(localStorage.getItem("@cart")) || [];
+
+            const productId = $("#addToCart-btn").attr("data-productId");
+            const price = Number($("#addToCart-btn").attr("data-productPrice"));
+            const name = $("#addToCart-btn").attr("data-productName");
+            const image = $("#addToCart-btn").attr("data-productImage");
+            const qty = Number($("#qty").val());
+
+            if(cart.find(c => c.productId === productId)) {
+               cart = cart.map(c => ({
+                  ...c,
+                  qty: c.productId === productId ? c.qty + qty : qty,
+                  image,
+                  price,
+                  name
+               }));
+            }else{
+               cart.push({
+                  productId,
+                  qty,
+                  price,
+                  image,
+                  name
+               });
+            }
+
+            localStorage.setItem("@cart", JSON.stringify(cart));
+
+            dispatchEvent(cartChangeEvent);
+         }
+      </script>
 		<script src="../../assets/js/range.js"></script>
 		<!-- End .page-content -->
 	</main>
