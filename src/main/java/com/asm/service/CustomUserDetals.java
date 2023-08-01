@@ -14,6 +14,7 @@ public class CustomUserDetals implements UserDetails{
 
 	private static final long serialVersionUID = 1L;
 	private Users user;
+
 	public CustomUserDetals(Users user) {
 		this.user=user;
 	}

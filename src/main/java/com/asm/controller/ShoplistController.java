@@ -18,16 +18,18 @@ public class ShoplistController {
 	CategoryDAO category;
 	@Autowired
 	ProducerDAO producer;
-	
+
 	@GetMapping("/shoplist")
 	public String shoplist(@RequestParam(required = false) String keywords) {
 		return "shoplist";
 	}
+
 	@ModelAttribute("category")
 	public List<Category> listCate() {
 		List<Category> list = category.findAll();
 		return list;
 	}
+
 	@ModelAttribute("producer")
 	public List<Producer> listPro() {
 		List<Producer> list = producer.findAll();

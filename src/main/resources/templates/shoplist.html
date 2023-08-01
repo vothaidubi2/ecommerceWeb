@@ -26,7 +26,7 @@
 					<li class="breadcrumb-item"><a href="/home">Home</a></li>
 					<li class="breadcrumb-item"><a href="/soplist">Shop</a></li>
 					<li class="breadcrumb-item active" aria-current="page"
-						th:unless="${param.keywords != null}">List</li>
+						t="${param.keywords != null}">List</li>
 					<li class="breadcrumb-item active" aria-current="page"
 						th:if="${param.keywords != null}">[[${param.keywords}]]</li>
 				</ol>
@@ -35,7 +35,7 @@
 		</nav>
 		<!-- End .breadcrumb-nav -->
 
-		<div class="page-content" ng-app="app">
+		<div class="page-content">
 			<div class="container" ng-controller="ctrl">
 				<div class="row">
 					<div class="col-lg-9">
@@ -65,13 +65,13 @@
 						</div>
 						<!-- End .toolbox -->
 
-						<div class="products mb-3">
+						<div class="products mb-3" ng-init="FillCart()">
 							<div class="product product-list" ng-repeat="list in items">
 								<div class="row">
 									<div class="col-6 col-lg-3">
 										<figure class="product-media">
 											<!-- 											<span class="product-label label-new">New</span> -->
-											<a href="product.html"> <img
+											<a href="product/details?name={{list.name}}"> <img
 												ng-src="{{list.image[0].url}}" alt="Product image"
 												class="product-image">
 											</a>
@@ -92,8 +92,8 @@
 											</div>
 											<!-- End .product-action -->
 
-											<a href="#" class="btn-product btn-cart"><span>add
-													to cart</span></a>
+											<button ng-click="addToCart(list.id)" class="btn-product btn-cart"><span>add
+													to cart</span></button>
 										</div>
 										<!-- End .product-list-action -->
 									</div>
@@ -108,7 +108,7 @@
 											</div>
 											<!-- End .product-cat -->
 											<h3 class="product-title">
-												<a href="product.html">{{list.name}}</a>
+												<a ng-href="/product/details?name={{list.name}}">{{list.name}}</a>
 											</h3>
 											<!-- End .product-title -->
 

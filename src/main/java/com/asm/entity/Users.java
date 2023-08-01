@@ -1,10 +1,7 @@
 package com.asm.entity;
 // Generated Jul 21, 2023, 11:15:56 AM by Hibernate Tools 4.3.6.Final
 
-import java.io.Serializable;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

@@ -50,7 +50,7 @@
 <!--     angularjs -->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
 </head>
-<body>
+<body ng-app="app">
 	<div class="page-wrapper">
 		<header th:replace="~{layout/_header :: header}"></header>
 		<main class="main" th:replace="${view}"></main>

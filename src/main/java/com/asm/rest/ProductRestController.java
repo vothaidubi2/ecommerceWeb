@@ -32,7 +32,7 @@ public class ProductRestController {
 	ProductDAO productDAO;
 
 	@GetMapping("/api/products")
-	public ResponseEntity<Map<String,Object>> getAllProducts(@RequestParam(defaultValue = "0") int page,
+	public ResponseEntity<Map<String, Object>> getAllProducts(@RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "9") int size, @RequestParam(required = false) Optional<String> keywords,
 			@RequestParam(required = false) Integer categoryId, @RequestParam(required = false) Integer producerId,
 			@RequestParam(required = false) Optional<Double> minrange,
@@ -49,13 +49,13 @@ public class ProductRestController {
 
 		Page<Product> productPage = getByCategoryAndProdcer(name, minPrice, maxPrice, categoryId, producerId, pageable);
 		List<ProductDTO> products = productPage.map(this::mapToProductDTO).getContent();
-		
+
 		Map<String, Object> response = new HashMap<>();
         response.put("total", productDAO.findByStatus(true).size());
         response.put("data", products);
         return ResponseEntity.ok(response);
 	}
-	
+
 	private ProductDTO mapToProductDTO(Product product) {
         ProductDTO productDTO = new ProductDTO();
         productDTO.setId(product.getId());
@@ -106,4 +106,7 @@ public class ProductRestController {
 		}
 		return Sort.by(Sort.Direction.ASC, sort[0]);
 	}
+	
+	
+	
 }
