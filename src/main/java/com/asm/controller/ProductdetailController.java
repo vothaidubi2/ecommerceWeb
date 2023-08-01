@@ -27,6 +27,7 @@ public class ProductdetailController {
 		ProductDetailsResponse resp = toResponse(projection);
 		
 		model.addAttribute("detail", resp);
+      model.addAttribute("productId", projection.getId());
 		return "productdetail";
 	}
 	

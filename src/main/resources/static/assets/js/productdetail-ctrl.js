@@ -102,6 +102,7 @@ app.controller("ctrl", function($scope, $http, $location, $rootScope) {
 $rootScope.listItemCart = JSON.parse(localStorage.getItem("Cart"));	//Lấy giỏ hàng từ localstore
 if(!$rootScope.listItemCart) $rootScope.listItemCart = [];	//Nếu chưa có trong localsotre thì tạo mảng rỗng
 $scope.addToCart = function(idProduct, quantity=1){
+   console.log(idProduct, quantity)
 	var item = $scope.items.find(i => i.id == idProduct);	//Lấy item từ items nếu trùng id
 	item.Quan = quantity;											//Gán số lượng mặc định là 1
 	var notExist = true;									//Khởi tạo biến chứa 'chưa tồn tại'
