@@ -70,7 +70,6 @@ public class AuthConfig {
 	
 	@Bean
 	public DaoAuthenticationProvider daoAuthenticationProvider() {
-		System.err.println("e");
 		DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
 		daoAuthenticationProvider.setUserDetailsService(userDetailsService());
 		daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
@@ -80,7 +79,6 @@ public class AuthConfig {
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		System.err.println("e");
 		auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
 	}
 	
