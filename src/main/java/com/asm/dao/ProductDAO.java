@@ -23,4 +23,6 @@ public interface ProductDAO extends JpaRepository<Product, Integer> {
 
 	<T> T findByName(String name, Class<T> type);
 	List<Product> findByStatus(Boolean status);
+
+	Product findByIdAndStatus(Integer id,Boolean status);
 }

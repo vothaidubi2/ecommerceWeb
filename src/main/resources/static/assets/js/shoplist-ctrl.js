@@ -152,18 +152,5 @@ $scope.SaveCart = function(){
 //---------------------------------	
 
 });
-$(document).ready(function() {
-	// Add 'active' class to the first <li> initially
-	$('.repeat-item li:first-child').addClass('active');
 
-	// Add click event listener to each <li>
-	$('.repeat-item li').click(function() {
-		// Remove 'active' class from all <li> elements
-		$('.repeat-item li').removeClass('active');
-
-		// Add 'active' class to the clicked <li> element
-		$(this).addClass('active');
-	});
-	
-});
 
