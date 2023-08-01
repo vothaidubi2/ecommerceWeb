@@ -219,6 +219,7 @@
             }).then(async resp => {
                let response = await resp.json();
 
+               localStorage.setItem("@cart", "[]");
                window.location.href = response.payUrl;
             }).catch(e => console.log(e));
          }
