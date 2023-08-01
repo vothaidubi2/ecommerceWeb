@@ -50,31 +50,31 @@ public class ProductRestController {
 		List<ProductDTO> products = productPage.map(this::mapToProductDTO).getContent();
 
 		Map<String, Object> response = new HashMap<>();
-		response.put("total", productDAO.findAll().size());
-		response.put("data", products);
-		return ResponseEntity.ok(response);
+        response.put("total", productDAO.findByStatus(true).size());
+        response.put("data", products);
+        return ResponseEntity.ok(response);
 	}
 
 	private ProductDTO mapToProductDTO(Product product) {
-		ProductDTO productDTO = new ProductDTO();
-		productDTO.setId(product.getId());
-		productDTO.setName(product.getName());
-		productDTO.setPrice(product.getPrice());
-		productDTO.setQuantity(product.getQuantity());
-		productDTO.setStatus(product.getStatus());
-		productDTO.setCategory(product.getCategory());
-		productDTO.setProducer(product.getProducer());
-		if (!product.getSpecificationDetailses().isEmpty()) {
-			Specification specification = product.getSpecificationDetailses().get(0) // Assuming there is only one
-																						// specification per product
-					.getSpecification();
-			productDTO.setSpecifications(specification);
-		}
-		List<ImageDTO> imageDTOs = product.getImages().stream()
-				.map(image -> new ImageDTO(image.getId(), image.getUrl())).collect(Collectors.toList());
-		productDTO.setImage(imageDTOs);
-		return productDTO;
-	}
+        ProductDTO productDTO = new ProductDTO();
+        productDTO.setId(product.getId());
+        productDTO.setName(product.getName());
+        productDTO.setPrice(product.getPrice());
+        productDTO.setQuantity(product.getQuantity());
+        productDTO.setStatus(product.getStatus());
+        productDTO.setCategory(product.getCategory());
+        productDTO.setProducer(product.getProducer());
+        List<Specification> specifications = product.getSpecificationDetailses().stream()
+                .map(SpecificationDetails::getSpecification)
+                .collect(Collectors.toList());
+            productDTO.setSpecifications(specifications);
+
+        List<ImageDTO> imageDTOs = product.getImages().stream()
+                .map(image -> new ImageDTO(image.getId(), image.getUrl()))
+                .collect(Collectors.toList());
+        productDTO.setImage(imageDTOs);
+        return productDTO;
+    }
 
 	private Page<Product> getByCategoryAndProdcer(String keywords, double minPrice, double maxPrice, Integer categoryId,
 			Integer producerId, Pageable pageable) {
@@ -98,4 +98,7 @@ public class ProductRestController {
 		}
 		return Sort.by(Sort.Direction.ASC, sort[0]);
 	}
+	
+	
+	
 }

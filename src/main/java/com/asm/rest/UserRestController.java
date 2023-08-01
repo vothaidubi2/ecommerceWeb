@@ -16,12 +16,12 @@ import com.asm.entity.Users;
 @RestController
 
 public class UserRestController {
-	@Autowired
-	UserDAO dao;
+@Autowired
+UserDAO dao;
+@GetMapping("rest/findByEmail/{key}")
+public Users findByEmail(@PathVariable("key") String email) {
+	
 
-	@GetMapping("rest/findByEmail/{key}")
-	public Users findByEmail(@PathVariable("key") String email) {
-		return dao.findByEmail(email);
-	}
-
+	return dao.findByEmail(email);
+}
 }

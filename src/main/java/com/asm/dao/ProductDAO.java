@@ -22,4 +22,5 @@ public interface ProductDAO extends JpaRepository<Product, Integer> {
 			Boolean status, Pageable pageable);
 
 	<T> T findByName(String name, Class<T> type);
+	List<Product> findByStatus(Boolean status);
 }

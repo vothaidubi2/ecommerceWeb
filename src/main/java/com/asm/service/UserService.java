@@ -18,18 +18,18 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService {
-
-	private final UserDAO dao;
-
+	@Autowired
+	private UserDAO dao;
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		// load user form database
-		Users user = dao.findByEmail(username);
-		if (user == null) {
+		//load user form database
+		Users user= dao.findByEmail(username);
+		System.err.println(user);
+		if(user==null) {
 			throw new UsernameNotFoundException("User not found");
 		}
 
-		return new CustomUserDetals(user);
+		return new  CustomUserDetals(user);
 	}
 
 	public void loginFormOAuth(OAuth2AuthenticationToken oauth2) {
