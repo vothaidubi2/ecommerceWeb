@@ -37,43 +37,39 @@
 			<div class="col-12">
 				<div class="card">
 					<div class="card-body">
-						<p class="text-uppercase text-sm text font-weight-bold">Specification
+						<p class="text-uppercase text-sm text font-weight-bold">Category
 							Management</p>
 						<div class="row">
 							<form class="row" >
 								<div class="col-md-6">
 									<div class="form-group">
-										<label for="example-text-input" class="form-control-label">Keys
-										</label> <input class="form-control" type="text"
-											ng-model="newSpecification.keys"  ng-change="keys()">
+										<label for="example-text-input" class="form-control-label">name
+										</label> <input class="form-control" type="text" ng-change="keys()"
+										
+											ng-model="newSpecification.name"  >
 									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="example-text-input" class="form-control-label">Value</label>
-										<input class="form-control" type="text" ng-model="newSpecification.value" ng-change="value()">
-								
-									</div>
+
 								</div>
 								<hr class="horizontal dark">
 								<div class="card-header pb-0">
 									<div>
 									<button class="btn btn-primary btn-sm"
 												ng-click="add()" ng-disabled="validateAdd" >Add</button>
-												<button class="btn btn-primary btn-sm"
-												ng-click="update(newSpecification.id) "ng-disabled="validateUpdate">Update</button>
+												<button class="btn btn-primary btn-sm" ng-disabled="validateUpdate"
+												ng-click="update(newSpecification.id)"  >Update</button>
+											
 												<button class="btn btn-primary btn-sm"
 												ng-click="reset()">Reset</button>
 												
 									</div>
 								</div>
 							</form>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="example-text-input" class="form-control-label">Search by Keys</label>
-									<input class="form-control" type="text" ng-model="searchByKeys"  ng-change="key()">
-								</div>
-							</div>
+<!--							<div class="col-md-6">-->
+<!--								<div class="form-group">-->
+<!--									<label for="example-text-input" class="form-control-label">Search by Keys</label>-->
+<!--									<input class="form-control" type="text" ng-model="searchByKeys"  ng-change="key()">-->
+<!--								</div>-->
+<!--							</div>-->
 						</div>
 					</div>
 				</div>
@@ -92,16 +88,13 @@
 								<thead>
 									<tr>
 										<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-											style="width: 28%;">
+											style="width: 33%;">
 											id</th>
 										<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-											style="width: 28%;">
-											key</th>
-										<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-											style="width: 28%;">
-											Quantity</th>
+											style="width: 33%;">
+											name</th>
 										<th
-											class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+											class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" style="width: 33%;" >
 											Delete/Edit</th>
 									</tr>
 								</thead>
@@ -110,21 +103,19 @@
 
 									<tr ng-repeat="spec in specifications">
 										<td
-											class="text-center text-uppercase text-secondary text-xxs font-weight-bolder ">
+											class="text-center text-uppercase text-secondary text-xxs font-weight-bolder " style="width: 33%;">
 											{{spec.id}}</td>
 										<td
-											class="text-center text-uppercase text-secondary text-xxs font-weight-bolder ">
-											{{spec.keys}}</td>
-										<td
-											class="text-center text-uppercase text-secondary text-xxs font-weight-bolder ">
-											{{spec.value}}</td>
-										<td>
+											class="text-center text-uppercase text-secondary text-xxs font-weight-bolder " style="width: 33%;">
+											{{spec.name}}</td>
+										<td class="text-center text-uppercase text-secondary text-xxs font-weight-bolder " style="width: 33%;">
 											<button class="btn btn-primary btn-sm"
 												ng-click="editSpecification(spec)">Edit</button>
 											<button class="btn btn-danger btn-sm"
 												ng-click="delete(spec)">Delete</button>
 										</td>
-										</td>
+								
+									
 									</tr>
 								</tbody>
 							</table>
@@ -168,7 +159,7 @@
 		<h1>Template heading</h1>
 		<p>Content goes here</p>
 		</script>
-		<script src="../../assets/js/speccification.js"></script>
+		<script src="../../assets/js/category.js"></script>
 	</th:block>
 </body>
 
