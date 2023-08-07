@@ -6,7 +6,7 @@
 <title>Shop List</title>
 </head>
 <body>
-	<main ng-app="app">
+	<main ng-app="app"  ng-controller="ctrl">
 		<div class="page-header text-center"
 			style="background-image: url('assets/images/page-header-bg.jpg')">
 			<div class="container">
@@ -36,7 +36,7 @@
 		<!-- End .breadcrumb-nav -->
 
 		<div class="page-content">
-			<div class="container" ng-controller="ctrl">
+			<div class="container">
 				<div class="row">
 					<div class="col-lg-9">
 						<div class="toolbox">
@@ -92,7 +92,7 @@
 											</div>
 											<!-- End .product-action -->
 
-											<button onclick="addToCart('${{list.id}}', '${{list.price}}', '${{list.images[0]}}', '${{list.name}}')" class="btn-product btn-cart"><span>add
+											<button ng-click="addToLocal(list.id,list.price,list.image[0].url,list.name)" class="btn-product btn-cart"><span>add
 													to cart</span></button>
 										</div>
 										<!-- End .product-list-action -->
@@ -117,18 +117,18 @@
 													elit. Phasellus hendrerit. Pellentesque</p>
 											</div>
 											<!-- End .product-content -->
-											<div class="product-nav product-nav-thumbs">
-												<a href="#" class="active"> <img
-													src="assets/images/products/product-4-thumb.jpg"
-													alt="product desc">
-												</a> <a href="#"> <img
-													src="assets/images/products/product-4-2-thumb.jpg"
-													alt="product desc">
-												</a> <a href="#"> <img
-													src="assets/images/products/product-4-3-thumb.jpg"
-													alt="product desc">
-												</a>
-											</div>
+<!-- 											<div class="product-nav product-nav-thumbs"> -->
+<!-- 												<a href="#" class="active"> <img -->
+<!-- 													src="assets/images/products/product-4-thumb.jpg" -->
+<!-- 													alt="product desc"> -->
+<!-- 												</a> <a href="#"> <img -->
+<!-- 													src="assets/images/products/product-4-2-thumb.jpg" -->
+<!-- 													alt="product desc"> -->
+<!-- 												</a> <a href="#"> <img -->
+<!-- 													src="assets/images/products/product-4-3-thumb.jpg" -->
+<!-- 													alt="product desc"> -->
+<!-- 												</a> -->
+<!-- 											</div> -->
 											<!-- End .product-nav -->
 										</div>
 										<!-- End .product-body -->
@@ -290,55 +290,23 @@
 			<!-- End .container -->
 		</div>
 		<!-- End .page-content -->
-		<script src="../../assets/js/shoplist-ctrl.js"></script>
-		<script src="../../assets/js/range.js"></script>
-
-      <script>
-         const cartChangeEvent = new Event("on-cart-change");
-
-         const addToCart = (productId, price, image, name) => {
-            let cart = JSON.parse(localStorage.getItem("@cart")) || [];
-
-            const qty = 1;
-
-            if(cart.find(c => c.productId === productId)) {
-               cart = cart.map(c => ({
-                  ...c,
-                  qty: c.productId === productId ? c.qty + qty : qty,
-                  price,
-                  image,
-                  name
-               }));
-            }else{
-               cart.push({
-                  productId,
-                  qty,
-                  price: Number(price),
-                  image,
-                  name
-               });
-            }
-
-            localStorage.setItem("@cart", JSON.stringify(cart));
-
-            dispatchEvent(cartChangeEvent);
-         }
-      </script>
+		<script src="/assets/js/shoplist-ctrl.js"></script>
+		<script src="/assets/js/range.js"></script>
 		
       <script>
-			$(document).ready(function() {
-				// Add 'active' class to the first <li> initially
-				$('.repeat-item li:first-child').addClass('active');
+// 			$(document).ready(function() {
+// 				// Add 'active' class to the first <li> initially
+// 				$('.repeat-item li:first-child').addClass('active');
 	
-				// Add click event listener to each <li>
-				$('.repeat-item li').click(function() {
-					// Remove 'active' class from all <li> elements
-					$('.repeat-item li').removeClass('active');
+// 				// Add click event listener to each <li>
+// 				$('.repeat-item li').click(function() {
+// 					// Remove 'active' class from all <li> elements
+// 					$('.repeat-item li').removeClass('active');
 	
-					// Add 'active' class to the clicked <li> element
-					$(this).addClass('active');
-				});
-			});
+// 					// Add 'active' class to the clicked <li> element
+// 					$(this).addClass('active');
+// 				});
+// 			});
 		</script>
 	</main>
 	<!-- End .main -->

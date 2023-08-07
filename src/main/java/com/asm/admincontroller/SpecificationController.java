@@ -20,12 +20,8 @@ import com.asm.entity.Specification;
 @Controller
 @RequestMapping("/admin")
 public class SpecificationController {
-//	@Autowired
-//	SpecificationDAO dao;
 	@RequestMapping("/specification")
 	public String view(Model model) {
-//		List<Specification> table=dao.findAll();
-//		model.addAttribute("table", table);
 		return "admin/specification";
 	}
 }

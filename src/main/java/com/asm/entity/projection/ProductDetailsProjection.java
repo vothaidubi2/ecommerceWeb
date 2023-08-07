@@ -7,6 +7,8 @@ public interface ProductDetailsProjection {
 
 	 String getName();
 	 
+	 String getDescription();
+	 
 	 ProductCategory getCategory();
 
 	 Double getPrice();
