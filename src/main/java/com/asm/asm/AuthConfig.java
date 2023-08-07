@@ -28,6 +28,7 @@ public class AuthConfig {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.csrf(csrf -> csrf.disable()).authorizeHttpRequests(auth -> auth
 			        .requestMatchers("/cart/**").hasAnyAuthority("USER", "ADMIN")
+			        .requestMatchers("checkout").authenticated()
 			        .anyRequest().permitAll()
 			    )
 		  .oauth2Login(auth -> auth.loginPage("/auth/login/form")

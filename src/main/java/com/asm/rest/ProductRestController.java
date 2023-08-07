@@ -19,12 +19,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.asm.dao.ProductDAO;
+import com.asm.dto.ImageDTO;
+import com.asm.dto.ProductDTO;
+import com.asm.dto.SpecificationDTO;
 import com.asm.entity.Product;
 import com.asm.entity.Specification;
 import com.asm.entity.SpecificationDetails;
-import com.asm.service.ImageDTO;
-import com.asm.service.ProductDTO;
-import com.asm.service.SpecificationDTO;
 
 @RestController
 public class ProductRestController {

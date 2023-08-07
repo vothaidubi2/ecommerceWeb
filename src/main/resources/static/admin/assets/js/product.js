@@ -88,7 +88,7 @@ app.controller("controller", [
 		//reset
 		$scope.reset = function() {
 			$scope.newProduct = {
-				name: '',
+				name: null,
 				price: null,
 				quantity: null,
 				category: null,
@@ -147,7 +147,6 @@ app.controller("controller", [
 			});
 			$http.post(`${domain}/products`, $scope.newProduct)
 				.then(function(response) {
-					console.log('Product created successfully:', response.data);
 					$scope.reset();
 				})
 				.catch(function(error) {
@@ -220,21 +219,20 @@ app.controller("controller", [
 			// Use the product ID from the newProduct object
 			const productId = $scope.newProduct.id;
 
-			$http.put(`${domain}/product/${productId}`, $scope.newProduct)
-				.then(function(response) {
-					console.log('Product updated successfully:', response.data);
+			$http.put(`${domain}/product/update/${productId}`, $scope.newProduct)
+				.then(function() {
+					alert('Update successfully!');
 					$scope.reset();
 				})
 				.catch(function(error) {
-					alert('Error updating product:', error);
+					console.error('Error updating product:', error);
 				});
-			alert('Update successfully!');
 		};
 		//delete product
 		$scope.deleteProduct = function(id) {
-			$http.delete(`${domain}/product/${id}`)
+			$http.put(`${domain}/product/delete/${id}`)
 				.then(function(response) {
-					console.log('Product delete successfully:', response.data);
+					console.log('Product delete successfully');
 					$scope.reset();
 				})
 				.catch(function(error) {
@@ -292,8 +290,8 @@ app.controller("controller", [
 				alert("Please select images to upload.");
 				return;
 			}
-			$scope.imgLength = $scope.imgLength + $scope.imageFiles.length;
-			if ($scope.imgLength > 4) {
+			
+			if ($scope.imgUrls.length > 4) {
 				alert("Can only select up to 4 images");
 				return;
 			}
@@ -324,7 +322,6 @@ app.controller("controller", [
 				headers: { 'Content-Type': undefined }
 			}).then(function(response) {
 				$scope.imgUrls = response.data;
-				console.log('Images uploaded successfully.', response.data);
 			}).catch(function(error) {
 				console.error('Error uploading images:', error);
 			});

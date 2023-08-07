@@ -16,4 +16,5 @@ public class ProductDetailsResponse {
 	private Double price;
 	private String categoryName;
 	private List<String> images;
+	private String description;
 }

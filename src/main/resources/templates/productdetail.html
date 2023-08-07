@@ -2,8 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	th:replace="~{/layout/layout::areas(~{::title},~{::main})}">
 <head>
-   <meta charset="utf-8">
-   <title>Product detail</title>
+<meta charset="utf-8">
+<title>Product detail</title>
 </head>
 <body>
 	<main class="main">
@@ -12,7 +12,8 @@
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item"><a href="index.html">Home</a></li>
 					<li class="breadcrumb-item"><a href="#">Products</a></li>
-					<li class="breadcrumb-item active" aria-current="page" th:text="${detail.categoryName}"></li>
+					<li class="breadcrumb-item active" aria-current="page"
+						th:text="${detail.categoryName}"></li>
 				</ol>
 			</div>
 			<!-- End .container -->
@@ -29,8 +30,7 @@
 									<div class="product-gallery">
 										<figure class="product-main-image">
 											<span class="product-label label-top">Top</span>
-											<img id="product-zoom"
-												th:src="${detail.images[0]}"
+											<img id="product-zoom" th:src="${detail.images[0]}"
 												data-zoom-image="https://firebasestorage.googleapis.com/v0/b/apiimage-c42f8.appspot.com/o/1690226649680-13900f_aabb48cf0b144207921be3373cf8e515_9cf4b097992840a5a0662c4ccce29bbf_master.webp?alt=media&token=f93f408b-fc4e-4f8d-82fe-57a4d229e977"
 												alt="product image">
 
@@ -41,12 +41,11 @@
 										<!-- End .product-main-image -->
 
 										<div id="product-zoom-gallery" class="product-image-gallery">
-											<a th:each="image: ${detail.images}" class="product-gallery-item active" href="#"
+											<a th:each="image: ${detail.images}"
+												class="product-gallery-item active" href="#"
 												data-image="https://firebasestorage.googleapis.com/v0/b/apiimage-c42f8.appspot.com/o/1690226649680-13900f_aabb48cf0b144207921be3373cf8e515_9cf4b097992840a5a0662c4ccce29bbf_master.webp?alt=media&token=f93f408b-fc4e-4f8d-82fe-57a4d229e977"
 												data-zoom-image="https://firebasestorage.googleapis.com/v0/b/apiimage-c42f8.appspot.com/o/1690226649680-13900f_aabb48cf0b144207921be3373cf8e515_9cf4b097992840a5a0662c4ccce29bbf_master.webp?alt=media&token=f93f408b-fc4e-4f8d-82fe-57a4d229e977">
-												<img
-												th:src="${image}"
-												alt="product side">
+												<img th:src="${image}" alt="product side">
 											</a>
 										</div>
 										<!-- End .product-image-gallery -->
@@ -122,7 +121,9 @@
 												</div>
 												<!-- End .product-details-quantity -->
 
-												<a href="#" class="btn-product btn-cart" id="addToCart-btn" onclick="addToCart()" th:attr="data-productId=${productId},data-productPrice=${detail.price},data-productName=${detail.name},data-productImage=${detail.images[0]}"><span>add
+												<a href="#" class="btn-product btn-cart" id="addToCart-btn"
+													onclick="addToCart()"
+													th:attr="data-productId=${productId},data-productPrice=${detail.price},data-productName=${detail.name},data-productImage=${detail.images[0]}"><span>add
 														to cart</span></a>
 											</div>
 											<!-- End .details-action-col -->
@@ -193,31 +194,7 @@
 								<div class="tab-pane fade show active" id="product-desc-tab"
 									role="tabpanel" aria-labelledby="product-desc-link">
 									<div class="product-desc-content">
-										<h3>Product Information</h3>
-										<p>Lorem ipsum dolor sit amet, consectetuer adipiscing
-											elit. Donec odio. Quisque volutpat mattis eros. Nullam
-											malesuada erat ut turpis. Suspendisse urna viverra non,
-											semper suscipit, posuere a, pede. Donec nec justo eget felis
-											facilisis fermentum. Aliquam porttitor mauris sit amet orci.
-											Aenean dignissim pellentesque felis. Phasellus ultrices nulla
-											quis nibh. Quisque a lectus. Donec consectetuer ligula
-											vulputate sem tristique cursus.</p>
-										<ul>
-											<li>Nunc nec porttitor turpis. In eu risus enim. In
-												vitae mollis elit.</li>
-											<li>Vivamus finibus vel mauris ut vehicula.</li>
-											<li>Nullam a magna porttitor, dictum risus nec, faucibus
-												sapien.</li>
-										</ul>
-
-										<p>Lorem ipsum dolor sit amet, consectetuer adipiscing
-											elit. Donec odio. Quisque volutpat mattis eros. Nullam
-											malesuada erat ut turpis. Suspendisse urna viverra non,
-											semper suscipit, posuere a, pede. Donec nec justo eget felis
-											facilisis fermentum. Aliquam porttitor mauris sit amet orci.
-											Aenean dignissim pellentesque felis. Phasellus ultrices nulla
-											quis nibh. Quisque a lectus. Donec consectetuer ligula
-											vulputate sem tristique cursus.</p>
+										<th:block th:utext="${detail.description}"></th:block>
 									</div>
 									<!-- End .product-desc-content -->
 								</div>
@@ -484,7 +461,7 @@
 			<!-- End .row -->
 
 		</div>
-      <script>
+		<script>
          const cartChangeEvent = new Event("on-cart-change");
 
          const addToCart = () => {

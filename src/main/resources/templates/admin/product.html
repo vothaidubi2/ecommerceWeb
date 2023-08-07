@@ -103,7 +103,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-md-6">
+								<div class="col-md-8">
 									<div class="form-group">
 										<label for="example-text-input" class="form-control-label">Specification</label>
 										<div
@@ -114,14 +114,14 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-md-2">
-									<div class="form-group">
-										<label for="example-text-input" class="form-control-label">Quick
-											Add Specification</label>
-										<button class="btn btn-second btn-sm ms-auto w-100"
-											type="button" id="testalert">Add</button>
-									</div>
-								</div>
+<!-- 								<div class="col-md-2"> -->
+<!-- 									<div class="form-group"> -->
+<!-- 										<label for="example-text-input" class="form-control-label">Quick -->
+<!-- 											Add Specification</label> -->
+<!-- 										<button class="btn btn-second btn-sm ms-auto w-100" -->
+<!-- 											type="button" id="testalert">Add</button> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
 								<div class="col-lg-2" style="height: 150px; max-height: 320px">
 									<div class="form-group">
 										<label for="example-text-input" class="form-control-label">Image</label>
@@ -133,7 +133,7 @@
 									style="height: 150px; max-height: 320px">
 									<div class="form-group">
 										<img style="border: 1px solid #eee; border-radius: 5px"
-											width="150" height="150" ng-repeat="url in imgUrls"
+											width="150" height="150" ng-repeat="url in imgUrls track by $index"
 											ng-src="{{url}}" ng-dblclick="deleteImage(url)">
 									</div>
 								</div>

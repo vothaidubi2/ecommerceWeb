@@ -49,7 +49,7 @@ public class Invoice{
 	@Column(name = "Datecreate")
 	private Date Datecreate;
 	@Column(name = "status")
-	private Boolean status;
+	private String status;
 	@JsonIgnore
 	@OneToMany( mappedBy = "invoice", fetch = FetchType.EAGER)
 	private List<InvoiceDetails> invoiceDetailses;

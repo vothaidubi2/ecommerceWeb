@@ -1,14 +1,23 @@
 package com.asm.service;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.http.client.ClientProtocolException;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.asm.dao.InvoiceDAO;
@@ -16,45 +25,90 @@ import com.asm.dao.InvoiceDetailDAO;
 import com.asm.dto.InvoiceDTO;
 import com.asm.entity.Invoice;
 import com.asm.entity.InvoiceDetails;
-import com.asm.entity.Product;
 import com.asm.utils.Momo;
 
 @Service
 public class InvoiceService {
-   @Autowired
-   private InvoiceDAO invoiceDAO;
+	@Autowired
+	private InvoiceDAO invoiceDAO;
 
-   @Autowired
-   private InvoiceDetailDAO invoiceDetailDAO;
+	@Autowired
+	private InvoiceDetailDAO invoiceDetailDAO;
 
-   public Document create(InvoiceDTO dto) throws ClientProtocolException, IOException {
-      Invoice invoiceData = new Invoice();
-      invoiceData.setAddress(dto.getAddress());
-      invoiceData.setPhone(dto.getPhone());
-      invoiceData.setStatus(false);
-      
-      Invoice invoiceRes = invoiceDAO.save(invoiceData);
+	public Document create(InvoiceDTO dto) throws ClientProtocolException, IOException {
+		Invoice invoiceData = new Invoice();
+		invoiceData.setAddress(dto.getAddress());
+		invoiceData.setPhone(dto.getPhone());
+		invoiceData.setDatecreate(new Date());
+		invoiceData.setStatus("4");
 
-      List<InvoiceDetails> invoiceDetails = dto.getProducts().stream().map(
-         product -> {
-            InvoiceDetails invoiceDetail = new InvoiceDetails();
-            invoiceDetail.setPrice(product.getPrice());
-            invoiceDetail.setQuantity(product.getQuantity());
-            invoiceDetail.setProduct(product.getProduct());
-            invoiceDetail.setInvoice(invoiceRes);
+		Invoice invoiceRes = invoiceDAO.save(invoiceData);
 
-            return invoiceDetail;
-         }
-      ).collect(Collectors.toList());
+		List<InvoiceDetails> invoiceDetails = dto.getProducts().stream().map(product -> {
+			InvoiceDetails invoiceDetail = new InvoiceDetails();
+			invoiceDetail.setPrice(product.getPrice());
+			invoiceDetail.setQuantity(product.getQuantity());
+			invoiceDetail.setProduct(product.getProduct());
+			invoiceDetail.setInvoice(invoiceRes);
 
-      invoiceDetailDAO.saveAll(invoiceDetails);
+			return invoiceDetail;
+		}).collect(Collectors.toList());
 
-      Document resp = new Document();
+		invoiceDetailDAO.saveAll(invoiceDetails);
 
-      if(dto.getPayment().equals("momo")) {
-         resp = Momo.create(dto.getTotalPrice(), "");
-      }
+		Document resp = new Document();
 
-      return resp;
-   }
+		if (dto.getPayment().equals("momo")) {
+			resp = Momo.create(dto.getTotalPrice(), "");
+		}
+
+		return resp;
+	}
+
+	public Object calculateTotalRevenueByDateBetween(String startDate, String endDate) {
+		try {
+			long start = changeDate(startDate);
+			long end = changeDate(endDate);
+			List<String> invoices = new ArrayList<>();
+			if (invoiceDAO.getTotalRevenueForDateRange(-start, -end) != null) {
+				invoices = invoiceDAO.getTotalRevenueForDateRange(-start, -end);
+			}
+			Map<String, List<String>> data = new HashMap<>();
+			data.put("data", invoices);
+			return data;
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	public Object getListOrder(String startDate, String endDate) {
+		try {
+			long start = changeDate(startDate);
+			long end = changeDate(endDate);
+			List<String> invoices = new ArrayList<>();
+			if (invoiceDAO.getAllInvoiceByStatus(-start, -end) != null) {
+				invoices = invoiceDAO.getAllInvoiceByStatus(-start, -end);
+			}
+			Map<String, List<String>> data = new HashMap<>();
+			data.put("data", invoices);
+			return data;
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
+	public ResponseEntity<List<Invoice>> getByStatus() {
+		return ResponseEntity.ok(invoiceDAO.findByStatus());
+	}
+
+	private long changeDate(String input) throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.CANADA);
+		LocalDate now = LocalDate.now();
+		Date secondDate = sdf.parse(input);
+
+		// Create a java.sql.Date object from the LocalDate
+		Date firstDate = new Date(java.sql.Date.valueOf(now).getTime());
+
+		long diffInMillies = Math.abs(secondDate.getTime() - firstDate.getTime());
+		return TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+	}
 }

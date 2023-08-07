@@ -37,6 +37,7 @@ public class ProductdetailController {
 		return ProductDetailsResponse.builder()
 				.name(projection.getName())
 				.price(projection.getPrice())
+				.description(projection.getDescription())
 				.categoryName(projection.getCategory().getName())
 				.images(productImages)
 				.build();
