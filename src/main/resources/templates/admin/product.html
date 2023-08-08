@@ -7,7 +7,16 @@
 </head>
 <body>
 	<th:block th:fragment="main">
+		<!-- Include AngularJS library -->
+		<link rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/ng-dialog/1.0.1/css/ngDialog.min.css">
+		<link rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/ng-dialog/1.0.1/css/ngDialog-theme-default.min.css">
 		<style>
+.ngdialog-close {
+	display: none;
+}
+
 .pagination {
 	display: flex;
 	justify-content: flex-end;
@@ -32,6 +41,7 @@
 	border-radius: 5px;
 }
 </style>
+
 		<div class="row" ng-app="app" ng-controller="controller">
 			<div class="col-12">
 				<div class="card">
@@ -39,30 +49,29 @@
 						<p class="text-uppercase text-sm text font-weight-bold">Product
 							Management</p>
 						<div class="row">
-							<form class="row" id="form-product" ng-submit="normalDialog()">
+							<form class="row" id="form-product">
 								<div class="col-md-6">
 									<div class="form-group">
 										<label for="example-text-input" class="form-control-label">Product
 											name</label> <input class="form-control" type="text"
-											value="lucky.jesse">
+											ng-model="newProduct.name">
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label for="example-text-input" class="form-control-label">Price</label>
-										<input class="form-control" type="email"
-											value="jesse@example.com">
+										<input class="form-control" type="number"
+											ng-model="newProduct.price">
 									</div>
 								</div>
 								<div class="col-md-3">
 									<div class="form-group">
 										<label for="example-text-input" class="form-control-label">Category</label>
 										<select class="form-select"
-											aria-label="Default select example">
-											<option selected>Open this select menu</option>
-											<option value="1">One</option>
-											<option value="2">Two</option>
-											<option value="3">Three</option>
+											aria-label="Default select example"
+											ng-model="selectedCategory"
+											ng-options="category as category.name for category in categories track by category.id"
+											ng-change="handleSelectionCateChange(selectedCategory)">
 										</select>
 									</div>
 								</div>
@@ -70,18 +79,17 @@
 									<div class="form-group">
 										<label for="example-text-input" class="form-control-label">Brand</label>
 										<select class="form-select"
-											aria-label="Default select example">
-											<option selected>Open this select menu</option>
-											<option value="1">One</option>
-											<option value="2">Two</option>
-											<option value="3">Three</option>
+											aria-label="Default select example" ng-model="slectedBrand"
+											ng-options="brand as brand.name for brand in brands track by brand.id"
+											ng-change="handleSelectionBrandChange(slectedBrand)">
 										</select>
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label for="example-text-input" class="form-control-label">Quantity</label>
-										<input class="form-control" type="text" value="Lucky">
+										<input class="form-control" type="number"
+											ng-model="newProduct.quantity">
 									</div>
 								</div>
 								<div class="col-md-4">
@@ -95,7 +103,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-md-6">
+								<div class="col-md-8">
 									<div class="form-group">
 										<label for="example-text-input" class="form-control-label">Specification</label>
 										<div
@@ -106,35 +114,35 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-md-2">
-									<div class="form-group">
-										<label for="example-text-input" class="form-control-label">Quick
-											Add Specification</label>
-										<button class="btn btn-success btn-sm ms-auto w-100"
-											type="button" id="testalert">Add</button>
-									</div>
-								</div>
-								<div class="col-lg-4" style="height: 150px; max-height: 320px">
+<!-- 								<div class="col-md-2"> -->
+<!-- 									<div class="form-group"> -->
+<!-- 										<label for="example-text-input" class="form-control-label">Quick -->
+<!-- 											Add Specification</label> -->
+<!-- 										<button class="btn btn-second btn-sm ms-auto w-100" -->
+<!-- 											type="button" id="testalert">Add</button> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+								<div class="col-lg-2" style="height: 150px; max-height: 320px">
 									<div class="form-group">
 										<label for="example-text-input" class="form-control-label">Image</label>
-										<input class="form-control" type="file" value="Lucky">
+										<input class="form-control" type="file"
+											ng-file-model="imageFiles" accept="image/*" multiple>
 									</div>
 								</div>
-								<div class="col-lg-8 mb-2"
+								<div class="col-md-8 mb-2 d-flex justify-content-center"
 									style="height: 150px; max-height: 320px">
 									<div class="form-group">
 										<img style="border: 1px solid #eee; border-radius: 5px"
-											width="150" height="150"
-											src="https://firebasestorage.googleapis.com/v0/b/apiimage-c42f8.appspot.com/o/1690226678391-ghz-boost-4-8ghz-12-nhan-24-luong-666_c768e9d619a0477ca7433bd76ffc073c_ec8561085dec43d5b9970d55d665019c_master.webp?alt=media&token=d6408324-34a7-4109-b2dd-fe9c99e42b1d">
-										<img style="border: 1px solid #eee; border-radius: 5px"
-											width="150" height="150"
-											src="https://firebasestorage.googleapis.com/v0/b/apiimage-c42f8.appspot.com/o/1690226678391-ghz-boost-4-8ghz-12-nhan-24-luong-666_c768e9d619a0477ca7433bd76ffc073c_ec8561085dec43d5b9970d55d665019c_master.webp?alt=media&token=d6408324-34a7-4109-b2dd-fe9c99e42b1d">
-										<img style="border: 1px solid #eee; border-radius: 5px"
-											width="150" height="150"
-											src="https://firebasestorage.googleapis.com/v0/b/apiimage-c42f8.appspot.com/o/1690226678391-ghz-boost-4-8ghz-12-nhan-24-luong-666_c768e9d619a0477ca7433bd76ffc073c_ec8561085dec43d5b9970d55d665019c_master.webp?alt=media&token=d6408324-34a7-4109-b2dd-fe9c99e42b1d">
-										<img style="border: 1px solid #eee; border-radius: 5px"
-											width="150" height="150"
-											src="https://firebasestorage.googleapis.com/v0/b/apiimage-c42f8.appspot.com/o/1690226678391-ghz-boost-4-8ghz-12-nhan-24-luong-666_c768e9d619a0477ca7433bd76ffc073c_ec8561085dec43d5b9970d55d665019c_master.webp?alt=media&token=d6408324-34a7-4109-b2dd-fe9c99e42b1d">
+											width="150" height="150" ng-repeat="url in imgUrls track by $index"
+											ng-src="{{url}}" ng-dblclick="deleteImage(url)">
+									</div>
+								</div>
+								<div class="col-md-2">
+									<div class="form-group">
+										<label for="example-text-input" class="form-control-label">Upload
+											Image</label>
+										<button class="btn btn-success btn-sm ms-auto w-100"
+											type="button" ng-click="uploadImages()">Upload</button>
 									</div>
 								</div>
 								<div class="col-lg-12"
@@ -144,9 +152,12 @@
 								<hr class="horizontal dark">
 								<div class="card-header pb-0">
 									<div>
-										<button class="btn btn-success btn-sm ms-auto" type="submit">Save</button>
-										<button class="btn btn-primary btn-sm ms-auto">Update</button>
-										<button class="btn btn-second btn-sm ms-auto">Reset</button>
+										<button class="btn btn-success btn-sm ms-auto"
+											ng-click="createProduct()">Save</button>
+										<button class="btn btn-primary btn-sm ms-auto"
+											ng-click="updateProduct()">Update</button>
+										<button class="btn btn-second btn-sm ms-auto"
+											ng-click="reset()">Reset</button>
 									</div>
 								</div>
 							</form>
@@ -211,9 +222,10 @@
 											class="badge badge-sm bg-gradient-success">{{item.status
 												== true ? "In use":"Deleted"}}</span></td>
 										<td class="align-middle"><a href="javascript:;"
+											ng-click="edit(item.id)"
 											class="text-success font-weight-bold text-xs"
 											data-toggle="tooltip" data-original-title="Edit"> Edit </a></td>
-										<td class="align-middle"><a href="javascript:;"
+										<td class="align-middle"><a href="javascript:;" ng-click="deleteProduct(item.id)"
 											class="text-warning font-weight-bold text-xs"
 											data-toggle="tooltip" data-original-title="Delete">
 												Delete </a></td>
@@ -270,15 +282,17 @@
 			src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
 		<script
 			src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-		<script
-			src="https://cdnjs.cloudflare.com/ajax/libs/ng-dialog/1.0.1/js/ngDialog.min.js"></script>
 		<script src="/admin/lib/angular/angular.js"></script>
 		<script src="/admin/lib/dirPagination.js"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/ng-dialog/1.4.0/js/ngDialog.min.js"
+			integrity="sha512-EL+CFcfNjlvcNNd+AnMmI1hPz7jj40lgBdnZJUkqnG8Zi3NNuZy++a6Njm+WVJLk5O/nC10MPWthuIsaBD/Kmw=="
+			crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js"></script>
+		<script
+			src="https://www.gstatic.com/firebasejs/7.7.0/firebase-storage.js"></script>
 		<script src="/admin/assets/js/product.js"></script>
-		<script type="text/ng-template" id="templateId">
-    <h1>Template heading</h1>
-    <p>Content goes here</p>
-</script>
+
 	</th:block>
 </body>
 </html>

@@ -12,16 +12,16 @@
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item"><a href="index.html">Home</a></li>
 					<li class="breadcrumb-item"><a href="#">Products</a></li>
-					<li class="breadcrumb-item active" aria-current="page">With
-						Sidebar</li>
+					<li class="breadcrumb-item active" aria-current="page"
+						th:text="${detail.categoryName}"></li>
 				</ol>
 			</div>
 			<!-- End .container -->
 		</nav>
 		<!-- End .breadcrumb-nav -->
 
-		<div class="page-content">
-			<div class="container">
+		<div class="page-content" ng-app="app">
+			<div class="container" ng-controller="pdCtrl">
 				<div class="row">
 					<div class="col-lg-9">
 						<div class="product-details-top">
@@ -30,8 +30,7 @@
 									<div class="product-gallery">
 										<figure class="product-main-image">
 											<span class="product-label label-top">Top</span>
-											<img id="product-zoom"
-												src="https://firebasestorage.googleapis.com/v0/b/apiimage-c42f8.appspot.com/o/1690226649680-13900f_aabb48cf0b144207921be3373cf8e515_9cf4b097992840a5a0662c4ccce29bbf_master.webp?alt=media&token=f93f408b-fc4e-4f8d-82fe-57a4d229e977"
+											<img id="product-zoom" th:src="${detail.images[0]}"
 												data-zoom-image="https://firebasestorage.googleapis.com/v0/b/apiimage-c42f8.appspot.com/o/1690226649680-13900f_aabb48cf0b144207921be3373cf8e515_9cf4b097992840a5a0662c4ccce29bbf_master.webp?alt=media&token=f93f408b-fc4e-4f8d-82fe-57a4d229e977"
 												alt="product image">
 
@@ -42,30 +41,11 @@
 										<!-- End .product-main-image -->
 
 										<div id="product-zoom-gallery" class="product-image-gallery">
-											<a class="product-gallery-item active" href="#"
+											<a th:each="image: ${detail.images}"
+												class="product-gallery-item active" href="#"
 												data-image="https://firebasestorage.googleapis.com/v0/b/apiimage-c42f8.appspot.com/o/1690226649680-13900f_aabb48cf0b144207921be3373cf8e515_9cf4b097992840a5a0662c4ccce29bbf_master.webp?alt=media&token=f93f408b-fc4e-4f8d-82fe-57a4d229e977"
 												data-zoom-image="https://firebasestorage.googleapis.com/v0/b/apiimage-c42f8.appspot.com/o/1690226649680-13900f_aabb48cf0b144207921be3373cf8e515_9cf4b097992840a5a0662c4ccce29bbf_master.webp?alt=media&token=f93f408b-fc4e-4f8d-82fe-57a4d229e977">
-												<img
-												src="https://firebasestorage.googleapis.com/v0/b/apiimage-c42f8.appspot.com/o/1690226649680-13900f_aabb48cf0b144207921be3373cf8e515_9cf4b097992840a5a0662c4ccce29bbf_master.webp?alt=media&token=f93f408b-fc4e-4f8d-82fe-57a4d229e977"
-												alt="product side">
-											</a> <a class="product-gallery-item" href="#"
-												data-image="https://firebasestorage.googleapis.com/v0/b/apiimage-c42f8.appspot.com/o/1690226678391-ghz-boost-4-8ghz-12-nhan-24-luong-666_c768e9d619a0477ca7433bd76ffc073c_ec8561085dec43d5b9970d55d665019c_master.webp?alt=media&token=d6408324-34a7-4109-b2dd-fe9c99e42b1d"
-												data-zoom-image="https://firebasestorage.googleapis.com/v0/b/apiimage-c42f8.appspot.com/o/1690226678391-ghz-boost-4-8ghz-12-nhan-24-luong-666_c768e9d619a0477ca7433bd76ffc073c_ec8561085dec43d5b9970d55d665019c_master.webp?alt=media&token=d6408324-34a7-4109-b2dd-fe9c99e42b1d">
-												<img
-												src="https://firebasestorage.googleapis.com/v0/b/apiimage-c42f8.appspot.com/o/1690226678391-ghz-boost-4-8ghz-12-nhan-24-luong-666_c768e9d619a0477ca7433bd76ffc073c_ec8561085dec43d5b9970d55d665019c_master.webp?alt=media&token=d6408324-34a7-4109-b2dd-fe9c99e42b1d"
-												alt="product cross">
-											</a> <a class="product-gallery-item" href="#"
-												data-image="assets/images/products/single/sidebar-gallery/3-small.jpg"
-												data-zoom-image="assets/images/products/single/sidebar-gallery/3-big.jpg">
-												<img
-												src="assets/images/products/single/sidebar-gallery/3-small.jpg"
-												alt="product with model">
-											</a> <a class="product-gallery-item" href="#"
-												data-image="assets/images/products/single/sidebar-gallery/4-small.jpg"
-												data-zoom-image="assets/images/products/single/sidebar-gallery/4-big.jpg">
-												<img
-												src="assets/images/products/single/sidebar-gallery/4-small.jpg"
-												alt="product back">
+												<img th:src="${image}" alt="product side">
 											</a>
 										</div>
 										<!-- End .product-image-gallery -->
@@ -76,8 +56,7 @@
 
 								<div class="col-md-6">
 									<div class="product-details product-details-sidebar">
-										<h1 class="product-title">Black faux leather chain trim
-											sandals</h1>
+										<h1 class="product-title" th:text="${detail.name}"></h1>
 										<!-- End .product-title -->
 
 										<div class="ratings-container">
@@ -91,7 +70,7 @@
 										</div>
 										<!-- End .rating-container -->
 
-										<div class="product-price">$90.00</div>
+										<div class="product-price" th:text="${detail.price}"></div>
 										<!-- End .product-price -->
 
 										<div class="product-content">
@@ -142,7 +121,9 @@
 												</div>
 												<!-- End .product-details-quantity -->
 
-												<a href="#" class="btn-product btn-cart"><span>add
+												<a href="#" class="btn-product btn-cart" id="addToCart-btn"
+													onclick="addToCart()"
+													th:attr="data-productId=${productId},data-productPrice=${detail.price},data-productName=${detail.name},data-productImage=${detail.images[0]}"><span>add
 														to cart</span></a>
 											</div>
 											<!-- End .details-action-col -->
@@ -213,31 +194,7 @@
 								<div class="tab-pane fade show active" id="product-desc-tab"
 									role="tabpanel" aria-labelledby="product-desc-link">
 									<div class="product-desc-content">
-										<h3>Product Information</h3>
-										<p>Lorem ipsum dolor sit amet, consectetuer adipiscing
-											elit. Donec odio. Quisque volutpat mattis eros. Nullam
-											malesuada erat ut turpis. Suspendisse urna viverra non,
-											semper suscipit, posuere a, pede. Donec nec justo eget felis
-											facilisis fermentum. Aliquam porttitor mauris sit amet orci.
-											Aenean dignissim pellentesque felis. Phasellus ultrices nulla
-											quis nibh. Quisque a lectus. Donec consectetuer ligula
-											vulputate sem tristique cursus.</p>
-										<ul>
-											<li>Nunc nec porttitor turpis. In eu risus enim. In
-												vitae mollis elit.</li>
-											<li>Vivamus finibus vel mauris ut vehicula.</li>
-											<li>Nullam a magna porttitor, dictum risus nec, faucibus
-												sapien.</li>
-										</ul>
-
-										<p>Lorem ipsum dolor sit amet, consectetuer adipiscing
-											elit. Donec odio. Quisque volutpat mattis eros. Nullam
-											malesuada erat ut turpis. Suspendisse urna viverra non,
-											semper suscipit, posuere a, pede. Donec nec justo eget felis
-											facilisis fermentum. Aliquam porttitor mauris sit amet orci.
-											Aenean dignissim pellentesque felis. Phasellus ultrices nulla
-											quis nibh. Quisque a lectus. Donec consectetuer ligula
-											vulputate sem tristique cursus.</p>
+										<th:block th:utext="${detail.description}"></th:block>
 									</div>
 									<!-- End .product-desc-content -->
 								</div>
@@ -463,7 +420,7 @@
 
 										<div class="product-body">
 											<h5 class="product-title">
-												<a href="product.html">Black soft RI weekend travel bag</a>
+												<a href="product.html">{{productDetail.name}}</a>
 											</h5>
 											<!-- End .product-title -->
 											<div class="product-price">$75.00</div>
@@ -504,8 +461,42 @@
 			<!-- End .row -->
 
 		</div>
-		<!-- End .container -->
-		</div>
+		<script>
+         const cartChangeEvent = new Event("on-cart-change");
+
+         const addToCart = () => {
+            let cart = JSON.parse(localStorage.getItem("@cart")) || [];
+
+            const productId = $("#addToCart-btn").attr("data-productId");
+            const price = Number($("#addToCart-btn").attr("data-productPrice"));
+            const name = $("#addToCart-btn").attr("data-productName");
+            const image = $("#addToCart-btn").attr("data-productImage");
+            const qty = Number($("#qty").val());
+
+            if(cart.find(c => c.productId === productId)) {
+               cart = cart.map(c => ({
+                  ...c,
+                  qty: c.productId === productId ? c.qty + qty : qty,
+                  image,
+                  price,
+                  name
+               }));
+            }else{
+               cart.push({
+                  productId,
+                  qty,
+                  price,
+                  image,
+                  name
+               });
+            }
+
+            localStorage.setItem("@cart", JSON.stringify(cart));
+
+            dispatchEvent(cartChangeEvent);
+         }
+      </script>
+		<script src="../../assets/js/range.js"></script>
 		<!-- End .page-content -->
 	</main>
 	<!-- End .main -->

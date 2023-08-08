@@ -29,7 +29,7 @@ public class SpecificationDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "Idspecificationdetails")
-	private String id;
+	private Integer id;
 	@ManyToOne
 	@JoinColumn(name = "Idproduct")
 	private Product product;

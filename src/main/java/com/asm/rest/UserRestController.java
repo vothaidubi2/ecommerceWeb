@@ -30,6 +30,7 @@ import com.asm.service.AuthService;
 public class UserRestController {
 	@Autowired
 	AuthService as;
+	
 	@GetMapping("api/user/findByEmail/{key}")
 	public Users findByEmail(@PathVariable("key") String email) {
 		
