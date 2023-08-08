@@ -20,4 +20,5 @@ public interface InvoiceDAO extends JpaRepository<Invoice, Integer> {
 	
 	@Query(value = "select * from invoice where status <> '0'", nativeQuery = true)
 	List<Invoice> findByStatus();
+
 }
