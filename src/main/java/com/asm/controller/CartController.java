@@ -40,4 +40,9 @@ public class CartController {
       
       return ResponseEntity.ok(resp);
    }
+
+   @GetMapping("/checkout-success/transaction/successful")
+   public String sucess() {
+      return "/checkout-success";
+   }
 }
