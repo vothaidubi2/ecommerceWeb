@@ -37,6 +37,7 @@ public class Category{
 	private Integer id;
 
 	private String name;
+	private Boolean status;
 	@JsonIgnore
 	@OneToMany(mappedBy = "category")
 	private List<Product> products;

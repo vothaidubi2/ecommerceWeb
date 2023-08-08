@@ -46,14 +46,6 @@
 								<form action="#" th:object="${form}" method="post">
 
 
-									<br>
-									<div class="form-group">
-										<label for="register-email-2">Your email address: </label>
-										
-										<label  th:text="*{email}" 
-										  ></label>
-										            
-									</div>
 
 									<!-- End .form-group -->
 									<div class="form-group">
@@ -65,24 +57,17 @@
 									</div>
 
 									<div class="form-group">
-										<label for="register-password-2">Phone *</label> <input type="text"
+										<label for="phone">Phone *</label>
+										 <input type="text"
 											class="form-control" name="phone" th:field="*{phone}" id="phone"
 											>
-											    <i th:errors="*{phone}"></i>
-					
 									</div>
 
 									<div class="form-group">
 										<label for="register-password-2">Password *</label> <input type="password"
 											class="form-control" id="password" name="register-password"
-											th:field="*{password}">
-								  <i th:errors="*{password}"></i>
-									</div>
-									<div class="form-group">
-										<label for="register-password-2">
-											Re-enter password: *</label> <input type="password" class="form-control"
-											id="register-password-2" name="register-password">
-										<div ng-bind="reerrorPass" ng-class="recolorPass"></div>
+											th:field="*{password}" >
+											<div ng-bind="errorPass" ng-class="colorPass"></div>
 									</div>
 									<!-- End .form-group -->
 

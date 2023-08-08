@@ -19,6 +19,8 @@ import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.asm.dao.InvoiceDAO;
 import com.asm.dao.InvoiceDetailDAO;
@@ -98,6 +100,14 @@ public class InvoiceService {
 	
 	public ResponseEntity<List<Invoice>> getByStatus() {
 		return ResponseEntity.ok(invoiceDAO.findByStatus());
+	}
+	public ResponseEntity<Invoice> updateStatus(@PathVariable("id") Integer id,String status) {
+		Invoice existInvoice = invoiceDAO.findById(id).get();
+		if(existInvoice ==null) {
+			return ResponseEntity.notFound().build();
+		}
+		existInvoice.setStatus(status);
+		return ResponseEntity.ok(invoiceDAO.save(existInvoice));
 	}
 
 	private long changeDate(String input) throws ParseException {

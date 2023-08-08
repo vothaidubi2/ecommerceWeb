@@ -87,15 +87,15 @@
 												confirm</span> <span ng-switch-when="3"
 											class="badge badge-sm bg-gradient-primary m-2">Confirmed</span>
 											<span ng-switch-when="2"
-											class="badge badge-sm bg-gradient-primary m-2">Transprting</span>
+											class="badge badge-sm bg-gradient-primary m-2">Transporting</span>
 											<span ng-switch-when="1"
-											class="badge badge-sm bg-gradient-success m-2">delivered</span>
+											class="badge badge-sm bg-gradient-success m-2">Delivered</span>
 										</td>
 
 										<td class="align-middle"><a href="javascript:;"
 											class="text-success font-weight-bold text-xs"
 											data-toggle="tooltip" data-original-title="Edit"
-											ng-click="showModal()"> Edit </a></td>
+											ng-click="showModal(item.id)"> Edit </a></td>
 										<td class="align-middle" ng-if="item.status !='1'"><a
 											href="javascript:;" ng-click="deleteProduct(item.id)"
 											class="text-warning font-weight-bold text-xs"
@@ -120,23 +120,33 @@
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title" id="dialogTitle">List Brand</h5>
+							<h5 class="modal-title" id="dialogTitle">List Status</h5>
 							<button type="button" class="close" data-dismiss="modal"
 								aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
 						<div class="modal-body" style="max-height: 300px; overflow: auto">
-							<div class="input-group mb-2">
-								<input type="text" class="form-control" ng-model="searchInput"
-									placeholder="Search">
-							</div>
 							<!-- Hiển thị các lựa chọn phù hợp với giá trị tìm kiếm -->
 							<button class="dropdown-item" type="button"
-								ng-repeat="choice in choices" ng-click="selectValue(choice)"
-								ng-show="!searchInput || choice.keys.toLowerCase().includes(searchInput) && !choice.isSelected"
+								ng-click="update('4')"
 								style="border: 1px solid #eee; border-radius: 5px; margin-bottom: 7px">
-								<span style="margin-left: 5px"></span>
+								<span style="margin-left: 5px">Pending confirm</span>
+							</button>
+							<button class="dropdown-item" type="button"
+								ng-click="update('3')"
+								style="border: 1px solid #eee; border-radius: 5px; margin-bottom: 7px">
+								<span style="margin-left: 5px">Confirmed</span>
+							</button>
+							<button class="dropdown-item" type="button"
+								ng-click="update('2')"
+								style="border: 1px solid #eee; border-radius: 5px; margin-bottom: 7px">
+								<span style="margin-left: 5px">Transporting</span>
+							</button>
+							<button class="dropdown-item" type="button"
+								ng-click="update('1')"
+								style="border: 1px solid #eee; border-radius: 5px; margin-bottom: 7px">
+								<span style="margin-left: 5px">Delivered</span>
 							</button>
 						</div>
 						<div class="modal-footer">

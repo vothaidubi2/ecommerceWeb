@@ -37,41 +37,79 @@
 			<div class="col-12">
 				<div class="card">
 					<div class="card-body">
-						<p class="text-uppercase text-sm text font-weight-bold">Specification
+						<p class="text-uppercase text-sm text font-weight-bold">User
 							Management</p>
 						<div class="row">
-							<form class="row" >
+							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
-										<label for="example-text-input" class="form-control-label">Keys
+										<label for="example-text-input" class="form-control-label">Email
 										</label> <input class="form-control" type="text"
-											ng-model="newSpecification.keys"  ng-change="keys()">
+											ng-model="newSpecification.email"  ng-change="emailCheck()">
+<!--											ng-model="inputValue" ng-change="emailCheck()"-->
+<!--											class="form-control" th:field="*{email}"-->
+													<div ng-bind="errorEmail" ng-class="colorEmail"></div>
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
-										<label for="example-text-input" class="form-control-label">Value</label>
-										<input class="form-control" type="text" ng-model="newSpecification.value" ng-change="value()">
-								
+										<label for="example-text-input" class="form-control-label">Name</label>
+										<input class="form-control" type="text" ng-model="newSpecification.name">
+
 									</div>
 								</div>
-								<hr class="horizontal dark">
-								<div class="card-header pb-0">
-									<div>
-									<button class="btn btn-primary btn-sm"
-												ng-click="add()" ng-disabled="validateAdd" >Add</button>
-												<button class="btn btn-primary btn-sm"
-												ng-click="update(newSpecification.id) "ng-disabled="validateUpdate">Update</button>
-												<button class="btn btn-primary btn-sm"
-												ng-click="reset()">Reset</button>
-												
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="example-text-input" class="form-control-label">Phone</label>
+										<input class="form-control" type="text" ng-model="newSpecification.phone" ng-change="phoneCheck()">
+	<div ng-bind="errorPhone" ng-class="colorPhone"></div>
 									</div>
 								</div>
+										
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="example-text-input" class="form-control-label">Password</label>
+										<input class="form-control" type="password" ng-model="newSpecification.password" ng-change="passCheck()">
+<div ng-bind="errorPass" ng-class="colorPass"></div>
+									</div>
+								</div>
+		
+						
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="example-text-input" class="form-control-label">Role</label>
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox" id="roleCheckbox"
+												ng-model="newSpecification.role">
+											<label class="form-check-label" for="roleCheckbox">
+												Admin
+											</label>
+										</div>
+									</div>
+							
+					
+
+
+								</div>
+							</div>
+
+
+							<div class="col-md-7 pb-0">
+							
+									<button class="btn btn-primary btn-sm" ng-click="add()"
+										ng-disabled="validateAdd">Add</button>
+									<button class="btn btn-primary btn-sm" ng-click="update(newSpecification.id) "
+										ng-disabled="validateUpdate">Update</button>
+									<button class="btn btn-primary btn-sm" ng-click="reset()">Reset</button>
+										
+							</div>
+
 							</form>
+							
 							<div class="col-md-6">
 								<div class="form-group">
-									<label for="example-text-input" class="form-control-label">Search by Keys</label>
-									<input class="form-control" type="text" ng-model="searchByKeys"  ng-change="key()">
+									<label for="example-text-input" class="form-control-label">Search by Email</label>
+									<input class="form-control" type="text" ng-model="searchByKeys" ng-change="key()">
 								</div>
 							</div>
 						</div>
@@ -84,21 +122,34 @@
 						<h6>Authors table</h6>
 						<button ng-click="prevPage()" class="btn btn-success btn-sm ms-auto">Previous Page</button>
 						<button ng-click="nextPage()" class="btn btn-success btn-sm ms-auto">Next Page</button>
+						<label> {{currentPage + 1}}</label>
 					</div>
 					<div class="card-body px-0 pt-0 pb-2 ">
 						<div class="table-responsive p-0 o-auto" style="max-height: 400px;">
 							<table class="table align-items-center mb-0">
 								<thead>
 									<tr>
+
 										<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-											style="width: 28%;">
-											Id</th>
+											style="width: 10%;">
+											id</th>
 										<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-											style="width: 28%;">
-											Key</th>
+											style="width: 20%;">
+											email</th>
 										<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-											style="width: 28%;">
-											Value</th>
+											style="width: 15%;">
+											name</th>
+										<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+											style="width: 15%;">
+											phone</th>
+										<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+											style="width: 10%;">
+											admin</th>
+								
+											<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+											style="width: 20%;">
+											datecraeted</th>
+
 										<th
 											class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
 											Delete/Edit</th>
@@ -113,10 +164,20 @@
 											{{spec.id}}</td>
 										<td
 											class="text-center text-uppercase text-secondary text-xxs font-weight-bolder ">
-											{{spec.keys}}</td>
+											{{spec.email}}</td>
 										<td
 											class="text-center text-uppercase text-secondary text-xxs font-weight-bolder ">
-											{{spec.value}}</td>
+											{{spec.name}}</td>
+										<td
+											class="text-center text-uppercase text-secondary text-xxs font-weight-bolder ">
+											{{spec.phone}}</td>
+										<td
+											class="text-center text-uppercase text-secondary text-xxs font-weight-bolder ">
+											{{spec.role}}</td>
+							
+											<td
+											class="text-center text-uppercase text-secondary text-xxs font-weight-bolder ">
+											{{spec.date}}</td>
 										<td>
 											<button class="btn btn-primary btn-sm"
 												ng-click="editSpecification(spec)">Edit</button>
@@ -164,9 +225,10 @@
 
 		<script src="/admin/lib/angular/angular.js"></script>
 
-	
-		
-		<script src="../../assets/js/speccification.js"></script>
+		<h1>Template heading</h1>
+		<p>Content goes here</p>
+		</script>
+		<script src="../../assets/js/userrest.js"></script>
 	</th:block>
 </body>
 
