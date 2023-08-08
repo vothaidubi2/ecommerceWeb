@@ -24,8 +24,6 @@ import jakarta.servlet.http.HttpSession;
 
 @Service
 public class AuthService {
-	@Autowired
-	SessionService ss;
 	Users user = new Users();
 	@Autowired
 	UserDAO dao;
@@ -67,13 +65,9 @@ public class AuthService {
 
 	public void setUser(Users users) {
 		this.user = users;
-
 	}
 
-	public void saveSession() {
-		ss.set("user", getUser().getName());
-		
-	}
+
 	public Page<Users> findAll(Pageable page){
 		return dao.findAllWhereStatusTrue(page);
 	}

@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.DefaultLoginPageConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,6 +20,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 
 import com.asm.dao.UserDAO;
 import com.asm.service.CustomUserDetals;
@@ -41,6 +43,12 @@ public class AuthConfig {
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+	@Bean
+	public HttpSessionEventPublisher httpSessionEventPublisher() {
+	    return new HttpSessionEventPublisher();
+	}
+
+
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -52,7 +60,7 @@ public class AuthConfig {
 			        .anyRequest().permitAll()
 			    )
 		  .oauth2Login(auth -> auth.loginPage("/auth/login/form")
-				  .defaultSuccessUrl("/auth/login/success", true)
+				  .defaultSuccessUrl("/auth/login/success", false)
 				  
 				  .authorizationEndpoint( t -> t.baseUri("/oauth2/authorization")
 						  
@@ -60,8 +68,14 @@ public class AuthConfig {
 				  )
 
 				.formLogin(form -> form.loginPage("/auth/login/form").loginProcessingUrl("/auth/login/form")
-						.defaultSuccessUrl("/home", true)
+						.defaultSuccessUrl("/auth/login/acsuccess", false)
 						)
+				.logout(lg -> lg
+						.logoutUrl("/auth/login/logoutaccount")
+
+						.deleteCookies("JSESSIONID")
+						.logoutSuccessUrl("/auth/login/logout")
+						)	
 				;
 		
 		return http.build();

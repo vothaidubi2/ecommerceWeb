@@ -5,7 +5,10 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpRequest;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
@@ -23,10 +26,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.asm.dao.UserDAO;
 import com.asm.entity.Users;
 import com.asm.service.AuthService;
-import com.asm.service.SessionService;
+
 import com.asm.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/auth/login")
@@ -49,7 +53,22 @@ public class AuthController {
 		model.addAttribute("form", users);
 		return "auth/login";
 	}
-
+	@RequestMapping("/logout")
+	public String formlogout() {
+		as.setUser(null);
+		System.out.println(as.getUser());
+		
+		return "redirect:/home";
+	}
+	@GetMapping("acsuccess")
+	public String acsuccess( HttpSession session,HttpServletRequest request,Authentication authentication) {
+		as.setUser(null);
+		as.setUser(as.findByEmail(authentication.getName()));
+		System.err.println();
+		session.setAttribute("user", as.getUser());
+	
+		return "redirect:/home";
+	}
 	@GetMapping("/accountCheck/{email}")
 	public String checkAccount(Model model,@PathVariable("email") String email) {
 		as.setUser(as.findByEmail(email));
@@ -59,7 +78,6 @@ public class AuthController {
 	@RequestMapping("/accountCheck/success")
 	public String update( @ModelAttribute("form") Users user, Errors er) {
 		Users us=new Users();
-		System.err.println(as.getUser());
 		as.checkUser();
 		us=as.getUser();
 		us.setPassword(user.getPassword());
@@ -67,7 +85,7 @@ public class AuthController {
 		us.setPhone(user.getPhone());
 		as.save(us);	
 		as.setUser(us);
-		as.saveSession();
+
 			
 		return "redirect:/home";
 	}
@@ -88,21 +106,24 @@ public class AuthController {
 	}
 
 	@RequestMapping("/success")
-	public String success(OAuth2AuthenticationToken oauth2, Model model) {
+	public String success(OAuth2AuthenticationToken oauth2, Model model,HttpSession session,HttpServletRequest request) {
+		as.setUser(null);
 		Users users = new Users();
-		
 		model.addAttribute("form", users);
 		urS.loginFormOAuth(oauth2);
 		users.setEmail(oauth2.getPrincipal().getAttribute("email"));
 		if (as.findByEmail(users.getEmail().toString())!=null) {
+			
 			as.setUser(as.findByEmail(users.getEmail().toString()));
 			if (!as.checkUser()) {
+				request.setAttribute("user", as.getUser());
+				session.setAttribute("user", as.getUser());
 				return "redirect:/auth/login/accountCheck/"+as.getUser().getEmail();
 			}
-			as.saveSession();
+			session.setAttribute("user", as.getUser());
+	
 			return "redirect:/home";
 		}else {
-			System.err.println("sd");
 			users.setName(oauth2.getPrincipal().getAttribute("name"));
 			users.setRole(false);
 			users.setDate(date);
@@ -111,10 +132,10 @@ public class AuthController {
 			as.save(users);
 			as.setUser(users);
 			if (!as.checkUser()) {
+				session.setAttribute("user", as.getUser());
 				return "redirect:/auth/login/accountCheck/"+as.getUser().getEmail();
 			}
-			
-			
+			session.setAttribute("user", as.getUser());
 			return "redirect:/home";
 		}
 		

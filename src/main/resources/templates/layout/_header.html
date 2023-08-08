@@ -16,7 +16,7 @@
 
 				<div class="header-right">
 
-					<ul class="top-menu">
+					<ul class="top-menu ">
 						<li><a href="#">Links</a>
 							<ul>
 								<li>
@@ -32,7 +32,7 @@
 									</div>
 								</li>
 								<li>
-									<div class="header-dropdown">
+									<div class="header-dropdown pr-5">
 										<a href="#">English</a>
 										<div class="header-menu">
 											<ul>
@@ -44,9 +44,30 @@
 										<!-- End .header-menu -->
 									</div>
 								</li>
-								<li><a href="/auth/login/form" >Sign in
-										/ Sign up</a></li>
-							</ul></li>
+								 <ul th:if="${session.user == null}">
+            <li><a href="/auth/login/form">Sign in / Sign up</a></li>
+        </ul>
+						
+
+										
+								<ul th:unless="${session.user == null}">
+									<div class="header-dropdown">
+										<a href="#" th:text="  ${session.user.name}"> </a>
+										<div class="header-menu" >
+											<ul>
+												<li><a href="/auth/login/logoutaccount"   >Logout</a></li>
+												
+												<li><a th:href="'/auth/login/accountCheck/' + ${session.user.email}">Update Profile</a></li>
+												<li th:if="${session.user.role == True}"><a href="admin/dashboard">Dashboard</a></li>
+											</ul>
+										</div>
+								
+									</div>
+								</li>
+								</ul>
+							
+					
+							
 					</ul>
 					<!-- End .top-menu -->
 				</div>

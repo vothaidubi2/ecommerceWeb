@@ -19,13 +19,9 @@ import com.asm.entity.Specification;
 
 @Controller
 @RequestMapping("/admin")
-public class StatisticalController {
-//	@Autowired
-//	SpecificationDAO dao;
+public class SpecificationController {
 	@RequestMapping("/specification")
 	public String view(Model model) {
-//		List<Specification> table=dao.findAll();
-//		model.addAttribute("table", table);
 		return "admin/specification";
 	}
 }
