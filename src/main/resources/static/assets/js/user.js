@@ -139,13 +139,6 @@ app.controller("ctrl", function($scope, $http) {
 		}
 
 	}
-	//		$scope.inputValue = "";
-	//		$scope.inputValueLogin = "";
-	//	$scope.phoneValue="";
-	//	$scope.name = "";
-	//	$scope.passValue="";
-	//	$scope.passValueLogin="";
-	//	$scope.repassValue="";
 
 	function checkInput() {
 		if ($scope.errorEmail == "Valid" && $scope.errorPhone == "Valid" && $scope.errorPass == "Valid" && $scope.reerrorPass == "Valid") {

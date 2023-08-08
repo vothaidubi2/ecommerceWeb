@@ -38,6 +38,7 @@ public class Specification {
 
 	@Column(name = "value")
 	private String value;
+	private boolean status;
 	@JsonIgnore
 	@OneToMany( mappedBy = "specification")
 	private List<SpecificationDetails> specificationDetailses;

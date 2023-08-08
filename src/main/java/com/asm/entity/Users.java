@@ -1,6 +1,9 @@
 package com.asm.entity;
 // Generated Jul 21, 2023, 11:15:56 AM by Hibernate Tools 4.3.6.Final
 
+import java.io.Serializable;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -43,6 +46,10 @@ public class Users {
 
 	@Column(name = "role")
 	private Boolean role;
+
+	@Column(name = "datecreated")
+	private Date date;
+	private Boolean status;
 	@JsonIgnore
 	@OneToMany(mappedBy = "users", fetch = FetchType.EAGER)
 	private List<Invoice> invoices;
