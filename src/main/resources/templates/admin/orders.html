@@ -49,6 +49,9 @@
 								<thead>
 									<tr>
 										<th
+											class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Index
+										</th>
+										<th
 											class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Id
 											invoice</th>
 										<th
@@ -67,6 +70,9 @@
 								</thead>
 								<tbody>
 									<tr dir-paginate="item in items|itemsPerPage:9">
+										<td class="align-middle text-center">
+											<p class="text-xs font-weight-bold mb-0">{{item.index}}</p>
+										</td>
 										<td class="align-middle text-center">
 											<p class="text-xs font-weight-bold mb-0">{{item.id}}</p>
 										</td>

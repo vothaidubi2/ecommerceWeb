@@ -53,8 +53,4 @@ public class AdminProductRestController {
 	public ResponseEntity<ProductDTO> deleteProduct(@PathVariable("id") Integer id) {
 		return productService.deleteProduct(id);
 	}
-
-	
-
-	
 }

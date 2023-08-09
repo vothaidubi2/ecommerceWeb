@@ -21,18 +21,22 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.asm.dao.InvoiceDAO;
 import com.asm.dao.InvoiceDetailDAO;
 import com.asm.dto.InvoiceDTO;
 import com.asm.entity.Invoice;
 import com.asm.entity.InvoiceDetails;
+import com.asm.entity.Users;
 import com.asm.utils.Momo;
 
 @Service
 public class InvoiceService {
 	@Autowired
 	private InvoiceDAO invoiceDAO;
+	@Autowired
+	AuthService authService;
 
 	@Autowired
 	private InvoiceDetailDAO invoiceDetailDAO;
@@ -42,6 +46,7 @@ public class InvoiceService {
 		invoiceData.setAddress(dto.getAddress());
 		invoiceData.setPhone(dto.getPhone());
 		invoiceData.setDatecreate(new Date());
+		invoiceData.setUsers(authService.getUser());
 		invoiceData.setStatus("4");
 
 		Invoice invoiceRes = invoiceDAO.save(invoiceData);
@@ -61,7 +66,7 @@ public class InvoiceService {
 		Document resp = new Document();
 
 		if (dto.getPayment().equals("momo")) {
-			resp = Momo.create(dto.getTotalPrice(), "");
+			resp = Momo.create(dto.getTotalPrice() * 21000, "");
 		}
 
 		return resp;
@@ -82,6 +87,7 @@ public class InvoiceService {
 			return null;
 		}
 	}
+
 	public Object getListOrder(String startDate, String endDate) {
 		try {
 			long start = changeDate(startDate);
@@ -97,17 +103,31 @@ public class InvoiceService {
 			return null;
 		}
 	}
-	
+
 	public ResponseEntity<List<Invoice>> getByStatus() {
 		return ResponseEntity.ok(invoiceDAO.findByStatus());
 	}
-	public ResponseEntity<Invoice> updateStatus(@PathVariable("id") Integer id,String status) {
+	public ResponseEntity<Map<String, String>> getOne(@RequestParam Integer id) {
+		Map<String, String> data = new HashMap<>();
+		data.put("data", invoiceDAO.getOneById(id));
+		return ResponseEntity.ok(data);
+	}
+
+	public ResponseEntity<Invoice> updateStatus(@PathVariable("id") Integer id, String status) {
 		Invoice existInvoice = invoiceDAO.findById(id).get();
-		if(existInvoice ==null) {
+		if (existInvoice == null) {
 			return ResponseEntity.notFound().build();
 		}
 		existInvoice.setStatus(status);
 		return ResponseEntity.ok(invoiceDAO.save(existInvoice));
+	}
+
+	public ResponseEntity<List<String>> orderDetail(@RequestParam("id") Integer id) {
+		Invoice existInvoice = invoiceDAO.findById(id).get();
+		if (existInvoice == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok(invoiceDetailDAO.getInvoiceDetails(id));
 	}
 
 	private long changeDate(String input) throws ParseException {
