@@ -12,9 +12,4 @@ public class SpecificationController {
 	public String view(Model model) {
 		return "admin/specification";
 	}
-
-	@GetMapping("/admin/statistical")
-	public String view() {
-		return "admin/statistical";
-	}
 }
