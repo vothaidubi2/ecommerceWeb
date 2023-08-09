@@ -153,7 +153,7 @@ app.controller("ctrl", function($scope, $http, $location, $rootScope) {
 				`<div class="product">
 			<div class="product-cart-details">
 				<h4 class="product-title">
-					<a href="product.html">${i.name}</a>
+					<a href="/product/detail/{i.name}">${i.name}</a>
 				</h4>
 				<span class="cart-product-info">
 					<span class="cart-product-qty"></span> $ ${i.price}
