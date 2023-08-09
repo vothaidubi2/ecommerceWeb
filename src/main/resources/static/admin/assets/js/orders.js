@@ -21,25 +21,6 @@ app.controller("ctrl", function($scope, $http) {
 			console.log("Error: ", error);
 		})
 	}
-	$scope.update = function(input) {
-		$http.put(`${domain}/orders/${$scope.currentId}`, input)
-			.then(function() {
-				$scope.currentId = null;
-				$scope.loadAll()
-			})
-			.catch(function(error) {
-				console.error('Error :', error);
-			});
-	};
 
 	$scope.loadAll()
-
-	$scope.hideModal = function() {
-		$('#exampleModal').modal('hide');
-	};
-	$scope.showModal = function(input) {
-		// Reset biến lưu giá trị tìm kiếm khi mở modal
-		$scope.currentId = input;
-		$('#exampleModal').modal('show');
-	};
 });

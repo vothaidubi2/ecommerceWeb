@@ -21,18 +21,19 @@
 										{{invoice.dateFormat}}</p>
 								</div>
 							</div>
-							<div class="col-auto my-auto">
+							<div class="col-auto my-auto mt-4">
 								<div class="h-100">
-									<h5 class="mb-1">{{invoice.user}}</h5>
-									<p class="mb-0 font-weight-bold text-sm">{{invoice.phoneNumber}}</p>
+								<p class="mb-0 font-weight-bold text-sm">Total amount: ${{invoice.amount}}</p>
+									
 								</div>
 							</div>
 						</div>
 						<div>
 							<div class="col-auto">
 								<div class="h-100">
-									<h5 class="mb-1">Total amount: ${{invoice.amount}}</h5>
-									<p class="mb-0 font-weight-bold text-sm">{{invoice.address}}</p>
+									<h5 class="mb-1">{{invoice.user}}</h5>
+									<p class="mb-0 font-weight-bold text-sm">{{invoice.phoneNumber}}</p>
+									<p class="mb-0 font-weight-bold text-sm mt-4">Address: {{invoice.address}}</p>
 								</div>
 							</div>
 						</div>
@@ -95,6 +96,30 @@
 		<script src="/admin/lib/angular/angular.js"></script>
 		<script src="/admin/lib/dirPagination.js"></script>
 		<script src="/admin/assets/js/order-history.js"></script>
+		<script>
+			//update status
+			async function updateStatus(input) {
+				try {
+			        const urlParams = new URLSearchParams(window.location.search);
+			        var id = urlParams.get('id');
+			        let url = `http://localhost:8080/admin/api/orders/${id}`;
+			        
+			        const response = await fetch(url, {
+			            method: 'PUT',              // Specify the HTTP method
+			            headers: {
+			                'Content-Type': 'application/json', // Set the content type
+			            },
+			            body: JSON.stringify(input), // Convert input data to JSON and send in the request body
+			        });
+			        location.reload();
+			        const responseData = await response.json();
+			        console.log('Response:', responseData);
+			    } catch (error) {
+			        console.error('Error updating status:', error);
+			    }
+			}
+		
+		</script>
 	</th:block>
 </body>
 

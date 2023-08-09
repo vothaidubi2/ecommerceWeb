@@ -1,6 +1,6 @@
 var domain = "http://localhost:8080/admin/api";
 const app = angular.module("app", []);
-app.controller("ctrl", function($scope, $http) {
+app.controller("ctrl", function($scope, $http,$document) {
 	$scope.items = []
 	$scope.invoice = {}
 	$scope.currentId = null;
@@ -45,32 +45,31 @@ app.controller("ctrl", function($scope, $http) {
 				success1 = "btn-success"
 			}
 			// display status
-			document.getElementById("invoiceStatus").innerHTML = `
-				<li class="nav-item"><a
-					class="nav-link mb-0 px-0 py-1 d-flex align-items-center ${active4} justify-content-center ${success1}"
+			 var text_element = angular.element($document[0].querySelector('#invoiceStatus'));
+			 text_element.html(`<li class="nav-item"><a onclick="updateStatus(4)" 
+					class="nav-link mb-0 px-0 py-1 d-flex align-items-center ${active4} justify-content-center ${success4}"
 					data-bs-toggle="tab" href="javascript:;" role="tab"
 					aria-selected="true"> <i class="ni ni-app"></i> <span
 						class="ms-2">Pending Confirm</span>
 				</a></li>
-				<li class="nav-item"><a
+				<li class="nav-item"><a onclick="updateStatus(3)"
 					class=" nav-link mb-0 px-0 py-1 d-flex align-items-center ${active3} justify-content-center ${success3}"
 					data-bs-toggle="tab" href="javascript:;" role="tab"
 					aria-selected="false"> <i class="ni ni-email-83"></i> <span
-						class="ms-2">Messages</span>
+						class="ms-2">Confirmed</span>
 				</a></li>
-				<li class="nav-item"><a
+				<li class="nav-item"><a onclick="updateStatus(2)"
 					class=" nav-link mb-0 px-0 py-1 d-flex align-items-center ${active2} justify-content-center ${success2}"
 					data-bs-toggle="tab" href="javascript:;" role="tab"
 					aria-selected="false"> <i class="ni ni-email-83"></i> <span
-						class="ms-2">Messages</span>
+						class="ms-2">Transporting</span>
 				</a></li>
-				<li class="nav-item"><a
+				<li class="nav-item"><a onclick="updateStatus(1)"
 					class=" nav-link mb-0 px-0 py-1 d-flex align-items-center ${active1} justify-content-center ${success1}"
 					data-bs-toggle="tab" href="javascript:;" role="tab"
 					aria-selected="false"> <i class="ni ni-settings-gear-65"></i>
-						<span class="ms-2">Settings</span>
-				</a></li>
-			`
+						<span class="ms-2">Deliverd</span>
+				</a></li>`)
 		}).catch(error => {
 			console.log("Error: ", error);
 		})
@@ -95,5 +94,6 @@ app.controller("ctrl", function($scope, $http) {
 			console.log("Error: ", error);
 		})
 	}
+
 	$scope.loadAll()
 });

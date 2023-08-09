@@ -176,7 +176,7 @@ app.controller("ctrl", function($scope, $http, $location, $rootScope) {
 		localStorage.setItem("Cart", JSON.stringify($rootScope.listItemCart));
 	}
 	//---------------------------------	
-	FillCart();
+	$scope.FillCart();
 });
 
 
