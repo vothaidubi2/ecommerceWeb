@@ -40,7 +40,6 @@ public class AuthController {
 	AuthService as;
 
 
-
 	@Autowired
 	UserService urS;
 	@Autowired
@@ -64,28 +63,47 @@ public class AuthController {
 	public String acsuccess( HttpSession session,HttpServletRequest request,Authentication authentication) {
 		as.setUser(null);
 		as.setUser(as.findByEmail(authentication.getName()));
-		System.err.println();
 		session.setAttribute("user", as.getUser());
+		if(!as.checkUser()) {
+			return "redirect:/auth/login/accountCheck/"+as.getUser().getEmail();
+		}else {
+			return "redirect:/home";
+		}
 	
-		return "redirect:/home";
 	}
 	@GetMapping("/accountCheck/{email}")
 	public String checkAccount(Model model,@PathVariable("email") String email) {
 		as.setUser(as.findByEmail(email));
 		model.addAttribute("form",as.getUser());
+		model.addAttribute("currentpassword", "");
 		return "auth/accountCRUD";
 	}
 	@RequestMapping("/accountCheck/success")
-	public String update( @ModelAttribute("form") Users user, Errors er) {
+	public String update( @ModelAttribute("form") Users user, Errors er,Model model,@RequestParam("currentpassword") String currentPassword,@RequestParam("repassword") String rePassword) {
 		Users us=new Users();
-		as.checkUser();
-		us=as.getUser();
-		us.setPassword(user.getPassword());
-		us.setName(user.getName());
-		us.setPhone(user.getPhone());
-		as.save(us);	
-		as.setUser(us);
-
+		if(as.checkPassword(currentPassword)) {
+			if(user.getPassword().length()<8) {
+				model.addAttribute("error", "length password must more 8 ");
+				return "auth/accountCRUD";
+			}else {
+				if(!rePassword.equals(user.getPassword().toString())) {
+					model.addAttribute("error", "password is not same ");
+					return "auth/accountCRUD";
+				}else{
+					us=as.getUser();
+					us.setPassword(user.getPassword());
+					us.setName(user.getName());
+					us.setPhone(user.getPhone());
+					as.save(us);	
+					as.setUser(us);
+				}
+			}
+	
+	
+		}else {
+			model.addAttribute("error", "current password is not correct");
+			return "auth/accountCRUD";
+		}
 			
 		return "redirect:/home";
 	}
@@ -116,7 +134,6 @@ public class AuthController {
 			
 			as.setUser(as.findByEmail(users.getEmail().toString()));
 			if (!as.checkUser()) {
-				request.setAttribute("user", as.getUser());
 				session.setAttribute("user", as.getUser());
 				return "redirect:/auth/login/accountCheck/"+as.getUser().getEmail();
 			}
@@ -128,7 +145,7 @@ public class AuthController {
 			users.setRole(false);
 			users.setDate(date);
 			users.setStatus(true);
-			users.setPassword(Long.toHexString(System.currentTimeMillis()));
+			users.setPassword(oauth2.getPrincipal().getAttribute("email"));
 			as.save(users);
 			as.setUser(users);
 			if (!as.checkUser()) {
