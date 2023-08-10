@@ -49,6 +49,9 @@
 								<thead>
 									<tr>
 										<th
+											class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Index
+										</th>
+										<th
 											class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Id
 											invoice</th>
 										<th
@@ -67,6 +70,9 @@
 								</thead>
 								<tbody>
 									<tr dir-paginate="item in items|itemsPerPage:9">
+										<td class="align-middle text-center">
+											<p class="text-xs font-weight-bold mb-0">{{item.index}}</p>
+										</td>
 										<td class="align-middle text-center">
 											<p class="text-xs font-weight-bold mb-0">{{item.id}}</p>
 										</td>
@@ -92,10 +98,9 @@
 											class="badge badge-sm bg-gradient-success m-2">Delivered</span>
 										</td>
 
-										<td class="align-middle"><a href="javascript:;"
+										<td class="align-middle"><a ng-href="/admin/order?id={{item.id}}"
 											class="text-success font-weight-bold text-xs"
-											data-toggle="tooltip" data-original-title="Edit"
-											ng-click="showModal(item.id)"> Edit </a></td>
+											data-toggle="tooltip" data-original-title="Edit"> Edit </a></td>
 										<td class="align-middle" ng-if="item.status !='1'"><a
 											href="javascript:;" ng-click="deleteProduct(item.id)"
 											class="text-warning font-weight-bold text-xs"
@@ -113,54 +118,10 @@
 					</div>
 				</div>
 			</div>
-
-			<!-- The Dialog Element -->
-			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-				aria-labelledby="exampleModalLabel" aria-hidden="true">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="dialogTitle">List Status</h5>
-							<button type="button" class="close" data-dismiss="modal"
-								aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-						<div class="modal-body" style="max-height: 300px; overflow: auto">
-							<!-- Hiển thị các lựa chọn phù hợp với giá trị tìm kiếm -->
-							<button class="dropdown-item" type="button"
-								ng-click="update('4')"
-								style="border: 1px solid #eee; border-radius: 5px; margin-bottom: 7px">
-								<span style="margin-left: 5px">Pending confirm</span>
-							</button>
-							<button class="dropdown-item" type="button"
-								ng-click="update('3')"
-								style="border: 1px solid #eee; border-radius: 5px; margin-bottom: 7px">
-								<span style="margin-left: 5px">Confirmed</span>
-							</button>
-							<button class="dropdown-item" type="button"
-								ng-click="update('2')"
-								style="border: 1px solid #eee; border-radius: 5px; margin-bottom: 7px">
-								<span style="margin-left: 5px">Transporting</span>
-							</button>
-							<button class="dropdown-item" type="button"
-								ng-click="update('1')"
-								style="border: 1px solid #eee; border-radius: 5px; margin-bottom: 7px">
-								<span style="margin-left: 5px">Delivered</span>
-							</button>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary"
-								ng-click="hideModal()">Close</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-		<script src="/admin/lib/angular/angular.js"></script>
-		<script src="/admin/lib/dirPagination.js"></script>
-		<script src="/admin/assets/js/orders.js"></script>
+			<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+			<script src="/admin/lib/angular/angular.js"></script>
+			<script src="/admin/lib/dirPagination.js"></script>
+			<script src="/admin/assets/js/orders.js"></script>
 	</th:block>
 </body>
 

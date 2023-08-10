@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/admin/layout/layout::areas(~{::title},~{::main})}">
+
+<head>
+<meta charset="utf-8">
+<title>Product Management</title>
+</head>
+
+<body>
+	<th:block th:fragment="main">
+		<div ng-app="app" ng-controller="ctrl">
+			<div class="card shadow-lg mx-4 card-profile-middle mt-5">
+				<div class="card-body p-3">
+					<div class="d-flex">
+						<div class="row gx-4">
+							<div class="col-auto">
+								<div class="h-100">
+									<h5 class="mb-1">Id: {{invoice.id}}</h5>
+									<p class="mb-0 font-weight-bold text-sm">Date:
+										{{invoice.dateFormat}}</p>
+								</div>
+							</div>
+							<div class="col-auto my-auto mt-4">
+								<div class="h-100">
+								<p class="mb-0 font-weight-bold text-sm">Total amount: ${{invoice.amount}}</p>
+									
+								</div>
+							</div>
+						</div>
+						<div>
+							<div class="col-auto">
+								<div class="h-100">
+									<h5 class="mb-1">{{invoice.user}}</h5>
+									<p class="mb-0 font-weight-bold text-sm">{{invoice.phoneNumber}}</p>
+									<p class="mb-0 font-weight-bold text-sm mt-4">Address: {{invoice.address}}</p>
+								</div>
+							</div>
+						</div>
+						<div
+							class="col-lg-8 col-md-8 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
+							<div class="nav-wrapper position-relative end-0">
+								<ul class="nav nav-pills nav-fill p-1" role="tablist"
+									id="invoiceStatus">
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row mt-8">
+				<div class="col-12 mt-3">
+					<div class="card mb-4">
+						<div class="card-header pb-0">
+							<h6>Orders detail</h6>
+
+						</div>
+						<div class="card-body px-0 pt-0 pb-2" ng-app="app"
+							ng-controller="ctrl">
+							<div class="table-responsive p-0 o-auto"
+								style="max-height: 500px;">
+								<table class="table align-items-center mb-0">
+									<thead>
+										<tr>
+											<th class="align-middle text-center">Index</th>
+											<th class="align-middle text-center">Product name</th>
+											<th class="align-middle text-center">Price</th>
+											<th class="align-middle text-center">Quantity</th>
+
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="item in items">
+											<td class="align-middle text-center">
+												<p class="text-xs font-weight-bold mb-0">{{item.index}}</p>
+											</td>
+											<td class="align-middle text-center">
+												<p class="text-xs font-weight-bold mb-0">{{item.name}}</p>
+											</td>
+											<td class="align-middle text-center">
+												<p class="text-xs font-weight-bold mb-0">{{item.price}}</p>
+											</td>
+											<td class="align-middle text-center">
+												<p class="text-xs font-weight-bold mb-0">{{item.quantity}}</p>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+		<script src="/admin/lib/angular/angular.js"></script>
+		<script src="/admin/lib/dirPagination.js"></script>
+		<script src="/admin/assets/js/order-history.js"></script>
+		<script>
+			//update status
+			async function updateStatus(input) {
+				try {
+			        const urlParams = new URLSearchParams(window.location.search);
+			        var id = urlParams.get('id');
+			        let url = `http://localhost:8080/admin/api/orders/${id}`;
+			        
+			        const response = await fetch(url, {
+			            method: 'PUT',              // Specify the HTTP method
+			            headers: {
+			                'Content-Type': 'application/json', // Set the content type
+			            },
+			            body: JSON.stringify(input), // Convert input data to JSON and send in the request body
+			        });
+			        location.reload();
+			        const responseData = await response.json();
+			        console.log('Response:', responseData);
+			    } catch (error) {
+			        console.error('Error updating status:', error);
+			    }
+			}
+		
+		</script>
+	</th:block>
+</body>
+
+</html>

@@ -10,10 +10,67 @@ document.addEventListener("DOMContentLoaded", function() {
 		if (startDate && endDate) {
 			try {
 				const response = await fetch("http://localhost:8080/admin/api/statistics/revenue?startDate=" + startDate + "&endDate=" + endDate);
+				const response1 = await fetch("http://localhost:8080/admin/api/statistics/listorder?startDate=" + startDate + "&endDate=" + endDate);
 				if (!response.ok) {
 					throw new Error('Network response was not ok');
 				}
 				const data = await response.json();
+				const data1 = await response1.json();
+				const splitDataArray = data1.data.map(item => {
+					const [id, type, phoneNumber, address, date, amount] = item.split(',');
+					var dateFormat = new Date(date).toLocaleDateString("en-US");
+					return {
+						id: id,
+						user: type,
+						phoneNumber: phoneNumber,
+						address: address,
+						date: dateFormat,
+						amount: amount
+					};
+				});
+				var totalAmount = 0;
+					document.getElementById("listItem").innerHTML ='';
+				for (const item of splitDataArray) {
+					totalAmount += Number.parseFloat(item.amount);
+					document.getElementById("listItem").innerHTML += `
+						<tr>
+							<td>
+								<div class="text-center">
+									<h6 class="text-sm mb-0">${item.id}</h6>
+								</div>
+							</td>
+							<td>
+								<div class="text-center">
+									<h6 class="text-sm mb-0">${item.user}</h6>
+								</div>
+							</td>
+							<td>
+								<div class="text-center">
+									<h6 class="text-sm mb-0">${item.phoneNumber}</h6>
+								</div>
+							</td>
+							<td>
+								<div class="text-center">
+									<h6 class="text-sm mb-0">${item.address}</h6>
+								</div>
+							</td>
+							<td>
+								<div class="text-center">
+									<h6 class="text-sm mb-0">${item.date}</h6>
+								</div>
+							</td>
+							<td>
+								<div class="text-center">
+									<h6 class="text-sm mb-0">$${item.amount}</h6>
+								</div>
+							</td>
+						</tr>
+					`
+				}
+				document.getElementById("orderInfo").innerHTML = `
+				<h6 class="mb-2">List Order</h6>
+					<h6 class="mb-2" style="color: #F990A5">Amount: $${totalAmount}</h6>`;
+				console.log(splitDataArray);
 				const dates = [];
 				const values = [];
 
@@ -23,11 +80,6 @@ document.addEventListener("DOMContentLoaded", function() {
 					values.push(parseFloat(value));
 				}
 				var arrayOfObjects = [];
-				arrayOfObjects.push({ date: '2023-07-20', amount: 3000 })
-				arrayOfObjects.push({ date: '2023-07-21', amount: 2500 })
-				arrayOfObjects.push({ date: '2023-07-22', amount: 2100 })
-				arrayOfObjects.push({ date: '2023-07-23', amount: 1700 })
-				arrayOfObjects.push({ date: '2023-07-24', amount: 3500 })
 				dates.map((date, index) => ({ date, amount: values[index] })).forEach(temp => arrayOfObjects.push(temp));
 				// arrayOfObjects = dates.map((date, index) => ({ date, amount: values[index] }));
 

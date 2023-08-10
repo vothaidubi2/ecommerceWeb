@@ -19,25 +19,33 @@ import com.asm.service.InvoiceService;
 
 @Controller
 public class CartController {
-   @Autowired
-   InvoiceService invoiceService;
+	@Autowired
+	InvoiceService invoiceService;
 
 	@GetMapping("/cart")
 	public String cart() {
+		System.out.println("cảt");
 		return "cart";
 	}
+
 	@GetMapping("/checkout")
 	public String checkout() {
 		return "/checkout";
 	}
 
-   @PostMapping("/checkout")
-   public ResponseEntity<Document> createInvoice(@RequestBody InvoiceDTO dto) throws ClientProtocolException, IOException {
-      Document resp = invoiceService.create(dto);
+	@PostMapping("/checkout")
+	public ResponseEntity<Document> createInvoice(@RequestBody InvoiceDTO dto)
+			throws ClientProtocolException, IOException {
+		Document resp = invoiceService.create(dto);
 
-      System.out.println("RESPONE TO CLIENT!");
-      System.out.println(resp);
-      
-      return ResponseEntity.ok(resp);
-   }
+		System.out.println("RESPONE TO CLIENT!");
+		System.out.println(resp);
+
+		return ResponseEntity.ok(resp);
+	}
+
+	@GetMapping("/checkout-success/transaction/successful")
+	public String sucess() {
+		return "/checkout-success";
+	}
 }
