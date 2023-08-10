@@ -151,25 +151,25 @@ app.controller("ctrl", function($scope, $http, $location, $rootScope) {
 			console.log(sum);
 			document.getElementById("CartProducts").innerHTML +=
 				`<div class="product">
-			<div class="product-cart-details">
-				<h4 class="product-title">
-					<a href="/product/detail/{i.name}">${i.name}</a>
-				</h4>
-				<span class="cart-product-info">
-					<span class="cart-product-qty"></span> $ ${i.price}
-				</span>
-			</div>
-			<figure class="product-image-container">
-				<a href="product.html" class="product-image">
-					<img src="${i.image[0].url}" alt="product">
-				</a>
-			</figure>
-		</div>`
-			document.getElementById("totalCart").innerHTML =
-				`<div class="dropdown-cart-total">
-			<span>Total</span> <span class="cart-total-price">$ ${sum}</span>
-		</div>`
+					<div class="product-cart-details">
+						<h4 class="product-title">
+							<a href="/product/detail/{i.name}">${i.name}</a>
+						</h4>
+						<span class="cart-product-info">
+							<span class="cart-product-qty"></span> $ ${i.price}
+						</span>
+					</div>
+					<figure class="product-image-container">
+						<a href="product.html" class="product-image">
+							<img src="${i.image[0].url}" alt="product">
+						</a>
+					</figure>
+				</div>`
 		});
+		document.getElementById("totalCart").innerHTML =
+			`<div class="dropdown-cart-total">
+				<span>Total</span> <span class="cart-total-price">$ ${sum}</span>
+			</div>`
 	}
 
 	$scope.SaveCart = function() {
