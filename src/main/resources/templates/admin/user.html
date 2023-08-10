@@ -45,7 +45,7 @@
 									<div class="form-group">
 										<label for="example-text-input" class="form-control-label">Email
 										</label> <input class="form-control" type="text"
-											ng-model="newSpecification.email"  ng-change="emailCheck()">
+											ng-model="newUser.email"  ng-change="emailCheck()">
 <!--											ng-model="inputValue" ng-change="emailCheck()"-->
 <!--											class="form-control" th:field="*{email}"-->
 													<div ng-bind="errorEmail" ng-class="colorEmail"></div>
@@ -54,25 +54,19 @@
 								<div class="col-md-6">
 									<div class="form-group">
 										<label for="example-text-input" class="form-control-label">Name</label>
-										<input class="form-control" type="text" ng-model="newSpecification.name">
+										<input class="form-control" type="text" ng-model="newUser.name">
 
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label for="example-text-input" class="form-control-label">Phone</label>
-										<input class="form-control" type="text" ng-model="newSpecification.phone" ng-change="phoneCheck()">
+										<input class="form-control" type="text" ng-model="newUser.phone" ng-change="phoneCheck()">
 	<div ng-bind="errorPhone" ng-class="colorPhone"></div>
 									</div>
 								</div>
 										
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="example-text-input" class="form-control-label">Password</label>
-										<input class="form-control" type="password" ng-model="newSpecification.password" ng-change="passCheck()">
-<div ng-bind="errorPass" ng-class="colorPass"></div>
-									</div>
-								</div>
+							
 		
 						
 								<div class="col-md-6">
@@ -80,7 +74,7 @@
 										<label for="example-text-input" class="form-control-label">Role</label>
 										<div class="form-check">
 											<input class="form-check-input" type="checkbox" id="roleCheckbox"
-												ng-model="newSpecification.role">
+												ng-model="newUser.role">
 											<label class="form-check-label" for="roleCheckbox">
 												Admin
 											</label>
@@ -95,10 +89,8 @@
 
 
 							<div class="col-md-7 pb-0">
-							
-									<button class="btn btn-primary btn-sm" ng-click="add()"
-										ng-disabled="validateAdd">Add</button>
-									<button class="btn btn-primary btn-sm" ng-click="update(newSpecification.id) "
+					
+									<button class="btn btn-primary btn-sm" ng-click="update(newUser.id) "
 										ng-disabled="validateUpdate">Update</button>
 									<button class="btn btn-primary btn-sm" ng-click="reset()">Reset</button>
 										
@@ -158,31 +150,31 @@
 								<tbody>
 
 
-									<tr ng-repeat="spec in specifications">
+									<tr ng-repeat="user in users">
 										<td
 											class="text-center text-uppercase text-secondary text-xxs font-weight-bolder ">
-											{{spec.id}}</td>
+											{{user.id}}</td>
 										<td
 											class="text-center text-uppercase text-secondary text-xxs font-weight-bolder ">
-											{{spec.email}}</td>
+											{{user.email}}</td>
 										<td
 											class="text-center text-uppercase text-secondary text-xxs font-weight-bolder ">
-											{{spec.name}}</td>
+											{{user.name}}</td>
 										<td
 											class="text-center text-uppercase text-secondary text-xxs font-weight-bolder ">
-											{{spec.phone}}</td>
+											{{user.phone}}</td>
 										<td
 											class="text-center text-uppercase text-secondary text-xxs font-weight-bolder ">
-											{{spec.role}}</td>
+											{{user.role}}</td>
 							
 											<td
 											class="text-center text-uppercase text-secondary text-xxs font-weight-bolder ">
-											{{spec.date}}</td>
+											{{user.date}}</td>
 										<td>
 											<button class="btn btn-primary btn-sm"
-												ng-click="editSpecification(spec)">Edit</button>
+												ng-click="editUser(user)">Edit</button>
 											<button class="btn btn-danger btn-sm"
-												ng-click="delete(spec)">Delete</button>
+												ng-click="delete(user)">Delete</button>
 										</td>
 										</td>
 									</tr>
@@ -225,8 +217,6 @@
 
 		<script src="/admin/lib/angular/angular.js"></script>
 
-		<h1>Template heading</h1>
-		<p>Content goes here</p>
 		</script>
 		<script src="../../assets/js/userrest.js"></script>
 	</th:block>

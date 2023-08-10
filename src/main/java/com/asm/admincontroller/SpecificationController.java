@@ -11,5 +11,6 @@ public class SpecificationController {
 	@RequestMapping("/specification")
 	public String view(Model model) {
 		return "admin/specification";
-	}
+
+}
 }

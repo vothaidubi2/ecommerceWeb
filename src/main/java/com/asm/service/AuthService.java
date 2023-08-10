@@ -31,8 +31,13 @@ public class AuthService {
 	public BCryptPasswordEncoder psE() {
 		return new BCryptPasswordEncoder();
 	}
+	public boolean checkPassword(String password) {
+		System.err.println(password);
+		System.err.println(getUser().getPassword());
+		return psE().matches(password, getUser().getPassword());
+	}
 	public Users save(Users users) {
-		System.err.println(users.getPassword());
+
 		users.setPassword(psE().encode(users.getPassword()));
 		dao.save(users);
 		return users;

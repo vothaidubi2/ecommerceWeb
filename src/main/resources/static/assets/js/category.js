@@ -10,7 +10,7 @@ app.controller("ctrl", function($scope, $http) {
 	function getData(page) {
 		$http.get(host + "/findallStatusTrue?page=" + page + '&size=' + pageSize)
 			.then(function(response) {
-				$scope.specifications = response.data.content;
+				$scope.categories = response.data.content;
 
 
 			});
@@ -33,7 +33,7 @@ app.controller("ctrl", function($scope, $http) {
 	// Hàm phân trang - trang kế tiếp
 	$scope.nextPage = function() {
 		$scope.currentPage++;
-		if ($scope.specifications.length == 0) {
+		if ($scope.categories.length == 0) {
 
 			return getData($scope.currentPage--);
 		} else { return getData($scope.currentPage); }
@@ -43,12 +43,12 @@ app.controller("ctrl", function($scope, $http) {
 
 
 		// Thêm dữ liệu mới
-		$http.post(host + "/create", $scope.newSpecification)
+		$http.post(host + "/create", $scope.newUser)
 			.then(resp => {
-				console.log($scope.newSpecification)
+				console.log($scope.newUser)
 				getData($scope.currentPage);
 				$scope.validateAdd = 1
-				$scope.newSpecification = {};
+				$scope.newUser = {};
 				console.log("success", resp.data)
 			}).catch(error => {
 				console.log("error", error)
@@ -58,7 +58,7 @@ app.controller("ctrl", function($scope, $http) {
 	$scope.keys = function() {
 
 
-		if (($scope.newSpecification.name == "")) {
+		if (($scope.newUser.name == "")) {
 			$scope.validateAdd = 1
 			$scope.validateUpdate = 1;
 
@@ -69,7 +69,7 @@ app.controller("ctrl", function($scope, $http) {
 
 	}
 	$scope.update = function(id) {
-		$http.put(host + `/update/${id}`, $scope.newSpecification)
+		$http.put(host + `/update/${id}`, $scope.newUser)
 			.then(resp => {
 				getData($scope.currentPage);
 				console.log("success", resp.data)
@@ -81,15 +81,15 @@ app.controller("ctrl", function($scope, $http) {
 	}
 	$scope.reset = function() {
 
-		$scope.newSpecification = {};
+		$scope.newUser = {};
 		$scope.validateUpdate = 1
 		$scope.validateAdd = 1
 	}
 
-	$scope.editSpecification = function(specification) {
+	$scope.editSpecification = function(category) {
 
-		// Copy dữ liệu của bản ghi muốn sửa vào biến newSpecification
-		$scope.newSpecification = angular.copy(specification);
+		// Copy dữ liệu của bản ghi muốn sửa vào biến newUser
+		$scope.newUser = angular.copy(category);
 		// Chuyển trạng thái sang sửa
 		$scope.isAdding = false;
 		validate()
@@ -101,7 +101,7 @@ app.controller("ctrl", function($scope, $http) {
 
 		$http.put(host + `/delete`, specification)
 			.then(function(resp) {
-				$scope.newSpecification = {};
+				$scope.newUser = {};
 				validate();
 				$scope.validateAdd = 1
 
@@ -113,7 +113,7 @@ app.controller("ctrl", function($scope, $http) {
 	};
 	function validate() {
 
-		if ($scope.newSpecification.id != null) {
+		if ($scope.newUser.id != null) {
 			$scope.validateAdd = 1
 			$scope.validateUpdate = 0;
 		} else {

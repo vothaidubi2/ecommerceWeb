@@ -36,7 +36,7 @@ public class UserService implements UserDetailsService {
 	public void loginFormOAuth(OAuth2AuthenticationToken oauth2) {
 		String username=oauth2.getPrincipal().getName();
 		String email=oauth2.getPrincipal().getAttribute("email");
-		UserDetails user =User.withUsername(email).password("123").roles("USER").build();
+		UserDetails user =User.withUsername(email).password(email).roles("USER").build();
 		Authentication auth=new UsernamePasswordAuthenticationToken(user,null, user.getAuthorities());
 		SecurityContextHolder.getContext().setAuthentication(auth);
 

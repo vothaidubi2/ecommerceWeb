@@ -46,7 +46,7 @@
 										<label for="example-text-input" class="form-control-label">name
 										</label> <input class="form-control" type="text" ng-change="keys()"
 										
-											ng-model="newSpecification.name"  >
+											ng-model="newUser.name"  >
 									</div>
 
 								</div>
@@ -56,7 +56,7 @@
 									<button class="btn btn-primary btn-sm"
 												ng-click="add()" ng-disabled="validateAdd" >Add</button>
 												<button class="btn btn-primary btn-sm" ng-disabled="validateUpdate"
-												ng-click="update(newSpecification.id)"  >Update</button>
+												ng-click="update(newUser.id)"  >Update</button>
 											
 												<button class="btn btn-primary btn-sm"
 												ng-click="reset()">Reset</button>
@@ -101,18 +101,18 @@
 								<tbody>
 
 
-									<tr ng-repeat="spec in specifications">
+									<tr ng-repeat="category in categories">
 										<td
 											class="text-center text-uppercase text-secondary text-xxs font-weight-bolder " style="width: 33%;">
-											{{spec.id}}</td>
+											{{category.id}}</td>
 										<td
 											class="text-center text-uppercase text-secondary text-xxs font-weight-bolder " style="width: 33%;">
-											{{spec.name}}</td>
+											{{category.name}}</td>
 										<td class="text-center text-uppercase text-secondary text-xxs font-weight-bolder " style="width: 33%;">
 											<button class="btn btn-primary btn-sm"
-												ng-click="editSpecification(spec)">Edit</button>
+												ng-click="editSpecification(category)">Edit</button>
 											<button class="btn btn-danger btn-sm"
-												ng-click="delete(spec)">Delete</button>
+												ng-click="delete(category)">Delete</button>
 										</td>
 								
 									
