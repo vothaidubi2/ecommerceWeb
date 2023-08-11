@@ -21,27 +21,23 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AuthConfig {
 	private final UserDetailsService userDetailsService;
-	
+
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+
 	@Bean
 	public HttpSessionEventPublisher httpSessionEventPublisher() {
-	    return new HttpSessionEventPublisher();
+		return new HttpSessionEventPublisher();
 	}
-
-
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http.csrf(csrf -> csrf.disable()).authorizeHttpRequests(auth -> auth
-				.requestMatchers("/admin/**").hasAuthority("ADMIN")
-			        .requestMatchers("/cart/**").authenticated()
-			        .requestMatchers("checkout").authenticated()
-		
-			        .anyRequest().permitAll()
-			        
+		http.csrf(csrf -> csrf.disable())
+				.authorizeHttpRequests(
+						auth -> auth.requestMatchers("/cart/**", "/checkout").authenticated()
+						.requestMatchers("/admin/**").hasAuthority("ADMIN").anyRequest().permitAll()   
 			        
 			    )
 		  .oauth2Login(auth -> auth.loginPage("/auth/login/form")
@@ -54,18 +50,19 @@ public class AuthConfig {
 		  .exceptionHandling(ex -> ex.accessDeniedPage("/auth/login/form"))
 				.formLogin(form -> form.loginPage("/auth/login/form").loginProcessingUrl("/auth/login/form")
 						.defaultSuccessUrl("/auth/login/acsuccess", false)
-						
 						)
-				.logout(lg -> lg
-						.logoutUrl("/auth/login/logoutaccount")
+				.oauth2Login(auth -> auth.loginPage("/auth/login/form").defaultSuccessUrl("/auth/login/success", false)
+						.authorizationEndpoint(t -> t.baseUri("/oauth2/authorization")
+						))
+				.exceptionHandling(ex -> ex.accessDeniedPage("/auth/login/form"))
+				.formLogin(form -> form.loginPage("/auth/login/form").loginProcessingUrl("/auth/login/form")
+						.defaultSuccessUrl("/auth/login/acsuccess", false))
+				.logout(lg -> lg.logoutUrl("/auth/login/logoutaccount")
+						.deleteCookies("JSESSIONID").logoutSuccessUrl("/auth/login/logout"));
 
-						.deleteCookies("JSESSIONID")
-						.logoutSuccessUrl("/auth/login/logout")
-						)	
-				;
-		
 		return http.build();
 	}
+
 	@Bean
 	public DaoAuthenticationProvider daoAuthenticationProvider() {
 		DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
@@ -74,10 +71,9 @@ public class AuthConfig {
 		return daoAuthenticationProvider;
 	}
 
-
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 		
 	}
-	
+
 }

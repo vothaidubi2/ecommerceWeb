@@ -71,6 +71,10 @@ public class InvoiceService {
 
 		return resp;
 	}
+	
+	public List<Invoice> getByUserId(Integer id){
+		return invoiceDAO.findByUserId(id);
+	}
 
 	public Object calculateTotalRevenueByDateBetween(String startDate, String endDate) {
 		try {
@@ -104,8 +108,8 @@ public class InvoiceService {
 		}
 	}
 
-	public ResponseEntity<List<Invoice>> getByStatus() {
-		return ResponseEntity.ok(invoiceDAO.findByStatus());
+	public ResponseEntity<List<Invoice>> getByStatus(@RequestParam String status) {
+		return ResponseEntity.ok(invoiceDAO.findByStatus(status));
 	}
 	public ResponseEntity<Map<String, String>> getOne(@RequestParam Integer id) {
 		Map<String, String> data = new HashMap<>();

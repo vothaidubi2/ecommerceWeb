@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org"
+	th:replace="~{layout/layout::areas(~{::title},~{::main})}">
+
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+</head>
+
+<body>
+	<main class="main" >
+		<div class="page-header text-center"
+			style="background-image: url('assets/images/page-header-bg.jpg')">
+			<div class="container">
+				<h1 class="page-title">
+					Order History<span>Cart</span>
+				</h1>
+			</div>
+			<!-- End .container -->
+		</div>
+		<!-- End .page-header -->
+		<nav aria-label="breadcrumb" class="breadcrumb-nav">
+			<div class="container">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="index.html">Home</a></li>
+					<li class="breadcrumb-item"><a href="#">Cart</a></li>
+					<li class="breadcrumb-item active" aria-current="page">Order
+						History</li>
+				</ol>
+			</div>
+			<!-- End .container -->
+		</nav>
+		<!-- End .breadcrumb-nav -->
+
+		<div class="page-content">
+			<div class="cart">
+				<div class="container">
+					<div class="row d-flex justify-content-center">
+						<div class="col-lg-12">
+							<table class="table table-cart table-mobile">
+								<thead>
+									<tr>
+										<th>Index</th>
+										<th>Id Invoice</th>
+										<th>Phone</th>
+										<th>Address</th>
+										<th>Date create</th>
+										<th>Status</th>
+										<th></th>
+									</tr>
+								</thead>
+
+								<tbody>
+									<tr th:each="list,index :${list}" th:object="${list}">
+										<td class="price-col">[[${index.index + 1}]]</td>
+										<td class="price-col">[[*{id}]]</td>
+										<td class="price-col">[[*{phone}]]</td>
+										<td class="price-col">[[*{address}]]</td>
+										<td class="price-col">[[*{#dates.format(datecreate, 'MM-dd-yyyy')}]]</td>
+										<th:block>
+											<td class="price-col text-secondary" th:if="*{status =='4'}">Pending Confirm</td>
+											<td class="price-col text-primary" th:if="*{status =='3'}">Confirmed</td>
+											<td class="price-col text-primary" th:if="*{status =='2'}">Transporting</td>
+											<td class="price-col text-success" th:if="*{status =='1'}">Delivered</td>
+										</th:block>
+										<td class="remove-col">
+											<a class="btn-remove" th:href="@{/cart/history?id={id}(id=*{id})}">
+												<i class="icon-edit"></i>Detail
+											</a>
+										</td>
+									</tr>
+
+								</tbody>
+							</table>
+
+						</div>
+
+					</div>
+					<!-- End .row -->
+				</div>
+				<!-- End .container -->
+			</div>
+			<!-- End .cart -->
+		</div>
+		<!-- End .page-content -->
+	</main>
+	<!-- End .main -->
+</body>
+
+</html>

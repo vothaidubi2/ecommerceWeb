@@ -40,8 +40,6 @@ public class UserService implements UserDetailsService {
 		UserDetails user =User.withUsername(email).password(email).roles("USER").build();
 		Authentication auth=new UsernamePasswordAuthenticationToken(user,null, user.getAuthorities());
 		SecurityContextHolder.getContext().setAuthentication(auth);
-
-		
 	}
 
 

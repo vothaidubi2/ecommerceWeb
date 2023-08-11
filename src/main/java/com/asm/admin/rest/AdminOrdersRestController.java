@@ -25,8 +25,8 @@ public class AdminOrdersRestController {
 	InvoiceService invoiceService;
 
 	@GetMapping("/orders")
-	public ResponseEntity<List<Invoice>> view() {
-		return invoiceService.getByStatus();
+	public ResponseEntity<List<Invoice>> view(@RequestParam String status) {
+		return invoiceService.getByStatus(status);
 	}
 	
 	@GetMapping("/order/get")
