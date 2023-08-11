@@ -37,9 +37,12 @@ public class AuthConfig {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.csrf(csrf -> csrf.disable()).authorizeHttpRequests(auth -> auth
 				.requestMatchers("/admin/**").hasAuthority("ADMIN")
-			        .requestMatchers("/cart/**").hasAnyAuthority("USER", "ADMIN")
+			        .requestMatchers("/cart/**").authenticated()
 			        .requestMatchers("checkout").authenticated()
+		
 			        .anyRequest().permitAll()
+			        
+			        
 			    )
 		  .oauth2Login(auth -> auth.loginPage("/auth/login/form")
 				  .defaultSuccessUrl("/auth/login/success", false)
@@ -48,9 +51,10 @@ public class AuthConfig {
 						  
 						  )
 				  )
-
+		  .exceptionHandling(ex -> ex.accessDeniedPage("/auth/login/form"))
 				.formLogin(form -> form.loginPage("/auth/login/form").loginProcessingUrl("/auth/login/form")
 						.defaultSuccessUrl("/auth/login/acsuccess", false)
+						
 						)
 				.logout(lg -> lg
 						.logoutUrl("/auth/login/logoutaccount")
