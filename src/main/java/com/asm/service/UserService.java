@@ -26,12 +26,13 @@ public class UserService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		//load user form database
 		Users user= dao.findByEmail(username);
-		System.err.println(user);
 		if(user==null) {
 			throw new UsernameNotFoundException("User not found");
+		}else {
+			return new  CustomUserDetals(user);
 		}
 
-		return new  CustomUserDetals(user);
+	
 	}
 	public void loginFormOAuth(OAuth2AuthenticationToken oauth2) {
 		String username=oauth2.getPrincipal().getName();

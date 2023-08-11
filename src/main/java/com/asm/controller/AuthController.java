@@ -128,7 +128,9 @@ public class AuthController {
 		as.setUser(null);
 		Users users = new Users();
 		model.addAttribute("form", users);
+		
 		urS.loginFormOAuth(oauth2);
+		System.err.println(oauth2.getPrincipal());
 		users.setEmail(oauth2.getPrincipal().getAttribute("email"));
 		if (as.findByEmail(users.getEmail().toString())!=null) {
 			
