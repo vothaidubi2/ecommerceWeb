@@ -169,7 +169,7 @@
 				$scope.subTotal = function () {
 					var total = 0;
 					$scope.cartItems.forEach(i => {
-						if (i.total) total += i.total * 1;
+						if (i.total) total += i.total * 1; // nếu i có thuộc tính total thì lấy ra
 					})
 					return total;
 				}
