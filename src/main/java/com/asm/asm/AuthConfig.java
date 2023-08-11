@@ -37,7 +37,19 @@ public class AuthConfig {
 		http.csrf(csrf -> csrf.disable())
 				.authorizeHttpRequests(
 						auth -> auth.requestMatchers("/cart/**", "/checkout").authenticated()
-						.requestMatchers("/admin/**").hasAuthority("ADMIN").anyRequest().permitAll()
+						.requestMatchers("/admin/**").hasAuthority("ADMIN").anyRequest().permitAll()   
+			        
+			    )
+		  .oauth2Login(auth -> auth.loginPage("/auth/login/form")
+				  .defaultSuccessUrl("/auth/login/success", false)
+				  
+				  .authorizationEndpoint( t -> t.baseUri("/oauth2/authorization")
+						  
+						  )
+				  )
+		  .exceptionHandling(ex -> ex.accessDeniedPage("/auth/login/form"))
+				.formLogin(form -> form.loginPage("/auth/login/form").loginProcessingUrl("/auth/login/form")
+						.defaultSuccessUrl("/auth/login/acsuccess", false)
 						)
 				.oauth2Login(auth -> auth.loginPage("/auth/login/form").defaultSuccessUrl("/auth/login/success", false)
 						.authorizationEndpoint(t -> t.baseUri("/oauth2/authorization")
@@ -61,6 +73,7 @@ public class AuthConfig {
 
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+		
 	}
 
 }

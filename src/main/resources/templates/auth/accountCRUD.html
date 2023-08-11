@@ -32,7 +32,8 @@
 
 							<li class="nav-item"><a class="nav-link  active" id="register-tab-2" data-toggle="tab"
 									href="#register-2" role="tab" aria-controls="register-2" aria-selected="false">
-									complete create new account</a>
+
+									Complete this information</a>
 							</li>
 						</ul>
 						<div class="tab-content">
@@ -40,7 +41,7 @@
 
 
 							<!-- .End .tab-pane -->
-
+							<H5 class="text-danger">[[${error}]]</H5>
 							<div class="tab-pane fade active show " id="register-2" role="tabpanel"
 								aria-labelledby="register-tab-2">
 								<form action="#" th:object="${form}" method="post">
@@ -53,21 +54,32 @@
 											Full name: *</label>
 										<input type="text" class="form-control" id="name" th:field="*{name}"
 											name="name">
-											    <i th:errors="*{name}"></i>
+										<i th:errors="*{name}"></i>
 									</div>
 
 									<div class="form-group">
 										<label for="phone">Phone *</label>
-										 <input type="text"
-											class="form-control" name="phone" th:field="*{phone}" id="phone"
-											>
+										<input type="text" class="form-control" name="phone" th:field="*{phone}"
+											id="phone">
 									</div>
 
 									<div class="form-group">
+										<label for="register-password-2">Current Password * </label>
+										<label for="password " class="text-danger">(If this is your first time logging
+											in, your default password is email)</label> <input type="password"
+											class="form-control" id="currentpassword" name="currentpassword">
+
+									</div>
+									<div class="form-group">
 										<label for="register-password-2">Password *</label> <input type="password"
-											class="form-control" id="password" name="register-password"
-											th:field="*{password}" >
-											<div ng-bind="errorPass" ng-class="colorPass"></div>
+											class="form-control" id="password" name="password"
+											th:field="*{password}">
+
+									</div>
+									<div class="form-group">
+										<label for="register-password-2">
+											Re-enter password: *</label> <input type="password" class="form-control"
+											id="repassword" name="repassword">
 									</div>
 									<!-- End .form-group -->
 
