@@ -24,8 +24,7 @@ public class CartController {
 
 	@GetMapping("/cart")
 	public String cart() {
-		System.out.println("cảt");
-		return "cart";
+		return "/cart";
 	}
 
 	@GetMapping("/checkout")

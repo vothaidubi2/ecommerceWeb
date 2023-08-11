@@ -175,8 +175,8 @@ app.controller("ctrl", function($scope, $http, $location, $rootScope) {
 	$scope.SaveCart = function() {
 		localStorage.setItem("Cart", JSON.stringify($rootScope.listItemCart));
 	}
-	//---------------------------------	
 	$scope.FillCart();
+	//---------------------------------	
 });
 
 

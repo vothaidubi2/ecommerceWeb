@@ -26,7 +26,6 @@ public class UserService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		//load user form database
 		Users user= dao.findByEmail(username);
-		System.err.println(user);
 		if(user==null) {
 			throw new UsernameNotFoundException("User not found");
 		}
@@ -39,8 +38,6 @@ public class UserService implements UserDetailsService {
 		UserDetails user =User.withUsername(email).password("123").roles("USER").build();
 		Authentication auth=new UsernamePasswordAuthenticationToken(user,null, user.getAuthorities());
 		SecurityContextHolder.getContext().setAuthentication(auth);
-
-		
 	}
 
 

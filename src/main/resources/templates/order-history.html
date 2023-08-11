@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org"
+	th:replace="~{layout/layout::areas(~{::title},~{::main})}">
+
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+</head>
+
+<body>
+	<main class="main" ng-app="app" ng-controller="ctrl">
+		<div class="page-header d-flex  justify-content-center"
+			style="background-image: url('assets/images/page-header-bg.jpg')">
+			<div class="col-md-6 d-flex">
+				<div class="container">
+					<h5 class="mb-1">Id: {{invoice.id}}</h5>
+					<p class="mb-0 font-weight-bold text-sm">Date:
+						{{invoice.dateFormat}}</p>
+				</div>
+				<div class="container">
+					<h5 class="mb-1">Name: {{invoice.user}}</h5>
+					<p class="mb-0 font-weight-bold text-sm">Address:
+						{{invoice.address}}</p>
+				</div>
+				<div class="container">
+					<h6 class="mb-1 text-sm">Phone:{{invoice.phoneNumber}}</h6>
+					<h6 class="mb-1 font-weight-bold">Total amount:
+						${{invoice.amount}}</h6>
+				</div>
+				<div ng-if="invoice.status =='4'"
+					class="container col-md-4 justify-content-center align-items-center d-flex">
+					<button class="btn btn-danger">Cancel</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="page-content mt-3">
+			<div class="cart">
+				<div class="container">
+					<div class="row justify-content-center">
+						<div class="col-lg-9 ">
+							<table class="table table-cart table-mobile">
+								<thead>
+									<tr>
+										<th class="text-center">Index</th>
+										<th class="text-center">Product</th>
+										<th class="text-center">Price</th>
+										<th class="text-center">Quantity</th>
+										<th class="text-center">Total</th>
+										<th></th>
+									</tr>
+								</thead>
+
+								<tbody>
+									<tr ng-repeat="item in items">
+										<td class="align-middle text-center">
+											<p class="text-xs font-weight-bold mb-0">{{item.index}}</p>
+										</td>
+										<td class="align-middle text-center">
+											<p class="text-xs font-weight-bold mb-0">{{item.name}}</p>
+										</td>
+										<td class="align-middle text-center">
+											<p class="text-xs font-weight-bold mb-0">{{item.price}}</p>
+										</td>
+										<td class="align-middle text-center">
+											<p class="text-xs font-weight-bold mb-0">{{item.quantity}}</p>
+										</td>
+										<td class="align-middle text-center">
+											<p class="text-xs font-weight-bold mb-0">${{item.total}}</p>
+										</td>
+									</tr>
+
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<!-- End .row -->
+				</div>
+				<!-- End .container -->
+			</div>
+			<!-- End .cart -->
+		</div>
+		<!-- End .page-content -->
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+		<script src="/admin/lib/angular/angular.js"></script>
+		<script src="/assets/js/order-history.js"></script>
+	</main>
+	<!-- End .main -->
+</body>
+</html>
