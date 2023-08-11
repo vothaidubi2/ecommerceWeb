@@ -176,17 +176,11 @@
 
 				$scope.loadCart = function () {
 					localStorage.setItem("@cart", JSON.stringify($scope.cartItems));
-				}
-
-				$scope.RemoveItem = function(item){
-					var index = $scope.cartItems.indexOf(item);
-					$scope.cartItems.splice(index, 1);
-
 					var sum = 0;
 					document.getElementById("CartLength").innerText = $scope.cartItems.length;
 					document.getElementById("CartProducts").innerHTML = "";
 					$scope.cartItems.forEach(i => {
-						sum += i.price * 1;
+						sum += i.price * i.qty;
 						document.getElementById("CartProducts").innerHTML +=
 							`<div class="product">
 								<div class="product-cart-details">
@@ -194,20 +188,27 @@
 										<a href="/product/detail/{i.name}">${i.name}</a>
 									</h4>
 									<span class="cart-product-info">
-										<span class="cart-product-qty"></span> $ ${i.price}
+										<span class="cart-product-qty">${i.qty}</span> X $${i.price}
 									</span>
 								</div>
 								<figure class="product-image-container">
-									<a href="product.html" class="product-image">
-										<img src="${i.image[0].url}" alt="product">
-									</a>
-								</figure>
-							</div>`
+                        			<a href="/product/details?name=${i.name}" class="product-image"> 
+										<img src="${i.image}" alt="product">
+                           			</a>	
+                        		</figure>
+                     			<a href="#" class="btn-remove" title="Remove Product" onclick="removeCart(${$scope.cartItems.indexOf(i)})"><i class="icon-close"></i></a>
+							</div>`;
 					});
 					document.getElementById("totalCart").innerHTML =
 						`<div class="dropdown-cart-total">
 							<span>Total</span> <span class="cart-total-price">$ ${sum}</span>
-						</div>`
+						</div>`;
+				}
+
+				$scope.RemoveItem = function(item){
+					var index = $scope.cartItems.indexOf(item);
+					$scope.cartItems.splice(index, 1);
+
 					$scope.loadCart();
 				}
 			});
